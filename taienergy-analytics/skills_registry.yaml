@@ -1,12 +1,114 @@
 # V5.1 统一脚本注册表
 # type: atomic | workflow | entrypoint
 
+# ========== 原子能力 (Atomic) ==========
+
 - id: query_device_history
   type: atomic
   input: [device_sn, point_code, start, end]
   output: json
   owner: taienergy-device
-  tags: [query, device]
+  tags: [query, device, history]
+  description: 查询设备历史数据
+
+- id: collect_device_data
+  type: atomic
+  input: [device_sn, date_str]
+  output: dict
+  owner: taienergy-analytics
+  tags: [collect, device, data]
+  description: 采集设备单日数据
+
+- id: calculate_health_score
+  type: atomic
+  input: [device_sn, date_str, device_data]
+  output: dict
+  owner: taienergy-analytics
+  tags: [calculate, health, score]
+  description: 计算设备健康评分
+
+- id: analyze_risk
+  type: atomic
+  input: [device_results]
+  output: dict
+  owner: taienergy-analytics
+  tags: [analyze, risk]
+  description: 分析设备风险分布
+
+- id: generate_maintenance_advice
+  type: atomic
+  input: [device_sn, date_str, health_data]
+  output: dict
+  owner: taienergy-analytics
+  tags: [generate, maintenance, advice]
+  description: 生成维护建议
+
+- id: run_horizontal_comparison
+  type: atomic
+  input: [device_results, device_data, date_str]
+  output: dict
+  owner: taienergy-analytics
+  tags: [compare, horizontal, power]
+  description: 横向功率对比
+
+- id: run_trend_analysis
+  type: atomic
+  input: [device_results, date_str]
+  output: dict
+  owner: taienergy-analytics
+  tags: [analyze, trend, history]
+  description: 时间维度趋势分析
+
+- id: llm_enhance_insights
+  type: atomic
+  input: [comparison_result, trend_result, device_results]
+  output: dict
+  owner: taienergy-analytics
+  tags: [llm, enhance, insights]
+  description: LLM 增强洞察生成
+
+- id: run_indicator_discovery
+  type: atomic
+  input: [date_str, device_data]
+  output: dict
+  owner: taienergy-analytics
+  tags: [discover, indicator]
+  description: 运行指标发现流程
+
+- id: read_indicator_registry
+  type: atomic
+  input: []
+  output: dict
+  owner: taienergy-analytics
+  tags: [registry, read]
+  description: 读取指标注册表
+
+- id: write_station_report
+  type: atomic
+  input: [date_str, report_data]
+  output: str
+  owner: taienergy-analytics
+  tags: [report, write, station]
+  description: 写入场站级日报
+
+- id: write_inverter_report
+  type: atomic
+  input: [device_sn, date_str, device_data, advice]
+  output: str
+  owner: taienergy-analytics
+  tags: [report, write, inverter]
+  description: 写入逆变器级日报
+
+# ========== 组合能力 (Workflow) ==========
+
+- id: batch_backfill
+  type: workflow
+  input: [start_date, end_date, skip_existing]
+  output: report
+  owner: taienergy-analytics
+  tags: [backfill, batch, history]
+  description: 批量回补历史数据，基于daily_v5工作流
+  script: workflows/batch_backfill.py
 
 - id: daily_station_report
   type: workflow
@@ -14,6 +116,17 @@
   output: markdown
   owner: taienergy-analytics
   tags: [report, daily, station]
+  description: 生成场站日报完整流程
+  steps:
+    - collect_device_data
+    - calculate_health_score
+    - analyze_risk
+    - generate_maintenance_advice
+    - run_horizontal_comparison
+    - run_trend_analysis
+    - llm_enhance_insights
+    - run_indicator_discovery
+    - write_station_report
 
 - id: daily_inverter_report
   type: workflow
@@ -21,3 +134,31 @@
   output: markdown
   owner: taienergy-analytics
   tags: [report, daily, inverter]
+  description: 生成逆变器日报完整流程
+  steps:
+    - collect_device_data
+    - calculate_health_score
+    - generate_maintenance_advice
+    - write_inverter_report
+
+- id: daily_asset_management_v5
+  type: workflow
+  input: [date_str]
+  output: dict
+  owner: taienergy-analytics
+  tags: [workflow, daily, v5]
+  description: V5.1 完整资产管理流程
+  script: workflows/daily_v5.py
+
+# ========== 入口层 (Entrypoint) ==========
+
+- id: entry_daily_report
+  type: entrypoint
+  input: [report_type, target_id, date]
+  output: markdown
+  owner: taienergy-analytics
+  tags: [entry, report, daily]
+  description: 日报生成统一入口
+  routing:
+    station: daily_station_report
+    inverter: daily_inverter_report

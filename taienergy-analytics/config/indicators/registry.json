@@ -1,5 +1,801 @@
 {
   "version": "v5.1",
-  "updated_at": "2026-02-28",
-  "indicators": {}
+  "updated_at": "2026-02-28T16:30:00",
+  "indicators": {
+    "pr_value": {
+      "id": "pr_value",
+      "name": "系统效率(PR值)",
+      "description": "光伏电站实际发电量与理论发电量之比",
+      "source": "constructed",
+      "scope": "station",
+      "level": "L2",
+      "formula": "actual_energy / theoretical_energy",
+      "inputs": [
+        "actual_energy",
+        "theoretical_energy"
+      ],
+      "aggregation": "daily",
+      "unit": "%",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28"
+    },
+    "power_active": {
+      "id": "power_active",
+      "name": "有功功率",
+      "description": "逆变器输出有功功率，对应物模型ai56",
+      "source": "user",
+      "scope": "inverter",
+      "level": "L1",
+      "formula": "ai56",
+      "inputs": [
+        "ai56"
+      ],
+      "aggregation": "avg",
+      "unit": "kW",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28"
+    },
+    "health_score": {
+      "id": "health_score",
+      "name": "设备健康分",
+      "description": "综合评估设备运行状态的评分(0-100)",
+      "source": "constructed",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "weighted_sum(anomaly, degradation, quality, stability, history)",
+      "inputs": [
+        "anomaly_score",
+        "degradation_score",
+        "quality_score",
+        "stability_score",
+        "history_score"
+      ],
+      "aggregation": "daily",
+      "unit": "分",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28"
+    },
+    "power_gap_ratio": {
+      "id": "power_gap_ratio",
+      "name": "功率差异率",
+      "description": "横向对比中最高与最低功率的差异百分比",
+      "source": "constructed",
+      "scope": "station",
+      "level": "L2",
+      "formula": "(max_power - min_power) / max_power * 100",
+      "inputs": [
+        "power_active"
+      ],
+      "aggregation": "daily",
+      "unit": "%",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28"
+    },
+    "health_trend_change": {
+      "id": "health_trend_change",
+      "name": "健康分趋势变化",
+      "description": "健康分较历史平均的变化百分比",
+      "source": "constructed",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "(current_health - historical_avg) / historical_avg * 100",
+      "inputs": [
+        "health_score"
+      ],
+      "aggregation": "daily",
+      "unit": "%",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28"
+    },
+    "vol_unbalance": {
+      "id": "vol_unbalance",
+      "name": "电压不平衡度",
+      "description": "三相电压不平衡程度",
+      "source": "user",
+      "scope": "inverter",
+      "level": "L1",
+      "formula": "max_deviation / avg_voltage",
+      "inputs": [
+        "ai51",
+        "ai52",
+        "ai53"
+      ],
+      "aggregation": "avg",
+      "unit": "%",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28"
+    },
+    "efficiency": {
+      "id": "efficiency",
+      "name": "转换效率",
+      "description": "逆变器转换效率",
+      "source": "user",
+      "scope": "inverter",
+      "level": "L1",
+      "formula": "output_power / input_power",
+      "inputs": [
+        "ai56",
+        "ai45"
+      ],
+      "aggregation": "avg",
+      "unit": "%",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28"
+    },
+    "power_factor": {
+      "id": "power_factor",
+      "name": "功率因数",
+      "description": "有功功率与视在功率之比",
+      "source": "user",
+      "scope": "inverter",
+      "level": "L1",
+      "formula": "ai56 / sqrt(ai56^2 + ai57^2)",
+      "inputs": [
+        "ai56",
+        "ai57"
+      ],
+      "aggregation": "avg",
+      "unit": "",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28"
+    },
+    "data_completeness": {
+      "id": "data_completeness",
+      "name": "数据完整率",
+      "description": "数据采集的完整程度",
+      "source": "constructed",
+      "scope": "inverter",
+      "level": "L1",
+      "formula": "actual_points / expected_points",
+      "inputs": [
+        "data_points"
+      ],
+      "aggregation": "daily",
+      "unit": "%",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28"
+    },
+    "stability_cv": {
+      "id": "stability_cv",
+      "name": "稳定性变异系数",
+      "description": "关键指标波动率的变异系数",
+      "source": "constructed",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "std(values) / mean(values)",
+      "inputs": [
+        "ai51",
+        "ai52",
+        "ai53",
+        "ai54",
+        "ai55",
+        "ai56",
+        "ai68"
+      ],
+      "aggregation": "daily",
+      "unit": "",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28"
+    },
+    "equivalent_utilization_hours": {
+      "id": "equivalent_utilization_hours",
+      "name": "等效利用小时数",
+      "description": "年利用小时数，发电量除以装机容量",
+      "source": "constructed",
+      "scope": "station",
+      "level": "L2",
+      "formula": "generation / installed_capacity",
+      "inputs": [
+        "generation",
+        "installed_capacity"
+      ],
+      "aggregation": "yearly",
+      "unit": "h",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "✅",
+      "data_source": "逆变器/人工",
+      "priority": "竞赛核心指标"
+    },
+    "curtailment_rate": {
+      "id": "curtailment_rate",
+      "name": "弃光率",
+      "description": "弃光电量占理论发电量的比例",
+      "source": "constructed",
+      "scope": "station",
+      "level": "L2",
+      "formula": "curtailment_energy / theoretical_generation * 100",
+      "inputs": [
+        "curtailment_energy",
+        "theoretical_generation"
+      ],
+      "aggregation": "daily",
+      "unit": "%",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "⚠️",
+      "data_source": "调度",
+      "priority": "竞赛核心指标"
+    },
+    "plant_consumption_rate_comprehensive": {
+      "id": "plant_consumption_rate_comprehensive",
+      "name": "综合厂用电率",
+      "description": "综合厂用电量占发电量的比例",
+      "source": "constructed",
+      "scope": "station",
+      "level": "L2",
+      "formula": "comprehensive_consumption / generation * 100",
+      "inputs": [
+        "comprehensive_consumption",
+        "generation"
+      ],
+      "aggregation": "daily",
+      "unit": "%",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "⚠️",
+      "data_source": "关口表",
+      "priority": "竞赛核心指标"
+    },
+    "plant_overall_efficiency": {
+      "id": "plant_overall_efficiency",
+      "name": "光伏电站整体效率",
+      "description": "实际发电量与理论发电量的比值",
+      "source": "constructed",
+      "scope": "station",
+      "level": "L2",
+      "formula": "actual_generation / theoretical_generation * 100",
+      "inputs": [
+        "actual_generation",
+        "theoretical_generation"
+      ],
+      "aggregation": "daily",
+      "unit": "%",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "⚠️",
+      "data_source": "逆变器/理论计算",
+      "priority": "竞赛核心指标"
+    },
+    "generation_duration": {
+      "id": "generation_duration",
+      "name": "发电时长",
+      "description": "设备处于发电状态的累计时长",
+      "source": "constructed",
+      "scope": "inverter",
+      "level": "L1",
+      "formula": "count(status == 'generating')",
+      "inputs": [
+        "status"
+      ],
+      "aggregation": "daily",
+      "unit": "h",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "✅",
+      "data_source": "逆变器",
+      "priority": "竞赛核心指标"
+    },
+    "wind_speed_avg": {
+      "id": "wind_speed_avg",
+      "name": "年平均风速",
+      "description": "光伏电站在统计周期内的平均风速",
+      "source": "user",
+      "scope": "station",
+      "level": "L1",
+      "formula": "avg(wind_speed)",
+      "inputs": [
+        "wind_speed"
+      ],
+      "aggregation": "yearly",
+      "unit": "m/s",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "❌",
+      "data_source": "气象站"
+    },
+    "temperature_avg": {
+      "id": "temperature_avg",
+      "name": "平均温度",
+      "description": "光伏电站在统计周期内的平均气温",
+      "source": "user",
+      "scope": "station",
+      "level": "L1",
+      "formula": "avg(temperature)",
+      "inputs": [
+        "temperature"
+      ],
+      "aggregation": "yearly",
+      "unit": "℃",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "❌",
+      "data_source": "气象站"
+    },
+    "humidity_relative": {
+      "id": "humidity_relative",
+      "name": "相对湿度",
+      "description": "光伏电站在统计周期内的平均相对湿度",
+      "source": "user",
+      "scope": "station",
+      "level": "L1",
+      "formula": "avg(humidity)",
+      "inputs": [
+        "humidity"
+      ],
+      "aggregation": "yearly",
+      "unit": "%",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "❌",
+      "data_source": "气象站"
+    },
+    "radiation_horizontal": {
+      "id": "radiation_horizontal",
+      "name": "水平面总辐射量",
+      "description": "水平面接收的总太阳辐射量",
+      "source": "user",
+      "scope": "station",
+      "level": "L1",
+      "formula": "sum(horizontal_radiation)",
+      "inputs": [
+        "horizontal_radiation"
+      ],
+      "aggregation": "yearly",
+      "unit": "kWh/m²",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "❌",
+      "data_source": "气象站"
+    },
+    "radiation_tilted": {
+      "id": "radiation_tilted",
+      "name": "倾斜面总辐射量",
+      "description": "倾斜面（光伏板角度）接收的总太阳辐射量",
+      "source": "user",
+      "scope": "station",
+      "level": "L1",
+      "formula": "sum(tilted_radiation)",
+      "inputs": [
+        "tilted_radiation"
+      ],
+      "aggregation": "yearly",
+      "unit": "kWh/m²",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "❌",
+      "data_source": "气象站"
+    },
+    "sunshine_hours": {
+      "id": "sunshine_hours",
+      "name": "日照时数",
+      "description": "统计周期内的日照小时数",
+      "source": "user",
+      "scope": "station",
+      "level": "L1",
+      "formula": "count(sunshine > 120W/m²)",
+      "inputs": [
+        "sunshine"
+      ],
+      "aggregation": "yearly",
+      "unit": "h",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "❌",
+      "data_source": "气象站"
+    },
+    "energy_generation_total": {
+      "id": "energy_generation_total",
+      "name": "发电量",
+      "description": "光伏电站发出的总电量",
+      "source": "user",
+      "scope": "station",
+      "level": "L1",
+      "formula": "sum(inverter_output_energy)",
+      "inputs": [
+        "inverter_output_energy"
+      ],
+      "aggregation": "daily",
+      "unit": "kWh",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "✅",
+      "data_source": "逆变器"
+    },
+    "energy_grid_export": {
+      "id": "energy_grid_export",
+      "name": "上网电量",
+      "description": "光伏电站输送到电网的电量",
+      "source": "user",
+      "scope": "station",
+      "level": "L1",
+      "formula": "generation - plant_consumption - losses",
+      "inputs": [
+        "generation",
+        "plant_consumption",
+        "losses"
+      ],
+      "aggregation": "daily",
+      "unit": "kWh",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "⚠️",
+      "data_source": "关口表"
+    },
+    "energy_grid_import": {
+      "id": "energy_grid_import",
+      "name": "购网电量",
+      "description": "从电网购买的电量",
+      "source": "user",
+      "scope": "station",
+      "level": "L1",
+      "formula": "import_meter_reading",
+      "inputs": [
+        "import_meter"
+      ],
+      "aggregation": "daily",
+      "unit": "kWh",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "⚠️",
+      "data_source": "关口表"
+    },
+    "energy_inverter_input": {
+      "id": "energy_inverter_input",
+      "name": "逆变器输入电量",
+      "description": "逆变器直流侧输入电量",
+      "source": "user",
+      "scope": "inverter",
+      "level": "L1",
+      "formula": "sum(ai45)",
+      "inputs": [
+        "ai45"
+      ],
+      "aggregation": "daily",
+      "unit": "kWh",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "✅",
+      "data_source": "逆变器"
+    },
+    "energy_inverter_output": {
+      "id": "energy_inverter_output",
+      "name": "逆变器输出电量",
+      "description": "逆变器交流侧输出电量",
+      "source": "user",
+      "scope": "inverter",
+      "level": "L1",
+      "formula": "sum(ai68)",
+      "inputs": [
+        "ai68"
+      ],
+      "aggregation": "daily",
+      "unit": "kWh",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "✅",
+      "data_source": "逆变器"
+    },
+    "curtailment_energy": {
+      "id": "curtailment_energy",
+      "name": "弃光电量",
+      "description": "因电网调度等原因未能发出的电量",
+      "source": "user",
+      "scope": "station",
+      "level": "L1",
+      "formula": "theoretical_generation - actual_generation",
+      "inputs": [
+        "theoretical_generation",
+        "actual_generation"
+      ],
+      "aggregation": "daily",
+      "unit": "kWh",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "⚠️",
+      "data_source": "调度"
+    },
+    "plant_consumption": {
+      "id": "plant_consumption",
+      "name": "厂用电量",
+      "description": "光伏电站自身消耗的电量",
+      "source": "user",
+      "scope": "station",
+      "level": "L1",
+      "formula": "auxiliary_meter_reading",
+      "inputs": [
+        "auxiliary_meter"
+      ],
+      "aggregation": "daily",
+      "unit": "kWh",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "⚠️",
+      "data_source": "关口表"
+    },
+    "plant_consumption_comprehensive": {
+      "id": "plant_consumption_comprehensive",
+      "name": "综合厂用电量",
+      "description": "厂用电量加上购网电量",
+      "source": "constructed",
+      "scope": "station",
+      "level": "L2",
+      "formula": "plant_consumption + grid_import",
+      "inputs": [
+        "plant_consumption",
+        "grid_import"
+      ],
+      "aggregation": "daily",
+      "unit": "kWh",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "⚠️",
+      "data_source": "关口表"
+    },
+    "plant_consumption_rate": {
+      "id": "plant_consumption_rate",
+      "name": "厂用电率",
+      "description": "厂用电量占发电量的比例",
+      "source": "constructed",
+      "scope": "station",
+      "level": "L2",
+      "formula": "plant_consumption / generation * 100",
+      "inputs": [
+        "plant_consumption",
+        "generation"
+      ],
+      "aggregation": "daily",
+      "unit": "%",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "⚠️",
+      "data_source": "关口表"
+    },
+    "plant_loss_rate": {
+      "id": "plant_loss_rate",
+      "name": "厂损率",
+      "description": "发电到上网过程中的损耗比例",
+      "source": "constructed",
+      "scope": "station",
+      "level": "L2",
+      "formula": "(generation - grid_export) / generation * 100",
+      "inputs": [
+        "generation",
+        "grid_export"
+      ],
+      "aggregation": "daily",
+      "unit": "%",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "⚠️",
+      "data_source": "关口表"
+    },
+    "inverter_loss": {
+      "id": "inverter_loss",
+      "name": "逆变器损耗",
+      "description": "逆变器转换过程中的能量损失",
+      "source": "constructed",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "input_energy - output_energy",
+      "inputs": [
+        "input_energy",
+        "output_energy"
+      ],
+      "aggregation": "daily",
+      "unit": "kWh",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "✅",
+      "data_source": "逆变器"
+    },
+    "collection_line_loss": {
+      "id": "collection_line_loss",
+      "name": "集电线路及箱变损耗",
+      "description": "集电线路和箱式变压器的能量损失",
+      "source": "user",
+      "scope": "station",
+      "level": "L1",
+      "formula": "inverter_output - main_transformer_input",
+      "inputs": [
+        "inverter_output",
+        "main_transformer_input"
+      ],
+      "aggregation": "daily",
+      "unit": "kWh",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "⚠️",
+      "data_source": "关口表"
+    },
+    "substation_loss": {
+      "id": "substation_loss",
+      "name": "升压站损耗",
+      "description": "升压变压器的能量损失",
+      "source": "user",
+      "scope": "station",
+      "level": "L1",
+      "formula": "main_transformer_input - grid_export",
+      "inputs": [
+        "main_transformer_input",
+        "grid_export"
+      ],
+      "aggregation": "daily",
+      "unit": "kWh",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "⚠️",
+      "data_source": "关口表"
+    },
+    "max_output": {
+      "id": "max_output",
+      "name": "最大出力",
+      "description": "统计周期内的最大输出功率",
+      "source": "user",
+      "scope": "station",
+      "level": "L1",
+      "formula": "max(power_active)",
+      "inputs": [
+        "power_active"
+      ],
+      "aggregation": "daily",
+      "unit": "kW",
+      "lifecycle_status": "approved",
+      "owner": "user",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "✅",
+      "data_source": "逆变器"
+    },
+    "inverter_conversion_efficiency": {
+      "id": "inverter_conversion_efficiency",
+      "name": "逆变器转换效率",
+      "description": "逆变器输出电量与输入电量的比值",
+      "source": "constructed",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "output_energy / input_energy * 100",
+      "inputs": [
+        "output_energy",
+        "input_energy"
+      ],
+      "aggregation": "daily",
+      "unit": "%",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "✅",
+      "data_source": "逆变器"
+    },
+    "pv_array_efficiency": {
+      "id": "pv_array_efficiency",
+      "name": "光伏方阵效率",
+      "description": "光伏方阵实际输出与理论输出的比值",
+      "source": "constructed",
+      "scope": "station",
+      "level": "L2",
+      "formula": "actual_output / theoretical_output * 100",
+      "inputs": [
+        "actual_output",
+        "theoretical_output"
+      ],
+      "aggregation": "daily",
+      "unit": "%",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "⚠️",
+      "data_source": "逆变器/理论计算"
+    },
+    "shutdown_duration": {
+      "id": "shutdown_duration",
+      "name": "停机时长",
+      "description": "设备处于停机状态的累计时长",
+      "source": "constructed",
+      "scope": "inverter",
+      "level": "L1",
+      "formula": "count(status == 'shutdown')",
+      "inputs": [
+        "status"
+      ],
+      "aggregation": "daily",
+      "unit": "h",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "✅",
+      "data_source": "逆变器"
+    },
+    "interruption_duration": {
+      "id": "interruption_duration",
+      "name": "中断时长",
+      "description": "设备处于故障中断状态的累计时长",
+      "source": "constructed",
+      "scope": "inverter",
+      "level": "L1",
+      "formula": "count(status == 'fault')",
+      "inputs": [
+        "status"
+      ],
+      "aggregation": "daily",
+      "unit": "h",
+      "lifecycle_status": "approved",
+      "owner": "system",
+      "version": "1.0",
+      "created_at": "2026-02-28",
+      "computable": "✅",
+      "data_source": "逆变器"
+    }
+  }
 }

@@ -162,3 +162,21 @@
   routing:
     station: daily_station_report
     inverter: daily_inverter_report
+
+# ========== 指标进化 (V5.1新增) ==========
+
+- id: indicator_evolution
+  type: workflow
+  input: [round_num]
+  output: [candidates, report]
+  owner: taienergy-analytics
+  tags: [indicator, evolution, discovery]
+  description: 指标进化workflow，三轮迭代发现新指标
+
+- id: approve_candidate_indicator
+  type: atomic
+  input: [candidate_id]
+  output: [success]
+  owner: taienergy-analytics
+  tags: [indicator, lifecycle, approve]
+  description: 审核通过候选指标，转入注册表

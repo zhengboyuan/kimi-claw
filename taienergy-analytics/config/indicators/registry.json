@@ -1,6 +1,6 @@
 {
   "version": "v5.1",
-  "updated_at": "2026-02-28T16:30:00",
+  "updated_at": "2026-03-01T07:25:33.907665",
   "indicators": {
     "pr_value": {
       "id": "pr_value",
@@ -796,6 +796,111 @@
       "created_at": "2026-02-28",
       "computable": "✅",
       "data_source": "逆变器"
+    },
+    "composite_health_score": {
+      "id": "composite_health_score",
+      "name": "综合健康度",
+      "description": "多维度效率指标加权组合",
+      "source": "constructed",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "0.5*pr_value + 0.3*efficiency + 0.2*plant_overall_efficiency",
+      "inputs": [
+        "pr_value",
+        "efficiency",
+        "plant_overall_efficiency",
+        "inverter_conversion_efficiency",
+        "pv_array_efficiency"
+      ],
+      "aggregation": "avg",
+      "unit": "score",
+      "lifecycle_status": "approved",
+      "discovered_at": "2026-03-01T07:25:16.852344",
+      "round": 2,
+      "owner": "system",
+      "approved_at": "2026-03-01T07:25:16.853733"
+    },
+    "high_temp_derating_risk": {
+      "id": "high_temp_derating_risk",
+      "name": "高温降载风险",
+      "description": "温度高于45度且效率低于96%时触发",
+      "source": "llm",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "IF(temp > 45 AND efficiency < 0.96, 1, 0)",
+      "inputs": [
+        "temp",
+        "efficiency"
+      ],
+      "aggregation": "max",
+      "unit": "flag",
+      "lifecycle_status": "approved",
+      "discovered_at": "2026-03-01T07:25:16.852360",
+      "round": 3,
+      "owner": "system",
+      "approved_at": "2026-03-01T07:25:33.907658"
     }
-  }
+  },
+  "candidates": {
+    "composite_health_score": {
+      "id": "composite_health_score",
+      "name": "综合健康度",
+      "description": "多维度效率指标加权组合",
+      "source": "constructed",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "0.5*pr_value + 0.3*efficiency + 0.2*plant_overall_efficiency",
+      "inputs": [
+        "pr_value",
+        "efficiency",
+        "plant_overall_efficiency",
+        "inverter_conversion_efficiency",
+        "pv_array_efficiency"
+      ],
+      "aggregation": "avg",
+      "unit": "score",
+      "lifecycle_status": "pending",
+      "discovered_at": "2026-03-01T07:25:33.906045",
+      "round": 2,
+      "owner": "system"
+    }
+  },
+  "evolution_history": [
+    {
+      "round": 1,
+      "date": "2026-03-01T07:25:16.852324",
+      "candidates_found": 0,
+      "approved": 0
+    },
+    {
+      "round": 2,
+      "date": "2026-03-01T07:25:16.852349",
+      "candidates_found": 1,
+      "approved": 0
+    },
+    {
+      "round": 3,
+      "date": "2026-03-01T07:25:16.852367",
+      "candidates_found": 1,
+      "approved": 0
+    },
+    {
+      "round": 1,
+      "date": "2026-03-01T07:25:33.906026",
+      "candidates_found": 0,
+      "approved": 0
+    },
+    {
+      "round": 2,
+      "date": "2026-03-01T07:25:33.906053",
+      "candidates_found": 1,
+      "approved": 0
+    },
+    {
+      "round": 3,
+      "date": "2026-03-01T07:25:33.906065",
+      "candidates_found": 0,
+      "approved": 0
+    }
+  ]
 }

@@ -417,5 +417,50 @@ class MemorySystem:
         # 统计注册表
         reg = self.read_registry()
         stats["registry_indicators"] = len(reg.get("indicators", {}))
+        stats["candidates"] = len(reg.get("candidates", {}))
         
         return stats
+    
+    # ========== 指标进化层 (V5.1新增) ==========
+    
+    def write_evolution_report(self, report: Dict) -> str:
+        """写入指标进化报告"""
+        date_str = datetime.now().strftime('%Y-%m-%d')
+        path = f"{self.base_path}/reports/evolution/{date_str}.json"
+        
+        record = {
+            "date": date_str,
+            "generated_at": datetime.now().isoformat(),
+            **report
+        }
+        
+        self._write_json(path, record)
+        logger.info(f"[Evolution] Report saved: {path}")
+        return path
+    
+    def read_evolution_history(self, days: int = 30) -> List[Dict]:
+        """读取最近进化历史"""
+        reports = []
+        path = f"{self.base_path}/reports/evolution"
+        if not os.path.exists(path):
+            return reports
+        
+        for i in range(days):
+            d = (datetime.now() - timedelta(days=i)).strftime('%Y-%m-%d')
+            report = self._read_json(f"{path}/{d}.json")
+            if report:
+                reports.append(report)
+        
+        return reports
+    
+    def get_evolution_stats(self) -> Dict:
+        """获取指标进化统计"""
+        from core.indicator_evolution import IndicatorRegistry
+        reg = IndicatorRegistry()
+        
+        return {
+            "total_approved": len(reg.get_indicators("approved")),
+            "pending_candidates": len(reg.get_candidates()),
+            "evolution_rounds": len(reg.data.get("evolution_history", [])),
+            "by_round": reg.data.get("evolution_history", [])
+        }

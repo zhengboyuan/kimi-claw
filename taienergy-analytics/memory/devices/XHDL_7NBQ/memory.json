@@ -1,0 +1,67 @@
+{
+  "sn": "XHDL_7NBQ",
+  "created_at": "2026-02-25T22:14:01.684561",
+  "daily_summaries": [
+    {
+      "date": "2025-07-15",
+      "analysis": {
+        "efficiency": 0,
+        "anomalies": [],
+        "data_points": 11406
+      },
+      "timestamp": "2026-02-25T22:14:03.327151"
+    },
+    {
+      "date": "2025-07-16",
+      "analysis": {
+        "efficiency": 0,
+        "anomalies": [],
+        "data_points": 13400
+      },
+      "timestamp": "2026-02-25T22:14:59.192940"
+    },
+    {
+      "date": "2025-07-17",
+      "analysis": {
+        "efficiency": 0,
+        "anomalies": [],
+        "data_points": 13268
+      },
+      "timestamp": "2026-02-25T22:15:56.169149"
+    }
+  ],
+  "patterns": [],
+  "predictions": {
+    "2025-07-16": {
+      "efficiency": 0.0,
+      "confidence": 0.03333333333333333,
+      "generated_at": "2026-02-25T22:14:03.327180"
+    },
+    "2025-07-17": {
+      "efficiency": 0.0,
+      "confidence": 0.06666666666666667,
+      "generated_at": "2026-02-25T22:14:59.192976"
+    },
+    "2025-07-18": {
+      "efficiency": 0.0,
+      "confidence": 0.1,
+      "generated_at": "2026-02-25T22:15:56.169177"
+    }
+  },
+  "prediction_deviations": [
+    {
+      "date": "2025-07-17",
+      "predicted": {
+        "efficiency": 0.0,
+        "confidence": 0.03333333333333333,
+        "generated_at": "2026-02-25T22:14:03.327180"
+      },
+      "actual": {
+        "efficiency": 0,
+        "anomalies": [],
+        "data_points": 13268
+      },
+      "accuracy": 0
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+# 泰能设备智能分析系统 - 进化配置
+# 控制指标体系的升级/降级规则
+
+# L1 升级阈值 (L0 -> L1)
+l1_threshold:
+  score: 0.5              # 评分 >= 0.5
+  consecutive_days: 3     # 连续3天达标
+  
+# L2 升级阈值 (L1 -> L2) - 严格标准
+l2_threshold:
+  score: 0.85             # 评分 >= 0.85 (原0.75)
+  consecutive_days: 3     # 连续3天达标
+  max_std: 0.1            # 标准差 < 0.1 (稳定性要求)
+  min_trend_slope: -0.05  # 趋势斜率 >= -0.05 (不能剧烈下降)
+  
+# 降级/静默/移除阈值
+downgrade_threshold:
+  dormant_days: 7         # 7天无数据降级
+  silent_days: 7          # 7天无数据进入静默池
+  remove_days: 30         # 30天无数据移除
+  
+# L3 复合指标生成配置
+l3_generation:
+  min_l2_count: 5         # 至少5个L2指标才触发
+  correlation_threshold: 0.7   # 相关性阈值
+  max_composites: 15      # 最多生成15个复合指标
+  categories:             # 复合指标类别
+    - efficiency          # 效率类
+    - quality             # 质量类
+    - safety              # 安全类
+    - economic            # 经济类
+    
+# 分析配置
+analysis:
+  history_window: 7       # 分析窗口：7天
+  correlation_window: 30  # 相关性计算窗口：30天
+  max_indicators_for_analysis: 15  # 最多分析15个指标
+  
+# 评分权重
+scoring_weights:
+  data_quality: 0.3       # 数据质量权重
+  trend_consistency: 0.3  # 趋势一致性权重
+  anomaly_free: 0.2       # 无异常权重
+  business_relevance: 0.2 # 业务相关性权重

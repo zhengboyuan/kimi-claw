@@ -1,0 +1,23 @@
+# V5.1 统一脚本注册表
+# type: atomic | workflow | entrypoint
+
+- id: query_device_history
+  type: atomic
+  input: [device_sn, point_code, start, end]
+  output: json
+  owner: taienergy-device
+  tags: [query, device]
+
+- id: daily_station_report
+  type: workflow
+  input: [station_id, date]
+  output: markdown
+  owner: taienergy-analytics
+  tags: [report, daily, station]
+
+- id: daily_inverter_report
+  type: workflow
+  input: [device_sn, date]
+  output: markdown
+  owner: taienergy-analytics
+  tags: [report, daily, inverter]

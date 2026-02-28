@@ -1,0 +1,14 @@
+[
+  {
+    "date": "2026-02-25",
+    "timestamp": "2026-02-25T12:48:41.356006",
+    "cognitive_gain": 1.0,
+    "new_insights_count": 3,
+    "new_insights": [
+      "发现ai45与ai56高度相关（相关系数0.99）",
+      "发现温度ai61与效率ai60呈负相关",
+      "PV输入电流总和约等于输入功率"
+    ],
+    "source": "stage_2_analysis"
+  }
+]

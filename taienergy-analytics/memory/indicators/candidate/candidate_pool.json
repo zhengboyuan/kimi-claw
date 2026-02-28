@@ -1,0 +1,26 @@
+{
+  "candidates": [
+    {
+      "name": "current_power_ratio",
+      "timestamp": "2025-08-15",
+      "method": "cross_features",
+      "status": "pending",
+      "spec_file": "current_power_ratio_2025-08-15.md"
+    },
+    {
+      "name": "ai56_rolling_std",
+      "timestamp": "2025-08-15",
+      "method": "stat_features",
+      "status": "pending",
+      "spec_file": "ai56_rolling_std_2025-08-15.md"
+    },
+    {
+      "name": "ai56_cv",
+      "timestamp": "2025-08-15",
+      "method": "stat_features",
+      "status": "pending",
+      "spec_file": "ai56_cv_2025-08-15.md"
+    }
+  ],
+  "last_updated": "2026-02-26T12:48:43.012509"
+}

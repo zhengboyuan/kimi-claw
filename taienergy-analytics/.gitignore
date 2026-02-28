@@ -1,0 +1,23 @@
+# 日志文件
+*.log
+
+# Python缓存
+__pycache__/
+*.pyc
+*.pyo
+
+# 测试输出
+*_result.json
+*_report.json
+
+# 大文件
+*.mp3
+*.png
+*.html
+*.tmp
+
+# 不需要的目录
+memory/daily/
+memory/daily_logs/
+memory/validation_logs/
+memory/iteration_reports/

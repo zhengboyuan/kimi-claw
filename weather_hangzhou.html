@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  max-width: 800px;
+  width: 100%;
+}
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.header h1 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 8px;
+}
+.header .date {
+  color: #666;
+  font-size: 14px;
+}
+.forecast {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.day {
+  flex: 1;
+  min-width: 90px;
+  background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 16px;
+  padding: 16px 12px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+.day:hover {
+  transform: translateY(-4px);
+}
+.day-name {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.weather-icon {
+  font-size: 36px;
+  margin: 8px 0;
+}
+.temp-range {
+  margin-top: 8px;
+}
+.temp-high {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+.temp-low {
+  font-size: 14px;
+  color: #888;
+  margin-left: 4px;
+}
+.precip {
+  font-size: 12px;
+  color: #4a90d9;
+  margin-top: 6px;
+}
+.today {
+  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+.today .day-name, .today .temp-high, .today .temp-low, .today .precip {
+  color: white;
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="header">
+    <h1>🌤️ 杭州天气预报</h1>
+    <div class="date">未来7天 · 2026年2月24日 - 3月2日</div>
+  </div>
+  <div class="forecast">
+    <div class="day today">
+      <div class="day-name">今天<br>2/24</div>
+      <div class="weather-icon">🌧️</div>
+      <div class="temp-range"><span class="temp-high">13°</span><span class="temp-low">/ 8°</span></div>
+      <div class="precip">降雨 100%</div>
+    </div>
+    <div class="day">
+      <div class="day-name">周二<br>2/25</div>
+      <div class="weather-icon">☁️</div>
+      <div class="temp-range"><span class="temp-high">12°</span><span class="temp-low">/ 8°</span></div>
+      <div class="precip">降雨 0%</div>
+    </div>
+    <div class="day">
+      <div class="day-name">周三<br>2/26</div>
+      <div class="weather-icon">🌧️</div>
+      <div class="temp-range"><span class="temp-high">11°</span><span class="temp-low">/ 9°</span></div>
+      <div class="precip">降雨 100%</div>
+    </div>
+    <div class="day">
+      <div class="day-name">周四<br>2/27</div>
+      <div class="weather-icon">🌧️</div>
+      <div class="temp-range"><span class="temp-high">12°</span><span class="temp-low">/ 11°</span></div>
+      <div class="precip">降雨 89%</div>
+    </div>
+    <div class="day">
+      <div class="day-name">周五<br>2/28</div>
+      <div class="weather-icon">🌧️</div>
+      <div class="temp-range"><span class="temp-high">13°</span><span class="temp-low">/ 9°</span></div>
+      <div class="precip">降雨 50%</div>
+    </div>
+    <div class="day">
+      <div class="day-name">周六<br>3/1</div>
+      <div class="weather-icon">🌧️</div>
+      <div class="temp-range"><span class="temp-high">13°</span><span class="temp-low">/ 10°</span></div>
+      <div class="precip">降雨 95%</div>
+    </div>
+    <div class="day">
+      <div class="day-name">周日<br>3/2</div>
+      <div class="weather-icon">🌧️</div>
+      <div class="temp-range"><span class="temp-high">13°</span><span class="temp-low">/ 10°</span></div>
+      <div class="precip">降雨 86%</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -150,24 +150,25 @@ class IndicatorEvolution:
         """第一轮：从原始数据发现衍生指标（V5.1.1最小改动）
         
         策略：
-        1. 尝试从API获取原始数据
-        2. 如果成功，基于原始测点发现关系
-        3. 如果失败，回退到注册表模式
+        1. 优先从API获取原始数据（ai10-ai68等测点）
+        2. 基于原始测点发现关系（转换效率、组串一致性等）
+        3. 不回退到注册表模式（避免生成低价值组合指标）
         """
         candidates = []
         
-        # 尝试从原始数据发现
+        # 从原始数据发现（优先且唯一路径）
         if HAS_RAW_DATA and DEVICES:
             try:
                 candidates = self._round1_from_raw_data(date_str)
-                if candidates:
-                    print(f"  ✓ 从原始数据发现 {len(candidates)} 个候选")
-                    return candidates
+                print(f"  ✓ 从原始数据发现 {len(candidates)} 个候选")
+                return candidates
             except Exception as e:
-                print(f"  ⚠️ 原始数据获取失败: {e}，回退到注册表模式")
+                print(f"  ⚠️ 原始数据获取失败: {e}")
+                # 失败时返回空，不回退到注册表模式
+                return []
         
-        # 回退到原有逻辑（基于注册表）
-        return self._round1_from_registry()
+        # 无原始数据能力时返回空
+        return []
     
     def _round1_from_raw_data(self, date_str: str) -> List[Dict]:
         """从原始数据发现衍生指标"""

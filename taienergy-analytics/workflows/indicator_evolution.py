@@ -17,7 +17,7 @@ from core.memory_system import MemorySystem
 
 
 def run_indicator_evolution(round_num: Optional[int] = None, 
-                            date_range: Optional[List[str]] = None) -> Dict:
+                            date_str: Optional[str] = None) -> Dict:
     """
     指标进化 Workflow
     
@@ -58,11 +58,19 @@ def run_indicator_evolution(round_num: Optional[int] = None,
     
     print(f"\n执行第 {round_num} 轮进化: {evo.ROUNDS[round_num]}")
     
-    # 准备数据（简化版，实际应从设备读取）
-    device_data = {"placeholder": "actual_data_would_be_loaded_here"}
+    # 确定日期
+    if date_str is None:
+        date_str = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
     
-    # 执行进化
-    candidates = evo.evolve(round_num, device_data)
+    print(f"数据日期: {date_str}")
+    
+    # 执行进化（传入日期字符串）
+    candidates = evo.evolve(round_num, date_str)
+    
+    # 判断数据来源
+    data_source = "registry"
+    if candidates and candidates[0].get("data_source") == "raw_api":
+        data_source = "raw_api"
     
     # 生成报告
     report = {
@@ -79,7 +87,8 @@ def run_indicator_evolution(round_num: Optional[int] = None,
             }
             for c in candidates
         ],
-        "converged": len(candidates) < 3
+        "converged": len(candidates) < 3,
+        "data_source": data_source
     }
     
     # 保存报告

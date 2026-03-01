@@ -5,13 +5,27 @@
 - 候选指标进入 registry.json candidates 池
 - 已批准指标进入 indicators
 - 进化历史记录到 evolution_history
+
+V5.1.1更新：第一轮改为从原始数据计算（最小改动）
 """
 
 import json
 import os
+import sys
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple
 import numpy as np
+
+# 添加技能路径
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
+try:
+    from skills.skill_1_data_collector import DataCollector
+    from config.device_config import DEVICES
+    HAS_RAW_DATA = True
+except ImportError:
+    HAS_RAW_DATA = False
+    print("⚠️ 无法导入 DataCollector，将使用注册表模式")
 
 
 class IndicatorRegistry:
@@ -116,47 +130,125 @@ class IndicatorEvolution:
         
         return last_round + 1
     
-    def evolve(self, round_num: int, device_data: Dict) -> List[Dict]:
-        """执行指定轮次的指标进化"""
+    def evolve(self, round_num: int, date_str: str) -> List[Dict]:
+        """执行指定轮次的指标进化
+        
+        V5.1.1更新：传入date_str而非device_data，支持原始数据获取
+        """
         strategy = self.ROUNDS.get(round_num)
         
         if strategy == "derive":
-            return self._round1_derive(device_data)
+            return self._round1_derive(date_str)  # 传入日期
         elif strategy == "compose":
-            return self._round2_compose(device_data)
+            return self._round2_compose(date_str)
         elif strategy == "semantic":
-            return self._round3_semantic(device_data)
+            return self._round3_semantic(date_str)
         
         return []
     
-    def _round1_derive(self, data: Dict) -> List[Dict]:
-        """第一轮：发现衍生指标
+    def _round1_derive(self, date_str: str) -> List[Dict]:
+        """第一轮：从原始数据发现衍生指标（V5.1.1最小改动）
         
         策略：
-        1. 找高相关指标对 (>0.9)
-        2. 生成 ratio/diff/product 运算
+        1. 尝试从API获取原始数据
+        2. 如果成功，基于原始测点发现关系
+        3. 如果失败，回退到注册表模式
         """
+        candidates = []
+        
+        # 尝试从原始数据发现
+        if HAS_RAW_DATA and DEVICES:
+            try:
+                candidates = self._round1_from_raw_data(date_str)
+                if candidates:
+                    print(f"  ✓ 从原始数据发现 {len(candidates)} 个候选")
+                    return candidates
+            except Exception as e:
+                print(f"  ⚠️ 原始数据获取失败: {e}，回退到注册表模式")
+        
+        # 回退到原有逻辑（基于注册表）
+        return self._round1_from_registry()
+    
+    def _round1_from_raw_data(self, date_str: str) -> List[Dict]:
+        """从原始数据发现衍生指标"""
+        candidates = []
+        
+        # 取第一台设备作为样本
+        device_sn = list(DEVICES.keys())[0]
+        collector = DataCollector(device_sn)
+        
+        # 拉取原始数据
+        raw_data = collector.collect_daily_data(date_str)
+        
+        # 提取数值型指标（取日均值）
+        numeric_data = {}
+        for code, df in raw_data.items():
+            if not df.empty and 'value' in df.columns:
+                numeric_data[code] = df['value'].mean()
+        
+        # 找相关指标对（简化规则）
+        codes = list(numeric_data.keys())
+        for i, code1 in enumerate(codes):
+            for code2 in codes[i+1:]:
+                # 如果指标相关，生成ratio候选
+                if self._is_related(code1, code2):
+                    cid = f"{code1}_over_{code2}"
+                    if cid not in self.registry.get_candidates():
+                        candidate = {
+                            "id": cid,
+                            "name": f"{code1}与{code2}比值",
+                            "description": f"从原始数据发现的衍生指标: {code1}/{code2}",
+                            "source": "llm",
+                            "scope": "inverter",
+                            "level": "L2",
+                            "formula": f"{code1} / {code2}",
+                            "inputs": [code1, code2],
+                            "aggregation": "avg",
+                            "unit": "ratio",
+                            "lifecycle_status": "pending",
+                            "discovered_at": datetime.now().isoformat(),
+                            "round": 1,
+                            "owner": "system",
+                            "data_source": "raw_api"  # 标记来源
+                        }
+                        if self.registry.add_candidate(candidate):
+                            candidates.append(candidate)
+        
+        return candidates
+    
+    def _is_related(self, code1: str, code2: str) -> bool:
+        """判断两个指标是否相关（简化规则）"""
+        # 功率类指标相互关联
+        power_codes = ['ai45', 'ai56', 'ai10', 'ai12', 'ai52', 'ai53', 'ai54']
+        if code1 in power_codes and code2 in power_codes:
+            return True
+        # 电压类指标相互关联
+        if 'ai4' in code1 and 'ai4' in code2 and code1 != code2:
+            return True
+        # 电流类指标相互关联
+        if 'ai5' in code1 and 'ai5' in code2 and code1 != code2:
+            return True
+        return False
+    
+    def _round1_from_registry(self) -> List[Dict]:
+        """原有逻辑：从注册表发现衍生指标（回退模式）"""
         candidates = []
         approved = self.registry.get_indicators("approved")
         
         # 获取数值型指标
         numeric_indicators = [
             (k, v) for k, v in approved.items()
-            if v.get("scope") == "inverter" and "ai" in k
+            if v.get("scope") == "inverter"
         ]
-        
-        # 简单规则：功率类指标生成效率类衍生指标
-        power_indicators = [k for k, v in numeric_indicators if "power" in v.get("name", "")]
         
         for i, (id1, ind1) in enumerate(numeric_indicators):
             for id2, ind2 in numeric_indicators[i+1:]:
-                # 生成 ratio 候选
                 cid = f"{id1}_over_{id2}"
                 if cid not in self.registry.get_candidates():
                     candidate = {
                         "id": cid,
                         "name": f"{ind1['name']}与{ind2['name']}比值",
-                        "description": f"自动发现的衍生指标: {id1}/{id2}",
+                        "description": f"从注册表发现的衍生指标: {id1}/{id2}",
                         "source": "llm",
                         "scope": "inverter",
                         "level": "L2",
@@ -167,7 +259,8 @@ class IndicatorEvolution:
                         "lifecycle_status": "pending",
                         "discovered_at": datetime.now().isoformat(),
                         "round": 1,
-                        "owner": "system"
+                        "owner": "system",
+                        "data_source": "registry"  # 标记来源
                     }
                     if self.registry.add_candidate(candidate):
                         candidates.append(candidate)

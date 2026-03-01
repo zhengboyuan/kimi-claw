@@ -217,17 +217,32 @@ class IndicatorEvolution:
         return candidates
     
     def _is_related(self, code1: str, code2: str) -> bool:
-        """判断两个指标是否相关（简化规则）"""
-        # 功率类指标相互关联
-        power_codes = ['ai45', 'ai56', 'ai10', 'ai12', 'ai52', 'ai53', 'ai54']
-        if code1 in power_codes and code2 in power_codes:
+        """判断两个指标是否相关（优化版过滤规则）
+        
+        优化策略：
+        1. 只保留功率类核心指标（输入/输出功率比）
+        2. 只保留组串电流间关系
+        3. 过滤冗余的电压/电流交叉组合
+        """
+        # 高价值：输入输出功率比（转换效率）
+        if (code1 == 'ai56' and code2 == 'ai45') or (code1 == 'ai45' and code2 == 'ai56'):
             return True
-        # 电压类指标相互关联
-        if 'ai4' in code1 and 'ai4' in code2 and code1 != code2:
+        
+        # 高价值：组串电流间关系（组串一致性）
+        string_currents = ['ai10', 'ai12', 'ai16', 'ai20']  # 4路组串电流
+        if code1 in string_currents and code2 in string_currents and code1 != code2:
             return True
-        # 电流类指标相互关联
-        if 'ai5' in code1 and 'ai5' in code2 and code1 != code2:
+        
+        # 高价值：三相电流间关系（三相不平衡）
+        grid_currents = ['ai52', 'ai53', 'ai54']  # 三相电流
+        if code1 in grid_currents and code2 in grid_currents and code1 != code2:
             return True
+        
+        # 中等价值：电压/功率（等效阻抗）- 只保留代表性组合
+        if code1 == 'ai12' and code2 == 'ai56':  # PV电压/输出功率
+            return True
+        
+        # 过滤：其他所有组合（避免125个冗余）
         return False
     
     def _round1_from_registry(self) -> List[Dict]:

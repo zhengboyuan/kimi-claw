@@ -1,12 +1,25 @@
 # Runtime artifacts under taienergy-analytics
 taienergy-analytics/memory/**/daily/
 taienergy-analytics/memory/**/profile/
+taienergy-analytics/memory/**/health_history.json
+taienergy-analytics/memory/**/memory.json
 taienergy-analytics/memory/reports/
 taienergy-analytics/memory/backup_*/
 taienergy-analytics/memory/cognitive/
+taienergy-analytics/memory/cognitive_log.json
 taienergy-analytics/memory/composite_indicators/
-taienergy-analytics/memory/station/daily/
+taienergy-analytics/memory/dynamic_rules.json
+taienergy-analytics/memory/hypothesis_registry.json
+taienergy-analytics/memory/indicator_catalog.json
+taienergy-analytics/memory/indicators/
+taienergy-analytics/memory/key_points_iteration_report.md
+taienergy-analytics/memory/monthly/
 taienergy-analytics/memory/prompt_tracking.jsonl
+taienergy-analytics/memory/rolling_iteration_report_*.md
+taienergy-analytics/memory/shared/
+taienergy-analytics/memory/station/daily/
+taienergy-analytics/memory/temp_analysis.md
+taienergy-analytics/memory/v43_monitor_*.md
 
 # Large generated packages
 *.tar

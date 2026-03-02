@@ -50,6 +50,15 @@ class DailyAssetManagementV5:
         """从 registry 读取指标配置"""
         return self.indicators.get(indicator_id)
     
+    def _get_score(self, health: Dict) -> Optional[float]:
+        """统一读取健康分，兼容 total_score/health_score"""
+        if not isinstance(health, dict):
+            return None
+        score = health.get('health_score')
+        if score is None:
+            score = health.get('total_score')
+        return score
+    
     def run(self, date_str: str) -> Dict:
         """运行资产运营分析"""
         print(f"\n{'='*70}")
@@ -87,7 +96,8 @@ class DailyAssetManagementV5:
         print("\n【4/7】维护建议")
         advice = {}
         for sn, health in device_results.items():
-            if health.get('health_score'):
+            score = self._get_score(health)
+            if score is not None:
                 advice[sn] = self._generate_advice(sn, date_str, health)
         
         # ========== 阶段5: 横向对比 + 时间维度分析 ==========
@@ -131,9 +141,7 @@ class DailyAssetManagementV5:
             'date': date_str,
             'total_devices': 16,
             'online': risk['online'],
-            'avg_health_score': sum(
-                d.get('health_score', 0) for d in device_results.values() if d.get('health_score')
-            ) / 16,
+            'avg_health_score': 0,  # 将在下面计算
             'risk_distribution': risk['distribution'],
             'trend_alerts': risk['trend_alerts'],
             'maintenance_priority': self._extract_priority(advice),
@@ -148,12 +156,18 @@ class DailyAssetManagementV5:
             'competition_metrics': competition_metrics
         }
         
+        # 计算平均健康分（基于实际在线台数）
+        scores = [self._get_score(d) for d in device_results.values()]
+        valid_scores = [s for s in scores if s is not None]
+        avg_health = (sum(valid_scores) / len(valid_scores)) if valid_scores else 0
+        report_data['avg_health_score'] = avg_health
+        
         # V5.1 规范路径: memory/reports/daily/station/YYYY-MM-DD.json
         self._write_station_report(date_str, report_data)
         
         # 同时写入设备级日报
         for sn, device_data in device_results.items():
-            if device_data.get('health_score'):
+            if self._get_score(device_data) is not None:
                 self._write_inverter_report(sn, date_str, device_data, advice.get(sn, {}))
         
         # ========== V5.1 新增：统一历史存储 ==========
@@ -383,19 +397,24 @@ class DailyAssetManagementV5:
     def _store_to_history(self, date_str: str, device_results: Dict, competition_metrics: Dict):
         """存储到统一历史存储"""
         # 存储每台设备的日聚合
+        valid_scores = []
         for sn, data in device_results.items():
-            if data.get('health_score'):
+            score = self._get_score(data)
+            if score is not None:
                 daily_metrics = {
-                    'health_score': data.get('health_score'),
+                    'health_score': score,
                     'level': data.get('level'),
                     'trend_score': data.get('trend_score', 0)
                 }
                 self.history_store.append_device_daily(sn, date_str, daily_metrics)
+                valid_scores.append(score)
         
-        # 存储场站日聚合
+        # 存储场站日聚合（基于实际在线台数）
+        online_count = len(valid_scores)
+        avg_health = (sum(valid_scores) / online_count) if valid_scores else 0
         station_metrics = {
-            'online_count': sum(1 for d in device_results.values() if d.get('health_score')),
-            'avg_health': sum(d.get('health_score', 0) for d in device_results.values() if d.get('health_score')) / 16,
+            'online_count': online_count,
+            'avg_health': avg_health,
             'competition_metrics': competition_metrics
         }
         self.history_store.append_station_daily(date_str, station_metrics)
@@ -681,10 +700,9 @@ class DailyAssetManagementV5:
         trend_alerts = []
         
         for sn, data in device_results.items():
-            if not data.get('health_score'):
+            current_health = self._get_score(data)
+            if current_health is None:
                 continue
-            
-            current_health = data['health_score']
             
             # 找该设备的历史数据
             historical = []

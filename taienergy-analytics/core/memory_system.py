@@ -87,9 +87,20 @@ class MemorySystem:
         return new_path
     
     def read_daily_report(self, date: str) -> Optional[Dict]:
-        """读取日报"""
-        path = f"{self.base_path}/daily/{date}_report.json"
-        return self._read_json(path)
+        """读取日报：优先 V5.1 新路径，兼容旧路径"""
+        new_path = f"{self.base_path}/reports/daily/station/{date}.json"
+        old_path = f"{self.base_path}/daily/{date}_report.json"
+
+        data = self._read_json(new_path)
+        if data:
+            # 兼容两种结构：
+            # A) write_daily_report 写的是 compact（顶层有 devices）
+            # B) _write_station_report 写的是 {"data": {...}}
+            if isinstance(data, dict) and "data" in data and isinstance(data["data"], dict):
+                return data["data"]
+            return data
+
+        return self._read_json(old_path)
     
     # ========== Layer 2: 设备层 ==========
     
@@ -240,21 +251,25 @@ class MemorySystem:
         return candidates
     
     def update_registry(self, indicator: Dict) -> bool:
-        """更新指标注册表 - 复用 indicator_registry 模块"""
+        """更新指标注册表 - 复用 indicator_registry 模块，以 id 为主键"""
         from core.indicator_registry import read_registry, write_registry
+        
+        indicator_id = indicator.get("id")
+        if not indicator_id:
+            logger.error("[Registry] UPDATE failed: missing indicator id")
+            return False
         
         registry = read_registry()
         if "indicators" not in registry:
             registry["indicators"] = {}
         
-        name = indicator.get("name")
-        if name in registry["indicators"]:
+        if indicator_id in registry["indicators"]:
             # 更新
-            registry["indicators"][name].update(indicator)
-            registry["indicators"][name]["updated_at"] = datetime.now().isoformat()
+            registry["indicators"][indicator_id].update(indicator)
+            registry["indicators"][indicator_id]["updated_at"] = datetime.now().isoformat()
         else:
             # 新增
-            registry["indicators"][name] = {
+            registry["indicators"][indicator_id] = {
                 **indicator,
                 "created_at": datetime.now().isoformat()
             }
@@ -264,7 +279,7 @@ class MemorySystem:
         registry["updated_at"] = datetime.now().isoformat()
         
         write_registry(registry)
-        logger.info(f"[Registry] UPDATE: {name}")
+        logger.info(f"[Registry] UPDATE: {indicator_id}")
         return True
     
     def read_registry(self) -> Dict:
@@ -275,8 +290,9 @@ class MemorySystem:
     def read_recent_reports(self, days: int = 30) -> List[Dict]:
         """读取最近N天的日报"""
         reports = []
-        daily_path = f"{self.base_path}/daily"
-        if not os.path.exists(daily_path):
+        new_dir = f"{self.base_path}/reports/daily/station"
+        old_dir = f"{self.base_path}/daily"
+        if not os.path.exists(new_dir) and not os.path.exists(old_dir):
             return reports
         
         # 获取最近N天的日期

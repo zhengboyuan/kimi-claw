@@ -144,7 +144,7 @@ class IndicatorDiscovery:
         return passed
     
     def _layer2_deduplicate(self, candidates: List[CandidateIndicator]) -> List[CandidateIndicator]:
-        """Layer 2: 查重 - 去重同名候选 + 与现有指标比较"""
+        """Layer 2: 查重 - 去重同名候选（只去重当前批次，不检查历史）"""
         # 第一步：去重同名候选（保留第一个）
         seen_names = set()
         unique_by_name = []
@@ -155,23 +155,20 @@ class IndicatorDiscovery:
         
         print(f"    [DEBUG] 去重前: {len(candidates)} 个, 去重后: {len(unique_by_name)} 个")
         
-        # 第二步：与现有候选比较（检查文件是否存在）
-        candidate_dir = "memory/indicators/candidate"
-        existing_candidates = set()
-        if os.path.exists(candidate_dir):
-            for f in os.listdir(candidate_dir):
-                if f.endswith('.md'):
-                    # 提取指标名（去掉日期后缀）
-                    name = '_'.join(f.replace('.md', '').split('_')[:-1])
-                    existing_candidates.add(name)
+        # 第二步：检查注册表中是否已批准（只有已批准的才跳过）
+        registry = self.memory.read_registry()
+        approved_indicators = set()
+        for name, info in registry.get('indicators', {}).items():
+            if info.get('status') == 'approved':
+                approved_indicators.add(name)
         
-        print(f"    [DEBUG] 现有候选: {existing_candidates}")
+        print(f"    [DEBUG] 已批准指标: {approved_indicators}")
         
-        # 过滤掉已存在的
+        # 过滤掉已批准的
         unique = []
         for c in unique_by_name:
-            if c.name in existing_candidates:
-                print(f"    [DEBUG] {c.name}: 已存在，跳过")
+            if c.name in approved_indicators:
+                print(f"    [DEBUG] {c.name}: 已批准，跳过")
             else:
                 unique.append(c)
         

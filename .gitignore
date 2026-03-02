@@ -1,20 +1,19 @@
-# V5.1 运行产物（不提交到版本库）
-# 本次新增的运行产物
-memory/**/daily/
-memory/**/profile/
-memory/reports/
-memory/backup_*/
-memory/cognitive/
-memory/composite_indicators/
-memory/station/daily/
-memory/prompt_tracking.jsonl
+# Runtime artifacts under taienergy-analytics
+taienergy-analytics/memory/**/daily/
+taienergy-analytics/memory/**/profile/
+taienergy-analytics/memory/reports/
+taienergy-analytics/memory/backup_*/
+taienergy-analytics/memory/cognitive/
+taienergy-analytics/memory/composite_indicators/
+taienergy-analytics/memory/station/daily/
+taienergy-analytics/memory/prompt_tracking.jsonl
 
-# 大数据文件
+# Large generated packages
 *.tar
 *.tar.gz
 daily_reports_*/
 
-# 测试输出
+# Test outputs
 batch_*_results.json
 
 # Python

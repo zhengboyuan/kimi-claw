@@ -594,7 +594,7 @@ class DailyAssetManagementV5:
             'device_sn': device_sn,
             'date': date_str,
             'data': {
-                'health_score': device_data.get('health_score'),
+                'health_score': self._get_score(device_data),
                 'level': device_data.get('level'),
                 'dimensions': device_data.get('dimensions'),
                 'advice': advice
@@ -708,7 +708,9 @@ class DailyAssetManagementV5:
             historical = []
             for report in recent_reports:
                 if sn in report.get('devices', {}):
-                    historical.append(report['devices'][sn].get('health_score', 0))
+                    hist_score = self._get_score(report['devices'][sn])
+                    if hist_score is not None:
+                        historical.append(hist_score)
             
             if len(historical) >= 3:
                 avg_historical = sum(historical) / len(historical)

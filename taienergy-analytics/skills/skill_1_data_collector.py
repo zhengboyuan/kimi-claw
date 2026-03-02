@@ -247,6 +247,13 @@ class DataCollector:
                 # 数据清洗：转换非数值为 NaN
                 indicator_df['value'] = pd.to_numeric(indicator_df['value'], errors='coerce')
                 
+                # 去除 NaN 行，只保留有效数据
+                indicator_df = indicator_df.dropna(subset=['value'])
+                
+                # 跳过空数据
+                if indicator_df.empty:
+                    continue
+                
                 # 添加元数据到 df.attrs（不污染 key）
                 indicator_df.attrs['code'] = indicator
                 indicator_df.attrs['name'] = chinese_name

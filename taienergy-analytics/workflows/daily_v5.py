@@ -236,7 +236,8 @@ class DailyAssetManagementV5:
         engine = AssetHealthEngine(sn)
         return engine.calculate_daily_health(date, {
             'completeness': 0.95,
-            'quality_rating': data.get('quality', 70.0)
+            'quality_rating': data.get('quality', 70.0),
+            'raw_metrics': data.get('raw_metrics', {})  # 传递原始指标数据用于稳定性计算
         })
     
     def _analyze_risk(self, devices: Dict) -> Dict:

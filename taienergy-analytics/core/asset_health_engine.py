@@ -98,7 +98,8 @@ class AssetHealthEngine:
         # 确定等级
         result['level'] = self._determine_level(total)
         
-        # 保存
+        # 保存（包含原始指标数据用于后续分析）
+        result['raw_metrics'] = device_data.get('raw_metrics', {})
         self._save_health_record(result)
         
         return result
@@ -125,21 +126,58 @@ class AssetHealthEngine:
         return score
     
     def _calc_degradation_score(self, date_str: str, device_data: Dict) -> float:
-        """指标退化评分"""
-        # 核心指标列表
-        core_indicators = ['vol_unbalance', 'efficiency', 'power_factor']
+        """指标退化评分 - 基于实际指标数据计算趋势"""
+        raw_metrics = device_data.get('raw_metrics', {})
+        
+        # 定义关键指标及其代码映射
+        core_metrics = {
+            'power_active': ['ai68'],  # 有功功率
+            'current_avg': ['ai54', 'ai55', 'ai56'],  # 三相电流平均
+            'voltage_avg': ['ai51', 'ai52', 'ai53']   # 三相电压平均
+        }
         
         scores = []
-        for indicator in core_indicators:
-            trend = self._get_indicator_trend(indicator, date_str)
-            if trend == 'improving':
-                scores.append(100)
-            elif trend == 'stable':
-                scores.append(85)
-            elif trend == 'degrading':
-                scores.append(60)
+        for metric_name, possible_codes in core_metrics.items():
+            # 获取当前数据
+            current_values = None
+            for code in possible_codes:
+                if code in raw_metrics and len(raw_metrics[code]) > 0:
+                    current_values = raw_metrics[code]
+                    break
+            
+            if current_values is None:
+                continue
+            
+            # 计算当前平均值
+            current_avg = np.mean(current_values)
+            
+            # 获取历史数据（从已保存的健康记录中）
+            history_values = self._get_metric_history_from_records(metric_name, date_str, days=7)
+            
+            if not history_values or len(history_values) < 2:
+                scores.append(85)  # 数据不足，默认稳定
+                continue
+            
+            history_avg = np.mean(history_values)
+            
+            if history_avg == 0:
+                scores.append(85)  # 避免除零
+                continue
+            
+            # 计算变化百分比
+            change_pct = (current_avg - history_avg) / abs(history_avg) * 100
+            
+            # 根据变化趋势评分
+            if change_pct > 5:
+                scores.append(100)  # 显著改善
+            elif change_pct > 0:
+                scores.append(90)   # 轻微改善
+            elif change_pct > -5:
+                scores.append(85)   # 基本稳定
+            elif change_pct > -10:
+                scores.append(70)   # 轻微退化
             else:
-                scores.append(75)  # 未知
+                scores.append(50)   # 显著退化
         
         return np.mean(scores) if scores else 75.0
     
@@ -403,6 +441,46 @@ class AssetHealthEngine:
             print(f"  [DEBUG] 获取历史数据失败: {e}")
             return []
     
+    def _get_metric_history_from_records(self, metric_name: str, date_str: str, days: int = 7) -> List:
+        """
+        从历史健康记录中获取指标数据
+        用于退化评分计算
+        """
+        try:
+            # 构建日期列表（不含当天）
+            end_date = datetime.strptime(date_str, '%Y-%m-%d') - timedelta(days=1)
+            dates = []
+            for i in range(days):
+                d = end_date - timedelta(days=i)
+                dates.append(d.strftime('%Y-%m-%d'))
+            
+            values = []
+            # 映射指标名到代码
+            metric_mapping = {
+                'power_active': ['ai68'],
+                'current_avg': ['ai54', 'ai55', 'ai56'],
+                'voltage_avg': ['ai51', 'ai52', 'ai53']
+            }
+            possible_codes = metric_mapping.get(metric_name, [metric_name])
+            
+            # 读取健康历史
+            if os.path.exists(self.health_path):
+                with open(self.health_path, 'r') as f:
+                    history = json.load(f)
+                
+                for record in history:
+                    if record.get('date') in dates:
+                        raw_metrics = record.get('raw_metrics', {})
+                        for code in possible_codes:
+                            if code in raw_metrics:
+                                values.extend(raw_metrics[code])
+                                break
+            
+            return values
+        except Exception as e:
+            print(f"  [DEBUG] 获取历史记录失败: {e}")
+            return []
+
     def recalibrate_baseline(self, new_version: str, days: int = 30):
         """
         版本升级时重算基准

@@ -190,6 +190,9 @@ class DailyAssetManagementV5:
         # 输出摘要
         self._print_summary(date_str, report_data, device_profiles, ranking, findings)
         
+        # 释放内存，防止批量处理时内存累积
+        gc.collect()
+        
         return report_data
     
     def _collect_all(self, date_str: str) -> Dict:

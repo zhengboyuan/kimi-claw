@@ -1,0 +1,34 @@
+[
+  {
+    "timestamp": "2026-02-28T14:29:34.211655",
+    "action": "approve",
+    "indicator_id": "test_llm_indicator",
+    "indicator_name": "测试LLM发现指标",
+    "operator": "system",
+    "notes": ""
+  },
+  {
+    "timestamp": "2026-02-28T14:40:55.647766",
+    "action": "approve",
+    "indicator_id": "test_regression_indicator",
+    "indicator_name": "回归测试指标",
+    "operator": "system",
+    "notes": "批量审批"
+  },
+  {
+    "timestamp": "2026-02-28T15:10:42.024589",
+    "action": "retire",
+    "indicator_id": "test_llm_indicator",
+    "indicator_name": "测试LLM发现指标",
+    "operator": "system",
+    "notes": "测试指标清理"
+  },
+  {
+    "timestamp": "2026-02-28T15:11:11.188963",
+    "action": "retire",
+    "indicator_id": "test_regression_indicator",
+    "indicator_name": "回归测试指标",
+    "operator": "system",
+    "notes": "测试指标清理"
+  }
+]

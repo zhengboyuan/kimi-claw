@@ -482,16 +482,16 @@
   {
     "date": "2025-08-30",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:14:19.305531",
+    "timestamp": "2026-02-28T20:37:38.704247",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
       "history": 75.0
     },
-    "total_score": 83.3,
-    "trend_score": 0.0,
+    "total_score": 80.8,
+    "trend_score": 2.5,
     "level": "good",
     "calibrated": true
   },
@@ -514,29 +514,29 @@
   {
     "date": "2025-09-01",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:33:23.550689",
+    "timestamp": "2026-02-28T21:19:41.068019",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
-    "trend_score": 0.0,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-09-02",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:33:28.304880",
+    "timestamp": "2026-02-28T21:19:49.821396",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -546,13 +546,13 @@
   {
     "date": "2025-09-03",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:33:34.018398",
+    "timestamp": "2026-02-28T21:19:56.817440",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -562,13 +562,13 @@
   {
     "date": "2025-09-04",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:33:38.877688",
+    "timestamp": "2026-02-28T21:20:03.766705",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -578,13 +578,13 @@
   {
     "date": "2025-09-05",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:33:43.679884",
+    "timestamp": "2026-02-28T21:20:10.631831",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -594,13 +594,13 @@
   {
     "date": "2025-09-06",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:33:49.432261",
+    "timestamp": "2026-02-28T21:20:17.406225",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -610,13 +610,13 @@
   {
     "date": "2025-09-07",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:33:54.230978",
+    "timestamp": "2026-02-28T21:20:24.162274",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -626,13 +626,13 @@
   {
     "date": "2025-09-08",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:33:59.760207",
+    "timestamp": "2026-02-28T21:20:30.826843",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -642,13 +642,13 @@
   {
     "date": "2025-09-09",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:34:04.694135",
+    "timestamp": "2026-02-28T21:20:37.497715",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -658,13 +658,13 @@
   {
     "date": "2025-09-10",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:34:09.463629",
+    "timestamp": "2026-02-28T21:20:44.197377",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -674,13 +674,13 @@
   {
     "date": "2025-09-11",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:34:15.128135",
+    "timestamp": "2026-02-28T21:20:50.940986",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -690,13 +690,13 @@
   {
     "date": "2025-09-12",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:34:19.997156",
+    "timestamp": "2026-02-28T21:20:57.737055",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -706,13 +706,13 @@
   {
     "date": "2025-09-13",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:34:25.729332",
+    "timestamp": "2026-02-28T21:21:04.360711",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -722,13 +722,13 @@
   {
     "date": "2025-09-14",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:34:30.530750",
+    "timestamp": "2026-02-28T21:21:11.031187",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -738,13 +738,13 @@
   {
     "date": "2025-09-15",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:34:35.405684",
+    "timestamp": "2026-02-28T21:21:17.840201",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -754,13 +754,13 @@
   {
     "date": "2025-09-16",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:34:41.111805",
+    "timestamp": "2026-02-28T21:21:24.521247",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -770,13 +770,13 @@
   {
     "date": "2025-09-17",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:34:45.884700",
+    "timestamp": "2026-02-28T21:21:31.350428",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -786,13 +786,13 @@
   {
     "date": "2025-09-18",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:34:51.651482",
+    "timestamp": "2026-02-28T21:21:37.998357",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -802,13 +802,13 @@
   {
     "date": "2025-09-19",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:34:56.609736",
+    "timestamp": "2026-02-28T21:21:44.721089",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -818,13 +818,13 @@
   {
     "date": "2025-09-20",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:35:01.944457",
+    "timestamp": "2026-02-28T21:21:51.434157",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -834,13 +834,13 @@
   {
     "date": "2025-09-21",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:35:07.036037",
+    "timestamp": "2026-02-28T21:21:58.123257",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -850,13 +850,13 @@
   {
     "date": "2025-09-22",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:35:11.937794",
+    "timestamp": "2026-02-28T21:22:04.776958",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -866,13 +866,13 @@
   {
     "date": "2025-09-23",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:35:17.553845",
+    "timestamp": "2026-02-28T21:22:11.556376",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -882,13 +882,13 @@
   {
     "date": "2025-09-24",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:35:22.362011",
+    "timestamp": "2026-02-28T21:22:18.400679",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -898,13 +898,13 @@
   {
     "date": "2025-09-25",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:35:27.869384",
+    "timestamp": "2026-02-28T21:22:25.040854",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -914,13 +914,13 @@
   {
     "date": "2025-09-26",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:35:32.906141",
+    "timestamp": "2026-02-28T21:22:31.744994",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -930,13 +930,13 @@
   {
     "date": "2025-09-27",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:35:37.748637",
+    "timestamp": "2026-02-28T21:22:38.348900",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -946,13 +946,13 @@
   {
     "date": "2025-09-28",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:35:43.485470",
+    "timestamp": "2026-02-28T21:22:45.088608",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -962,45 +962,45 @@
   {
     "date": "2025-10-29",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:39:28.036497",
+    "timestamp": "2026-02-28T21:59:57.610668",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
-    "trend_score": 0.0,
+    "trend_score": 2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-10-30",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:39:36.371409",
+    "timestamp": "2026-02-28T22:00:09.867995",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
-    "trend_score": 0.0,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-10-31",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:39:44.707565",
+    "timestamp": "2026-02-28T22:00:20.971843",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1010,13 +1010,13 @@
   {
     "date": "2025-11-01",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:39:52.389410",
+    "timestamp": "2026-02-28T22:16:35.303312",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1026,13 +1026,13 @@
   {
     "date": "2025-11-02",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:40:00.555175",
+    "timestamp": "2026-02-28T22:16:46.691004",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1042,13 +1042,13 @@
   {
     "date": "2025-11-03",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:40:08.967141",
+    "timestamp": "2026-02-28T22:16:58.135121",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1058,13 +1058,13 @@
   {
     "date": "2025-11-04",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:40:16.583439",
+    "timestamp": "2026-02-28T22:17:09.727655",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1074,13 +1074,13 @@
   {
     "date": "2025-11-05",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:40:24.851015",
+    "timestamp": "2026-02-28T22:17:21.141561",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1090,13 +1090,13 @@
   {
     "date": "2025-11-06",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:40:33.382396",
+    "timestamp": "2026-02-28T22:17:32.385115",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1106,13 +1106,13 @@
   {
     "date": "2025-11-07",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:40:41.184297",
+    "timestamp": "2026-02-28T22:17:43.758147",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1122,13 +1122,13 @@
   {
     "date": "2025-11-08",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:40:49.617222",
+    "timestamp": "2026-02-28T22:17:55.144907",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1138,13 +1138,13 @@
   {
     "date": "2025-11-09",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:40:57.270828",
+    "timestamp": "2026-02-28T22:18:06.223972",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1154,13 +1154,13 @@
   {
     "date": "2025-11-10",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:41:04.893408",
+    "timestamp": "2026-02-28T22:18:17.213020",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1170,13 +1170,13 @@
   {
     "date": "2025-11-11",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:41:12.963059",
+    "timestamp": "2026-02-28T22:18:28.202154",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1186,13 +1186,13 @@
   {
     "date": "2025-11-12",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:41:20.610512",
+    "timestamp": "2026-02-28T22:18:39.251849",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1202,13 +1202,13 @@
   {
     "date": "2025-11-13",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:41:28.972527",
+    "timestamp": "2026-02-28T22:18:50.794664",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1218,13 +1218,13 @@
   {
     "date": "2025-11-14",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:41:37.340054",
+    "timestamp": "2026-02-28T22:19:02.546785",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1234,13 +1234,13 @@
   {
     "date": "2025-11-15",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:41:45.362759",
+    "timestamp": "2026-02-28T22:19:14.464350",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1250,13 +1250,13 @@
   {
     "date": "2025-11-16",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:41:54.096050",
+    "timestamp": "2026-02-28T22:19:26.329383",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1266,13 +1266,13 @@
   {
     "date": "2025-11-17",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:42:02.599265",
+    "timestamp": "2026-02-28T22:19:38.247500",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1282,13 +1282,13 @@
   {
     "date": "2025-11-18",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:42:10.371609",
+    "timestamp": "2026-02-28T22:19:49.799139",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1298,13 +1298,13 @@
   {
     "date": "2025-11-19",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:42:18.993599",
+    "timestamp": "2026-02-28T22:20:01.222103",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1314,13 +1314,13 @@
   {
     "date": "2025-11-20",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:42:27.540100",
+    "timestamp": "2026-02-28T22:20:12.977777",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1330,13 +1330,13 @@
   {
     "date": "2025-11-21",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:42:35.714204",
+    "timestamp": "2026-02-28T22:20:24.726955",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1346,13 +1346,13 @@
   {
     "date": "2025-11-22",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:42:43.880512",
+    "timestamp": "2026-02-28T22:20:36.771746",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1362,13 +1362,13 @@
   {
     "date": "2025-11-23",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:42:51.947228",
+    "timestamp": "2026-02-28T22:20:48.546721",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1378,13 +1378,13 @@
   {
     "date": "2025-11-24",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:42:58.417343",
+    "timestamp": "2026-02-28T22:20:58.636479",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1394,13 +1394,13 @@
   {
     "date": "2025-11-25",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:43:05.093914",
+    "timestamp": "2026-02-28T22:21:07.532143",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1410,13 +1410,13 @@
   {
     "date": "2025-11-26",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:43:11.122211",
+    "timestamp": "2026-02-28T22:21:15.950526",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1426,13 +1426,13 @@
   {
     "date": "2025-11-27",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:43:18.338076",
+    "timestamp": "2026-02-28T22:21:25.186832",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1442,45 +1442,45 @@
   {
     "date": "2025-12-28",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:47:19.996642",
+    "timestamp": "2026-02-28T22:46:55.682490",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
-    "trend_score": 0.0,
+    "trend_score": 2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-12-29",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:47:27.336758",
+    "timestamp": "2026-02-28T22:47:06.875286",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
-    "trend_score": 0.0,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-12-30",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:47:35.369886",
+    "timestamp": "2026-02-28T22:47:17.689369",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1490,13 +1490,13 @@
   {
     "date": "2025-12-31",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:47:43.259902",
+    "timestamp": "2026-02-28T22:47:28.333699",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1506,13 +1506,13 @@
   {
     "date": "2026-01-01",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:47:50.630304",
+    "timestamp": "2026-03-01T02:23:25.373437",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1522,13 +1522,13 @@
   {
     "date": "2026-01-02",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:47:58.765475",
+    "timestamp": "2026-03-01T02:23:36.203517",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1538,13 +1538,13 @@
   {
     "date": "2026-01-03",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:48:06.885570",
+    "timestamp": "2026-03-01T02:23:47.131872",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1554,13 +1554,13 @@
   {
     "date": "2026-01-04",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:48:14.643912",
+    "timestamp": "2026-03-01T02:23:57.718977",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1570,13 +1570,13 @@
   {
     "date": "2026-01-05",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:48:22.919986",
+    "timestamp": "2026-03-01T02:24:08.681154",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1586,13 +1586,13 @@
   {
     "date": "2026-01-06",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:48:30.347660",
+    "timestamp": "2026-03-01T02:24:19.993408",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1602,13 +1602,13 @@
   {
     "date": "2026-01-07",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:48:38.439750",
+    "timestamp": "2026-03-01T02:24:30.197393",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1618,13 +1618,13 @@
   {
     "date": "2026-01-08",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:48:46.546556",
+    "timestamp": "2026-03-01T02:24:41.129624",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1634,13 +1634,13 @@
   {
     "date": "2026-01-09",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:48:54.258227",
+    "timestamp": "2026-03-01T02:24:52.029552",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1650,13 +1650,13 @@
   {
     "date": "2026-01-10",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:49:02.563561",
+    "timestamp": "2026-03-01T02:25:02.922520",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1666,13 +1666,13 @@
   {
     "date": "2026-01-11",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:49:10.871279",
+    "timestamp": "2026-03-01T02:25:13.884141",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1682,13 +1682,13 @@
   {
     "date": "2026-01-12",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:49:18.595420",
+    "timestamp": "2026-03-01T02:25:24.990117",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1698,13 +1698,13 @@
   {
     "date": "2026-01-13",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:49:26.678881",
+    "timestamp": "2026-03-01T02:25:35.904494",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1714,13 +1714,13 @@
   {
     "date": "2026-01-14",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:49:34.070953",
+    "timestamp": "2026-03-01T02:25:46.680898",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1730,13 +1730,13 @@
   {
     "date": "2026-01-15",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:49:42.191760",
+    "timestamp": "2026-03-01T02:25:57.666434",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1746,13 +1746,13 @@
   {
     "date": "2026-01-16",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:49:50.329780",
+    "timestamp": "2026-03-01T02:26:08.969016",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1762,13 +1762,13 @@
   {
     "date": "2026-01-17",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:49:57.947424",
+    "timestamp": "2026-03-01T02:26:19.809116",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1778,13 +1778,13 @@
   {
     "date": "2026-01-18",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:50:06.216919",
+    "timestamp": "2026-03-01T02:26:30.875303",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1794,13 +1794,13 @@
   {
     "date": "2026-01-19",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:50:13.953273",
+    "timestamp": "2026-03-01T02:26:41.662404",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1810,13 +1810,13 @@
   {
     "date": "2026-01-20",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:50:21.534414",
+    "timestamp": "2026-03-01T02:26:52.391135",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1826,13 +1826,13 @@
   {
     "date": "2026-01-21",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:50:29.304893",
+    "timestamp": "2026-03-01T02:27:02.695868",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1842,13 +1842,13 @@
   {
     "date": "2026-01-22",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:50:36.911238",
+    "timestamp": "2026-03-01T02:27:13.556239",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1858,13 +1858,13 @@
   {
     "date": "2026-01-23",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:50:44.910869",
+    "timestamp": "2026-03-01T02:27:23.812117",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1874,13 +1874,13 @@
   {
     "date": "2026-01-24",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:50:53.193769",
+    "timestamp": "2026-03-01T02:27:34.712835",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1890,13 +1890,13 @@
   {
     "date": "2026-01-25",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:51:00.593098",
+    "timestamp": "2026-03-01T02:27:45.563405",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1906,13 +1906,13 @@
   {
     "date": "2026-01-26",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:51:08.534333",
+    "timestamp": "2026-03-01T02:27:56.316277",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1922,13 +1922,29 @@
   {
     "date": "2026-02-26",
     "version": "v1.0",
-    "timestamp": "2026-02-26T09:55:09.963012",
+    "timestamp": "2026-03-01T02:50:18.293976",
     "dimensions": {
       "anomaly": 100.0,
-      "degradation": 85.0,
+      "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
+    },
+    "total_score": 83.3,
+    "trend_score": 2.5,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-08-01",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T20:31:07.110346",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 100
     },
     "total_score": 83.3,
     "trend_score": 0.0,
@@ -1936,33 +1952,17 @@
     "calibrated": true
   },
   {
-    "date": "2025-08-01",
-    "version": "v1.0",
-    "timestamp": "2026-02-26T10:21:26.061049",
-    "dimensions": {
-      "anomaly": 100.0,
-      "degradation": 75.0,
-      "quality": 66.5,
-      "stability": 75.0,
-      "history": 75.0
-    },
-    "total_score": 80.8,
-    "trend_score": 0.0,
-    "level": "good",
-    "calibrated": true
-  },
-  {
     "date": "2025-08-02",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:22:01.321295",
+    "timestamp": "2026-02-28T20:31:21.543470",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
+    "total_score": 83.3,
     "trend_score": 0.0,
     "level": "good",
     "calibrated": true
@@ -1970,15 +1970,15 @@
   {
     "date": "2025-08-03",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:22:46.833240",
+    "timestamp": "2026-02-28T20:31:35.503051",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
+    "total_score": 83.3,
     "trend_score": 0.0,
     "level": "good",
     "calibrated": true
@@ -1986,247 +1986,279 @@
   {
     "date": "2025-08-04",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:22:57.939332",
+    "timestamp": "2026-02-28T20:31:49.887495",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
-    "trend_score": 0.0,
+    "total_score": 83.3,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-08-05",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:23:04.100567",
+    "timestamp": "2026-02-28T20:31:59.194352",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
-    "trend_score": 0.0,
+    "total_score": 83.3,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-08-06",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:27:35.841616",
+    "timestamp": "2026-02-28T20:32:07.816142",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
-    "trend_score": 0.0,
+    "total_score": 83.3,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-08-07",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:27:46.336362",
+    "timestamp": "2026-02-28T20:32:20.487037",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
-    "trend_score": 0.0,
+    "total_score": 83.3,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-08-08",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:27:56.670343",
+    "timestamp": "2026-02-28T20:32:34.403474",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
-    "trend_score": 0.0,
+    "total_score": 83.3,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-08-09",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:28:07.234475",
+    "timestamp": "2026-02-28T20:32:48.475927",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
-    "trend_score": 0.0,
+    "total_score": 83.3,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-08-10",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:28:18.026194",
+    "timestamp": "2026-02-28T20:33:01.641904",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
-    "trend_score": 0.0,
+    "total_score": 83.3,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-08-11",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:28:28.885013",
+    "timestamp": "2026-02-28T20:33:15.435115",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
-    "trend_score": 0.0,
+    "total_score": 83.3,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-08-12",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:28:39.975727",
+    "timestamp": "2026-02-28T20:33:29.476868",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
-    "trend_score": 0.0,
+    "total_score": 83.3,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-08-13",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:28:50.987521",
+    "timestamp": "2026-02-28T20:33:42.911261",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
-    "trend_score": 0.0,
+    "total_score": 83.3,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-08-14",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:29:01.950550",
+    "timestamp": "2026-02-28T20:33:57.177086",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
-    "trend_score": 0.0,
+    "total_score": 83.3,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-08-15",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:29:13.018302",
+    "timestamp": "2026-02-28T20:34:11.399512",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
-    "trend_score": 0.0,
+    "total_score": 83.3,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-08-16",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:29:23.734739",
+    "timestamp": "2026-02-28T20:34:25.508884",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
-    "trend_score": 0.0,
+    "total_score": 83.3,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-08-17",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:29:34.721166",
+    "timestamp": "2026-02-28T20:34:39.733477",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
-    "trend_score": 0.0,
+    "total_score": 83.3,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-08-18",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:29:45.131812",
+    "timestamp": "2026-02-28T20:34:53.579591",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
       "quality": 66.5,
       "stability": 75.0,
-      "history": 75.0
+      "history": 100
     },
-    "total_score": 80.8,
-    "trend_score": 0.0,
+    "total_score": 83.3,
+    "trend_score": -2.5,
     "level": "good",
     "calibrated": true
   },
   {
     "date": "2025-08-19",
     "version": "v1.0",
-    "timestamp": "2026-02-26T10:29:56.581816",
+    "timestamp": "2026-02-28T20:35:07.875924",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 100
+    },
+    "total_score": 83.3,
+    "trend_score": -2.5,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-08-20",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T20:35:21.860613",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 100
+    },
+    "total_score": 83.3,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-08-21",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T20:35:35.725244",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,
@@ -2240,9 +2272,1561 @@
     "calibrated": true
   },
   {
-    "date": "2025-08-20",
+    "date": "2025-08-22",
     "version": "v1.0",
-    "timestamp": "2026-02-26T12:49:59.935779",
+    "timestamp": "2026-02-28T20:35:49.191947",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-08-23",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T20:36:03.057605",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-08-24",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T20:36:16.664031",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-08-25",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T20:36:30.656990",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-08-26",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T20:36:44.292070",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-08-27",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T20:36:57.737838",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-08-28",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T20:37:11.502744",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-08-29",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T20:37:25.210662",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-09-29",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:22:51.851914",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-09-30",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:23:00.163257",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-01",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:55:14.402300",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-02",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:55:26.445216",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-03",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:55:38.523751",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-04",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:55:50.183937",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-05",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:56:01.887064",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-06",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:56:13.474740",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-07",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:56:25.601245",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-08",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:56:37.840277",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-09",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:56:49.338737",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-10",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:57:01.226840",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-11",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:57:12.683669",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-12",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:57:24.601180",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-13",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:57:36.482077",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-14",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:57:46.612567",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-15",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:57:55.211711",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-16",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:58:03.194432",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-17",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:58:11.515537",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-18",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:58:19.522636",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-19",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:58:27.764704",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-20",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:58:35.867782",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-21",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:58:43.678524",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-22",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:58:51.825423",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-23",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:59:00.048140",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-24",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:59:08.265179",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-25",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:59:16.563998",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-26",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:59:24.746664",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-27",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:59:33.812869",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-10-28",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T21:59:45.332178",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-11-28",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:21:36.429771",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-11-29",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:21:48.246628",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-11-30",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:22:00.060530",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-01",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:42:06.144594",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-02",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:42:17.793750",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-03",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:42:29.514608",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-04",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:42:40.665381",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-05",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:42:51.978567",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-06",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:43:03.354857",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-07",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:43:12.957712",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-08",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:43:22.162667",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-09",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:43:32.751763",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-10",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:43:44.057942",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-11",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:43:55.468052",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-12",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:44:06.207805",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-13",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:44:17.316619",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-14",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:44:25.474745",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-15",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:44:34.811792",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-16",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:44:45.310035",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-17",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:44:55.977668",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-18",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:45:07.217809",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-19",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:45:18.266851",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-20",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:45:29.047284",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-21",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:45:39.916439",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-22",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:45:50.921494",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-23",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:46:01.803249",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-24",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:46:12.626580",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-25",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:46:23.601528",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-26",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:46:34.244587",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2025-12-27",
+    "version": "v1.0",
+    "timestamp": "2026-02-28T22:46:45.231799",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-01-27",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:28:07.448649",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-01-28",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:28:18.167225",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-01-29",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:28:29.016440",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-01-30",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:28:40.022364",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-01-31",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:28:50.930255",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-01",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:45:38.143453",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-02",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:45:49.460485",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-03",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:46:00.249880",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-04",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:46:11.224707",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-05",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:46:22.077246",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-06",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:46:33.114920",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-07",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:46:44.045909",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-08",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:46:55.287727",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-09",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:47:05.759780",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-10",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:47:16.560542",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-11",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:47:26.670264",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-12",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:47:37.847883",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-13",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:47:49.207883",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-14",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:48:00.503103",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-15",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:48:11.893673",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-16",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:48:23.216206",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-17",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:48:34.635974",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-18",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:48:45.918297",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-19",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:48:57.657351",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-20",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:49:09.475921",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-21",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:49:21.395538",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-22",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:49:32.915767",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-23",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:49:44.288975",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-24",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:49:55.663504",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "total_score": 80.8,
+    "trend_score": 0.0,
+    "level": "good",
+    "calibrated": true
+  },
+  {
+    "date": "2026-02-25",
+    "version": "v1.0",
+    "timestamp": "2026-03-01T02:50:06.998621",
     "dimensions": {
       "anomaly": 100.0,
       "degradation": 75.0,

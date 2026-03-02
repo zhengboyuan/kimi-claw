@@ -1,0 +1,49 @@
+{
+  "date": "2025-10-06",
+  "device_sn": "XHDL_1NBQ",
+  "timestamp": "2026-02-26T17:19:16.888318",
+  "data": {
+    "quality_score": 70.0,
+    "indicators_analyzed": [
+      "ai54",
+      "ai20",
+      "ai44",
+      "ai36",
+      "ai50",
+      "ai51"
+    ],
+    "has_anomaly": false,
+    "analysis_summary": {
+      "ai54": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai54"
+      },
+      "ai20": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai20"
+      },
+      "ai44": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai44"
+      },
+      "ai36": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai36"
+      },
+      "ai50": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai50"
+      },
+      "ai51": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai51"
+      }
+    }
+  }
+}

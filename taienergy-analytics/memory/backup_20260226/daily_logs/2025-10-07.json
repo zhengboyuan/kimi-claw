@@ -1,0 +1,73 @@
+{
+  "date": "2025-10-07",
+  "device_sn": "XHDL_1NBQ",
+  "timestamp": "2026-02-26T17:19:18.377405",
+  "data": {
+    "quality_score": 70.0,
+    "indicators_analyzed": [
+      "ai54",
+      "ai20",
+      "ai44",
+      "ai36",
+      "ai50",
+      "ai38",
+      "ai51",
+      "ai55",
+      "ai12",
+      "ai56"
+    ],
+    "has_anomaly": false,
+    "analysis_summary": {
+      "ai54": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai54"
+      },
+      "ai20": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai20"
+      },
+      "ai44": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai44"
+      },
+      "ai36": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai36"
+      },
+      "ai50": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai50"
+      },
+      "ai38": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai38"
+      },
+      "ai51": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai51"
+      },
+      "ai55": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai55"
+      },
+      "ai12": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai12"
+      },
+      "ai56": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai56"
+      }
+    }
+  }
+}

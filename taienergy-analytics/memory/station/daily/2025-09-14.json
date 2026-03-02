@@ -1,0 +1,42 @@
+{
+  "date": "2025-09-14",
+  "metrics": {
+    "online_count": 0,
+    "avg_health": 0.0,
+    "competition_metrics": {
+      "equivalent_utilization_hours": {
+        "value": NaN,
+        "unit": "h",
+        "computable": true,
+        "note": "发电量/装机容量"
+      },
+      "generation_duration": {
+        "value": 0,
+        "unit": "h",
+        "computable": false,
+        "device_count": 0,
+        "note": "平均发电时长（0台设备）"
+      },
+      "curtailment_rate": {
+        "value": null,
+        "unit": "%",
+        "computable": false,
+        "note": "待调度数据到位"
+      },
+      "plant_consumption_rate_comprehensive": {
+        "value": null,
+        "unit": "%",
+        "computable": false,
+        "note": "待关口表数据到位"
+      },
+      "plant_overall_efficiency": {
+        "value": null,
+        "unit": "%",
+        "computable": false,
+        "note": "待理论发电量计算"
+      }
+    }
+  },
+  "timestamp": "2026-02-28T21:21:12.842867",
+  "aggregation": "daily"
+}

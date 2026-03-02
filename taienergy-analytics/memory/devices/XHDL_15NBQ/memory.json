@@ -1,67 +1,14 @@
 {
   "sn": "XHDL_15NBQ",
-  "created_at": "2026-02-25T22:14:14.695542",
-  "daily_summaries": [
-    {
-      "date": "2025-07-15",
-      "analysis": {
-        "efficiency": 0,
-        "anomalies": [],
-        "data_points": 11686
-      },
-      "timestamp": "2026-02-25T22:14:16.290206"
-    },
-    {
-      "date": "2025-07-16",
-      "analysis": {
-        "efficiency": 0,
-        "anomalies": [],
-        "data_points": 13536
-      },
-      "timestamp": "2026-02-25T22:15:13.082855"
-    },
-    {
-      "date": "2025-07-17",
-      "analysis": {
-        "efficiency": 0,
-        "anomalies": [],
-        "data_points": 13558
-      },
-      "timestamp": "2026-02-25T22:16:10.821888"
-    }
-  ],
-  "patterns": [],
-  "predictions": {
-    "2025-07-16": {
-      "efficiency": 0.0,
-      "confidence": 0.03333333333333333,
-      "generated_at": "2026-02-25T22:14:16.290233"
-    },
-    "2025-07-17": {
-      "efficiency": 0.0,
-      "confidence": 0.06666666666666667,
-      "generated_at": "2026-02-25T22:15:13.082883"
-    },
-    "2025-07-18": {
-      "efficiency": 0.0,
-      "confidence": 0.1,
-      "generated_at": "2026-02-25T22:16:10.821926"
-    }
+  "date": "2026-02-26",
+  "health_score": 83.3,
+  "level": "good",
+  "dimensions": {
+    "anomaly": 100.0,
+    "degradation": 75.0,
+    "quality": 66.5,
+    "stability": 75.0,
+    "history": 100
   },
-  "prediction_deviations": [
-    {
-      "date": "2025-07-17",
-      "predicted": {
-        "efficiency": 0.0,
-        "confidence": 0.03333333333333333,
-        "generated_at": "2026-02-25T22:14:16.290233"
-      },
-      "actual": {
-        "efficiency": 0,
-        "anomalies": [],
-        "data_points": 13558
-      },
-      "accuracy": 0
-    }
-  ]
+  "timestamp": "2026-03-01T02:50:18.407591"
 }

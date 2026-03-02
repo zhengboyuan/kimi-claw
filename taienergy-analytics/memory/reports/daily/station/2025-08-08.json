@@ -1,0 +1,317 @@
+{
+  "version": "v5.1",
+  "generated_at": "2026-02-28T20:32:38.270036",
+  "report_type": "daily_station",
+  "data": {
+    "date": "2025-08-08",
+    "total_devices": 16,
+    "online": 16,
+    "avg_health_score": 0.0,
+    "risk_distribution": {
+      "excellent": 0,
+      "good": 16,
+      "attention": 0,
+      "warning": 0,
+      "danger": 0,
+      "offline": 0
+    },
+    "trend_alerts": 16,
+    "maintenance_priority": [],
+    "devices": {
+      "XHDL_1NBQ": {
+        "date": "2025-08-08",
+        "version": "v1.0",
+        "timestamp": "2026-02-28T20:32:34.393709",
+        "dimensions": {
+          "anomaly": 100.0,
+          "degradation": 75.0,
+          "quality": 66.5,
+          "stability": 75.0,
+          "history": 100
+        },
+        "total_score": 83.3,
+        "trend_score": -2.5,
+        "level": "good",
+        "calibrated": true
+      },
+      "XHDL_2NBQ": {
+        "date": "2025-08-08",
+        "version": "v1.0",
+        "timestamp": "2026-02-28T20:32:34.398845",
+        "dimensions": {
+          "anomaly": 100.0,
+          "degradation": 75.0,
+          "quality": 66.5,
+          "stability": 75.0,
+          "history": 100
+        },
+        "total_score": 83.3,
+        "trend_score": -2.5,
+        "level": "good",
+        "calibrated": true
+      },
+      "XHDL_3NBQ": {
+        "date": "2025-08-08",
+        "version": "v1.0",
+        "timestamp": "2026-02-28T20:32:34.403474",
+        "dimensions": {
+          "anomaly": 100.0,
+          "degradation": 75.0,
+          "quality": 66.5,
+          "stability": 75.0,
+          "history": 100
+        },
+        "total_score": 83.3,
+        "trend_score": -2.5,
+        "level": "good",
+        "calibrated": true
+      },
+      "XHDL_4NBQ": {
+        "date": "2025-08-08",
+        "version": "v1.0",
+        "timestamp": "2026-02-28T20:32:34.408055",
+        "dimensions": {
+          "anomaly": 100.0,
+          "degradation": 75.0,
+          "quality": 66.5,
+          "stability": 75.0,
+          "history": 100
+        },
+        "total_score": 83.3,
+        "trend_score": -2.5,
+        "level": "good",
+        "calibrated": true
+      },
+      "XHDL_5NBQ": {
+        "date": "2025-08-08",
+        "version": "v1.0",
+        "timestamp": "2026-02-28T20:32:34.412633",
+        "dimensions": {
+          "anomaly": 100.0,
+          "degradation": 75.0,
+          "quality": 66.5,
+          "stability": 75.0,
+          "history": 100
+        },
+        "total_score": 83.3,
+        "trend_score": -2.5,
+        "level": "good",
+        "calibrated": true
+      },
+      "XHDL_6NBQ": {
+        "date": "2025-08-08",
+        "version": "v1.0",
+        "timestamp": "2026-02-28T20:32:34.417188",
+        "dimensions": {
+          "anomaly": 100.0,
+          "degradation": 75.0,
+          "quality": 66.5,
+          "stability": 75.0,
+          "history": 100
+        },
+        "total_score": 83.3,
+        "trend_score": -2.5,
+        "level": "good",
+        "calibrated": true
+      },
+      "XHDL_7NBQ": {
+        "date": "2025-08-08",
+        "version": "v1.0",
+        "timestamp": "2026-02-28T20:32:34.421775",
+        "dimensions": {
+          "anomaly": 100.0,
+          "degradation": 75.0,
+          "quality": 66.5,
+          "stability": 75.0,
+          "history": 100
+        },
+        "total_score": 83.3,
+        "trend_score": -2.5,
+        "level": "good",
+        "calibrated": true
+      },
+      "XHDL_8NBQ": {
+        "date": "2025-08-08",
+        "version": "v1.0",
+        "timestamp": "2026-02-28T20:32:34.426379",
+        "dimensions": {
+          "anomaly": 100.0,
+          "degradation": 75.0,
+          "quality": 66.5,
+          "stability": 75.0,
+          "history": 100
+        },
+        "total_score": 83.3,
+        "trend_score": -2.5,
+        "level": "good",
+        "calibrated": true
+      },
+      "XHDL_9NBQ": {
+        "date": "2025-08-08",
+        "version": "v1.0",
+        "timestamp": "2026-02-28T20:32:34.430962",
+        "dimensions": {
+          "anomaly": 100.0,
+          "degradation": 75.0,
+          "quality": 66.5,
+          "stability": 75.0,
+          "history": 100
+        },
+        "total_score": 83.3,
+        "trend_score": -2.5,
+        "level": "good",
+        "calibrated": true
+      },
+      "XHDL_10NBQ": {
+        "date": "2025-08-08",
+        "version": "v1.0",
+        "timestamp": "2026-02-28T20:32:34.435551",
+        "dimensions": {
+          "anomaly": 100.0,
+          "degradation": 75.0,
+          "quality": 66.5,
+          "stability": 75.0,
+          "history": 100
+        },
+        "total_score": 83.3,
+        "trend_score": -2.5,
+        "level": "good",
+        "calibrated": true
+      },
+      "XHDL_11NBQ": {
+        "date": "2025-08-08",
+        "version": "v1.0",
+        "timestamp": "2026-02-28T20:32:34.440118",
+        "dimensions": {
+          "anomaly": 100.0,
+          "degradation": 75.0,
+          "quality": 66.5,
+          "stability": 75.0,
+          "history": 100
+        },
+        "total_score": 83.3,
+        "trend_score": -2.5,
+        "level": "good",
+        "calibrated": true
+      },
+      "XHDL_12NBQ": {
+        "date": "2025-08-08",
+        "version": "v1.0",
+        "timestamp": "2026-02-28T20:32:34.444702",
+        "dimensions": {
+          "anomaly": 100.0,
+          "degradation": 75.0,
+          "quality": 66.5,
+          "stability": 75.0,
+          "history": 100
+        },
+        "total_score": 83.3,
+        "trend_score": -2.5,
+        "level": "good",
+        "calibrated": true
+      },
+      "XHDL_13NBQ": {
+        "date": "2025-08-08",
+        "version": "v1.0",
+        "timestamp": "2026-02-28T20:32:34.449601",
+        "dimensions": {
+          "anomaly": 100.0,
+          "degradation": 75.0,
+          "quality": 66.5,
+          "stability": 75.0,
+          "history": 100
+        },
+        "total_score": 83.3,
+        "trend_score": -2.5,
+        "level": "good",
+        "calibrated": true
+      },
+      "XHDL_14NBQ": {
+        "date": "2025-08-08",
+        "version": "v1.0",
+        "timestamp": "2026-02-28T20:32:34.454186",
+        "dimensions": {
+          "anomaly": 100.0,
+          "degradation": 75.0,
+          "quality": 66.5,
+          "stability": 75.0,
+          "history": 100
+        },
+        "total_score": 83.3,
+        "trend_score": -2.5,
+        "level": "good",
+        "calibrated": true
+      },
+      "XHDL_15NBQ": {
+        "date": "2025-08-08",
+        "version": "v1.0",
+        "timestamp": "2026-02-28T20:32:34.467888",
+        "dimensions": {
+          "anomaly": 100.0,
+          "degradation": 75.0,
+          "quality": 66.5,
+          "stability": 75.0,
+          "history": 100
+        },
+        "total_score": 83.3,
+        "trend_score": -2.5,
+        "level": "good",
+        "calibrated": true
+      },
+      "XHDL_16NBQ": {
+        "date": "2025-08-08",
+        "version": "v1.0",
+        "timestamp": "2026-02-28T20:32:34.472708",
+        "dimensions": {
+          "anomaly": 100.0,
+          "degradation": 75.0,
+          "quality": 66.5,
+          "stability": 75.0,
+          "history": 100
+        },
+        "total_score": 83.3,
+        "trend_score": -2.5,
+        "level": "good",
+        "calibrated": true
+      }
+    },
+    "candidates_found": 0,
+    "top_candidate": null,
+    "comparison_anomaly": true,
+    "trend_analysis_anomaly": false,
+    "insights_count": 1,
+    "competition_metrics": {
+      "equivalent_utilization_hours": {
+        "value": NaN,
+        "unit": "h",
+        "computable": true,
+        "note": "发电量/装机容量"
+      },
+      "generation_duration": {
+        "value": 84.2,
+        "unit": "h",
+        "computable": true,
+        "device_count": 16,
+        "note": "平均发电时长（16台设备）"
+      },
+      "curtailment_rate": {
+        "value": null,
+        "unit": "%",
+        "computable": false,
+        "note": "待调度数据到位"
+      },
+      "plant_consumption_rate_comprehensive": {
+        "value": null,
+        "unit": "%",
+        "computable": false,
+        "note": "待关口表数据到位"
+      },
+      "plant_overall_efficiency": {
+        "value": null,
+        "unit": "%",
+        "computable": false,
+        "note": "待理论发电量计算"
+      }
+    }
+  }
+}

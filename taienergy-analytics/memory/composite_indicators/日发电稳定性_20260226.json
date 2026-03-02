@@ -1,0 +1,14 @@
+{
+  "name": "日发电稳定性",
+  "formula": "1 - (std(ai56_history) / avg(ai56_history))",
+  "components": [
+    "ai56"
+  ],
+  "threshold": {
+    "warning": 0.8,
+    "critical": 0.6
+  },
+  "unit": "指数",
+  "description": "日发电量的稳定性，反映设备运行平稳程度",
+  "category": "经济类"
+}

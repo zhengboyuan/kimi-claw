@@ -1,0 +1,307 @@
+{
+  "date": "2025-10-28",
+  "device_sn": "XHDL_1NBQ",
+  "timestamp": "2026-02-26T17:20:19.429998",
+  "data": {
+    "quality_score": 70.0,
+    "indicators_analyzed": [
+      "ai54",
+      "ai20",
+      "ai34",
+      "ai13",
+      "ai44",
+      "ai9",
+      "ai19",
+      "ai36",
+      "ai39",
+      "ai50",
+      "ai5",
+      "ai17",
+      "ai38",
+      "ai51",
+      "ai41",
+      "ai55",
+      "ai12",
+      "ai22",
+      "ai56",
+      "ai25",
+      "ai7",
+      "ai46",
+      "ai45",
+      "ai32",
+      "ai43",
+      "ai29",
+      "ai47",
+      "ai16",
+      "ai21",
+      "ai6",
+      "ai11",
+      "ai28",
+      "ai37",
+      "ai53",
+      "ai15",
+      "ai27",
+      "ai40",
+      "ai24",
+      "ai35",
+      "ai49",
+      "ai8",
+      "ai31",
+      "ai52",
+      "ai33",
+      "ai48",
+      "ai10",
+      "ai23",
+      "ai14",
+      "ai42"
+    ],
+    "has_anomaly": true,
+    "analysis_summary": {
+      "ai54": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai54"
+      },
+      "ai20": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai20"
+      },
+      "ai34": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai34"
+      },
+      "ai13": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai13"
+      },
+      "ai44": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai44"
+      },
+      "ai9": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai9"
+      },
+      "ai19": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai19"
+      },
+      "ai36": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai36"
+      },
+      "ai39": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai39"
+      },
+      "ai50": {
+        "status": "ok",
+        "anomaly_count": 10,
+        "code": "ai50"
+      },
+      "ai5": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai5"
+      },
+      "ai17": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai17"
+      },
+      "ai38": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai38"
+      },
+      "ai51": {
+        "status": "ok",
+        "anomaly_count": 10,
+        "code": "ai51"
+      },
+      "ai41": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai41"
+      },
+      "ai55": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai55"
+      },
+      "ai12": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai12"
+      },
+      "ai22": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai22"
+      },
+      "ai56": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai56"
+      },
+      "ai25": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai25"
+      },
+      "ai7": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai7"
+      },
+      "ai46": {
+        "status": "ok",
+        "anomaly_count": 10,
+        "code": "ai46"
+      },
+      "ai45": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai45"
+      },
+      "ai32": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai32"
+      },
+      "ai43": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai43"
+      },
+      "ai29": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai29"
+      },
+      "ai47": {
+        "status": "ok",
+        "anomaly_count": 10,
+        "code": "ai47"
+      },
+      "ai16": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai16"
+      },
+      "ai21": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai21"
+      },
+      "ai6": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai6"
+      },
+      "ai11": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai11"
+      },
+      "ai28": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai28"
+      },
+      "ai37": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai37"
+      },
+      "ai53": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai53"
+      },
+      "ai15": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai15"
+      },
+      "ai27": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai27"
+      },
+      "ai40": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai40"
+      },
+      "ai24": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai24"
+      },
+      "ai35": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai35"
+      },
+      "ai49": {
+        "status": "ok",
+        "anomaly_count": 10,
+        "code": "ai49"
+      },
+      "ai8": {
+        "status": "ok",
+        "anomaly_count": 256,
+        "code": "ai8"
+      },
+      "ai31": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai31"
+      },
+      "ai52": {
+        "status": "ok",
+        "anomaly_count": 610,
+        "code": "ai52"
+      },
+      "ai33": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai33"
+      },
+      "ai48": {
+        "status": "ok",
+        "anomaly_count": 10,
+        "code": "ai48"
+      },
+      "ai10": {
+        "status": "ok",
+        "anomaly_count": 447,
+        "code": "ai10"
+      },
+      "ai23": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai23"
+      },
+      "ai14": {
+        "status": "ok",
+        "anomaly_count": 37,
+        "code": "ai14"
+      },
+      "ai42": {
+        "status": "ok",
+        "anomaly_count": 451,
+        "code": "ai42"
+      }
+    }
+  }
+}

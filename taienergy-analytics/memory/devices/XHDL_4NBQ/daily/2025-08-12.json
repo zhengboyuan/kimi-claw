@@ -1,0 +1,12 @@
+{
+  "sn": "XHDL_4NBQ",
+  "date": "2025-08-12",
+  "metrics": {
+    "health_score": 86.4,
+    "level": "good",
+    "daily_generation": 4203.0,
+    "generation_duration": 9.2
+  },
+  "timestamp": "2026-02-28T18:51:07.796007",
+  "aggregation": "daily"
+}

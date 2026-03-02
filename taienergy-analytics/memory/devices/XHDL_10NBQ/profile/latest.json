@@ -1,0 +1,16 @@
+{
+  "sn": "XHDL_10NBQ",
+  "profile": {
+    "sn": "XHDL_10NBQ",
+    "health": {
+      "current": 86.4,
+      "avg": 87.7,
+      "min": 84.8,
+      "max": 90.8,
+      "trend": "stable"
+    },
+    "data_points": 30
+  },
+  "updated_at": "2026-02-28T18:52:06.379425",
+  "version": "v5.1"
+}

@@ -1,0 +1,19 @@
+{
+  "version": "v5.1",
+  "generated_at": "2026-02-28T16:44:03.123502",
+  "report_type": "daily_inverter",
+  "device_sn": "XHDL_7NBQ",
+  "date": "2025-08-20",
+  "data": {
+    "health_score": 80.8,
+    "level": "good",
+    "dimensions": {
+      "anomaly": 100.0,
+      "degradation": 75.0,
+      "quality": 66.5,
+      "stability": 75.0,
+      "history": 75.0
+    },
+    "advice": {}
+  }
+}

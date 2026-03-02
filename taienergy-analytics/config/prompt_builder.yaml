@@ -1,0 +1,115 @@
+# 动态提示词生成器配置
+# 修改此文件即可调整提示词结构和内容，无需改代码
+
+# 版本控制
+version: "1.0.0"
+last_updated: "2026-02-26"
+
+# 设备类型定义
+device_types:
+  inverter:
+    name: "光伏逆变器"
+    description: "光伏发电系统核心设备"
+    # 关键指标（空列表=自动发现所有L2指标）
+    key_metrics: []
+    # 复合指标公式
+    composite_indicators:
+      - name: "转换效率"
+        formula: "ai56 / ai45 * 100"
+        unit: "%"
+        threshold_warning: 95
+        threshold_critical: 90
+      - name: "三相不平衡度"
+        formula: "max(abs(ai52-ai53), abs(ai53-ai54), abs(ai54-ai52)) / avg(ai52,ai53,ai54) * 100"
+        unit: "%"
+        threshold_warning: 10
+        threshold_critical: 15
+    # 异常模式
+    anomaly_patterns:
+      - id: "overheating"
+        name: "过热降额"
+        condition: "ai61 > 45 and (ai56/ai45) < 0.96"
+        severity: "warning"
+      - id: "power_drop"
+        name: "功率骤降"
+        condition: "ai56 < 0.8 * avg(ai56_history_7d)"
+        severity: "critical"
+
+  # 未来扩展：储能设备
+  battery:
+    name: "储能电池"
+    description: "电化学储能系统"
+    key_metrics: ["soc", "voltage", "current", "temperature"]
+    composite_indicators:
+      - name: "SOC健康度"
+        formula: "soc / 100"
+        unit: "%"
+        threshold_warning: 20
+        threshold_critical: 10
+    anomaly_patterns: []
+
+# 提示词结构配置
+prompt_template:
+  # 是否启用各模块
+  sections:
+    what:
+      enabled: true
+      title: "=== 1. 设备状态 ==="
+      fields:
+        - device_sn
+        - device_type
+        - datetime
+        - season
+        - weather
+        - key_metrics  # 动态指标列表
+    
+    when:
+      enabled: true
+      title: "=== 2. 历史对比 ==="
+      lookback_days: [1, 7, 30]  # 昨日、上周、上月
+    
+    who:
+      enabled: true
+      title: "=== 3. 集群对比 ==="
+      cluster_size: "all"  # all=全部同类型设备
+      show_ranking: true
+      show_percentile: true
+      show_outliers: true
+    
+    why:
+      enabled: true
+      title: "=== 4. 异常关联 ==="
+      anomaly_lookback_days: 90
+      max_similar_anomalies: 3
+    
+    how:
+      enabled: true
+      title: "=== 5. 分析任务 ==="
+      auto_generate_tasks: true  # 根据上下文自动生成
+      custom_tasks: []  # 或手动指定固定任务
+
+# 输出格式配置
+output_format:
+  sections:
+    - "诊断结论"
+    - "根因分析"
+    - "检查清单"
+    - "优化建议"
+  require_actionable: true  # 必须给出可操作建议
+  max_length: 2000  # 限制输出长度
+
+# 缓存配置
+cache:
+  enabled: true
+  ttl_seconds: 3600  # 缓存1小时
+  max_entries: 1000  # 最多缓存1000条
+
+# 效果追踪配置
+tracking:
+  enabled: true
+  log_path: "memory/prompt_tracking.jsonl"
+  metrics:
+    - response_time
+    - output_length
+    - action_count  # 建议数量
+    - user_rating   # 用户反馈（如有）

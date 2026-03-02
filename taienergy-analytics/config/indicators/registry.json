@@ -1,6 +1,6 @@
 {
   "version": "v5.1",
-  "updated_at": "2026-03-01T07:25:33.907665",
+  "updated_at": "2026-03-01T11:04:53.144891",
   "indicators": {
     "pr_value": {
       "id": "pr_value",
@@ -842,63 +842,267 @@
     }
   },
   "candidates": {
-    "composite_health_score": {
-      "id": "composite_health_score",
-      "name": "综合健康度",
-      "description": "多维度效率指标加权组合",
-      "source": "constructed",
+    "ai12_over_ai56": {
+      "id": "ai12_over_ai56",
+      "name": "ai12与ai56比值",
+      "description": "从原始数据发现的衍生指标: ai12/ai56",
+      "source": "llm",
       "scope": "inverter",
       "level": "L2",
-      "formula": "0.5*pr_value + 0.3*efficiency + 0.2*plant_overall_efficiency",
+      "formula": "ai12 / ai56",
       "inputs": [
-        "pr_value",
-        "efficiency",
-        "plant_overall_efficiency",
-        "inverter_conversion_efficiency",
-        "pv_array_efficiency"
+        "ai12",
+        "ai56"
       ],
       "aggregation": "avg",
-      "unit": "score",
+      "unit": "ratio",
       "lifecycle_status": "pending",
-      "discovered_at": "2026-03-01T07:25:33.906045",
-      "round": 2,
-      "owner": "system"
+      "discovered_at": "2026-03-01T08:56:53.370659",
+      "round": 1,
+      "owner": "system",
+      "data_source": "raw_api"
+    },
+    "ai12_over_ai20": {
+      "id": "ai12_over_ai20",
+      "name": "ai12与ai20比值",
+      "description": "从原始数据发现的衍生指标: ai12/ai20",
+      "source": "llm",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "ai12 / ai20",
+      "inputs": [
+        "ai12",
+        "ai20"
+      ],
+      "aggregation": "avg",
+      "unit": "ratio",
+      "lifecycle_status": "pending",
+      "discovered_at": "2026-03-01T08:56:53.370684",
+      "round": 1,
+      "owner": "system",
+      "data_source": "raw_api"
+    },
+    "ai12_over_ai16": {
+      "id": "ai12_over_ai16",
+      "name": "ai12与ai16比值",
+      "description": "从原始数据发现的衍生指标: ai12/ai16",
+      "source": "llm",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "ai12 / ai16",
+      "inputs": [
+        "ai12",
+        "ai16"
+      ],
+      "aggregation": "avg",
+      "unit": "ratio",
+      "lifecycle_status": "pending",
+      "discovered_at": "2026-03-01T08:56:53.370696",
+      "round": 1,
+      "owner": "system",
+      "data_source": "raw_api"
+    },
+    "ai12_over_ai10": {
+      "id": "ai12_over_ai10",
+      "name": "ai12与ai10比值",
+      "description": "从原始数据发现的衍生指标: ai12/ai10",
+      "source": "llm",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "ai12 / ai10",
+      "inputs": [
+        "ai12",
+        "ai10"
+      ],
+      "aggregation": "avg",
+      "unit": "ratio",
+      "lifecycle_status": "pending",
+      "discovered_at": "2026-03-01T08:56:53.370716",
+      "round": 1,
+      "owner": "system",
+      "data_source": "raw_api"
+    },
+    "ai54_over_ai52": {
+      "id": "ai54_over_ai52",
+      "name": "ai54与ai52比值",
+      "description": "从原始数据发现的衍生指标: ai54/ai52",
+      "source": "llm",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "ai54 / ai52",
+      "inputs": [
+        "ai54",
+        "ai52"
+      ],
+      "aggregation": "avg",
+      "unit": "ratio",
+      "lifecycle_status": "pending",
+      "discovered_at": "2026-03-01T08:56:53.371015",
+      "round": 1,
+      "owner": "system",
+      "data_source": "raw_api"
+    },
+    "ai54_over_ai53": {
+      "id": "ai54_over_ai53",
+      "name": "ai54与ai53比值",
+      "description": "从原始数据发现的衍生指标: ai54/ai53",
+      "source": "llm",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "ai54 / ai53",
+      "inputs": [
+        "ai54",
+        "ai53"
+      ],
+      "aggregation": "avg",
+      "unit": "ratio",
+      "lifecycle_status": "pending",
+      "discovered_at": "2026-03-01T08:56:53.371020",
+      "round": 1,
+      "owner": "system",
+      "data_source": "raw_api"
+    },
+    "ai52_over_ai53": {
+      "id": "ai52_over_ai53",
+      "name": "ai52与ai53比值",
+      "description": "从原始数据发现的衍生指标: ai52/ai53",
+      "source": "llm",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "ai52 / ai53",
+      "inputs": [
+        "ai52",
+        "ai53"
+      ],
+      "aggregation": "avg",
+      "unit": "ratio",
+      "lifecycle_status": "pending",
+      "discovered_at": "2026-03-01T08:56:53.371144",
+      "round": 1,
+      "owner": "system",
+      "data_source": "raw_api"
+    },
+    "ai56_over_ai45": {
+      "id": "ai56_over_ai45",
+      "name": "ai56与ai45比值",
+      "description": "从原始数据发现的衍生指标: ai56/ai45",
+      "source": "llm",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "ai56 / ai45",
+      "inputs": [
+        "ai56",
+        "ai45"
+      ],
+      "aggregation": "avg",
+      "unit": "ratio",
+      "lifecycle_status": "pending",
+      "discovered_at": "2026-03-01T08:56:53.371346",
+      "round": 1,
+      "owner": "system",
+      "data_source": "raw_api"
+    },
+    "ai20_over_ai16": {
+      "id": "ai20_over_ai16",
+      "name": "ai20与ai16比值",
+      "description": "从原始数据发现的衍生指标: ai20/ai16",
+      "source": "llm",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "ai20 / ai16",
+      "inputs": [
+        "ai20",
+        "ai16"
+      ],
+      "aggregation": "avg",
+      "unit": "ratio",
+      "lifecycle_status": "pending",
+      "discovered_at": "2026-03-01T08:56:53.371712",
+      "round": 1,
+      "owner": "system",
+      "data_source": "raw_api"
+    },
+    "ai20_over_ai10": {
+      "id": "ai20_over_ai10",
+      "name": "ai20与ai10比值",
+      "description": "从原始数据发现的衍生指标: ai20/ai10",
+      "source": "llm",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "ai20 / ai10",
+      "inputs": [
+        "ai20",
+        "ai10"
+      ],
+      "aggregation": "avg",
+      "unit": "ratio",
+      "lifecycle_status": "pending",
+      "discovered_at": "2026-03-01T08:56:53.371732",
+      "round": 1,
+      "owner": "system",
+      "data_source": "raw_api"
+    },
+    "ai16_over_ai10": {
+      "id": "ai16_over_ai10",
+      "name": "ai16与ai10比值",
+      "description": "从原始数据发现的衍生指标: ai16/ai10",
+      "source": "llm",
+      "scope": "inverter",
+      "level": "L2",
+      "formula": "ai16 / ai10",
+      "inputs": [
+        "ai16",
+        "ai10"
+      ],
+      "aggregation": "avg",
+      "unit": "ratio",
+      "lifecycle_status": "pending",
+      "discovered_at": "2026-03-01T08:56:53.372003",
+      "round": 1,
+      "owner": "system",
+      "data_source": "raw_api"
     }
   },
   "evolution_history": [
     {
       "round": 1,
-      "date": "2026-03-01T07:25:16.852324",
-      "candidates_found": 0,
-      "approved": 0
-    },
-    {
-      "round": 2,
-      "date": "2026-03-01T07:25:16.852349",
-      "candidates_found": 1,
-      "approved": 0
-    },
-    {
-      "round": 3,
-      "date": "2026-03-01T07:25:16.852367",
-      "candidates_found": 1,
+      "date": "2026-03-01T08:54:00.779061",
+      "candidates_found": 125,
       "approved": 0
     },
     {
       "round": 1,
-      "date": "2026-03-01T07:25:33.906026",
+      "date": "2026-03-01T08:54:32.404659",
+      "candidates_found": 125,
+      "approved": 0
+    },
+    {
+      "round": 1,
+      "date": "2026-03-01T08:54:42.452717",
+      "candidates_found": 125,
+      "approved": 0
+    },
+    {
+      "round": 1,
+      "date": "2026-03-01T08:56:53.374018",
+      "candidates_found": 11,
+      "approved": 0
+    },
+    {
+      "round": 1,
+      "date": "2026-03-01T11:03:59.818964",
+      "candidates_found": 136,
+      "approved": 0
+    },
+    {
+      "round": 1,
+      "date": "2026-03-01T11:04:01.345734",
       "candidates_found": 0,
       "approved": 0
     },
     {
-      "round": 2,
-      "date": "2026-03-01T07:25:33.906053",
-      "candidates_found": 1,
-      "approved": 0
-    },
-    {
-      "round": 3,
-      "date": "2026-03-01T07:25:33.906065",
+      "round": 1,
+      "date": "2026-03-01T11:04:02.814937",
       "candidates_found": 0,
       "approved": 0
     }

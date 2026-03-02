@@ -1,0 +1,58 @@
+{
+  "version": "v5.1",
+  "generated_at": "2026-02-28T16:47:41.468781",
+  "report_type": "daily_station",
+  "data": {
+    "date": "2025-08-20",
+    "total_devices": 16,
+    "online": 16,
+    "avg_health_score": 82.5,
+    "risk_distribution": {
+      "excellent": 0,
+      "good": 16,
+      "attention": 0,
+      "warning": 0,
+      "danger": 0
+    },
+    "trend_alerts": 0,
+    "maintenance_priority": [],
+    "devices": {},
+    "candidates_found": 0,
+    "comparison_anomaly": false,
+    "trend_analysis_anomaly": false,
+    "insights_count": 0,
+    "competition_metrics": {
+      "equivalent_utilization_hours": {
+        "value": 6.0,
+        "unit": "h",
+        "computable": true,
+        "note": "发电量/装机容量"
+      },
+      "generation_duration": {
+        "value": 12.0,
+        "unit": "h",
+        "computable": true,
+        "device_count": 16,
+        "note": "平均发电时长（16台设备）"
+      },
+      "curtailment_rate": {
+        "value": null,
+        "unit": "%",
+        "computable": false,
+        "note": "待调度数据到位"
+      },
+      "plant_consumption_rate_comprehensive": {
+        "value": null,
+        "unit": "%",
+        "computable": false,
+        "note": "待关口表数据到位"
+      },
+      "plant_overall_efficiency": {
+        "value": null,
+        "unit": "%",
+        "computable": false,
+        "note": "待理论发电量计算"
+      }
+    }
+  }
+}

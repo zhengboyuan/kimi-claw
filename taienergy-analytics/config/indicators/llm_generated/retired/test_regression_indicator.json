@@ -1,0 +1,24 @@
+{
+  "id": "test_regression_indicator",
+  "name": "回归测试指标",
+  "description": "用于回归测试的示例指标",
+  "source": "llm",
+  "scope": "inverter",
+  "level": "L2",
+  "formula": "ai56 * 0.95",
+  "inputs": [
+    "ai56"
+  ],
+  "aggregation": "daily",
+  "unit": "kW",
+  "lifecycle_status": "retired",
+  "owner": "llm",
+  "version": "1.0",
+  "created_at": "2026-02-28",
+  "approved_at": "2026-02-28T14:40:55.647209",
+  "approved_by": "system",
+  "approval_notes": "批量审批",
+  "retired_at": "2026-02-28T15:11:11.188359",
+  "retired_by": "system",
+  "retire_reason": "测试指标清理"
+}

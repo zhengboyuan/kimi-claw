@@ -1,0 +1,16 @@
+{
+  "sn": "XHDL_3NBQ",
+  "profile": {
+    "sn": "XHDL_3NBQ",
+    "health": {
+      "current": 83.1,
+      "avg": 83.0,
+      "min": 80.3,
+      "max": 86.0,
+      "trend": "stable"
+    },
+    "data_points": 30
+  },
+  "updated_at": "2026-02-28T18:52:06.373243",
+  "version": "v5.1"
+}

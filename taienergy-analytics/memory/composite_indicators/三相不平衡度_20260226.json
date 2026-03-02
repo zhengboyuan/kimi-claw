@@ -1,0 +1,16 @@
+{
+  "name": "三相不平衡度",
+  "formula": "max(abs(ai52-ai53), abs(ai53-ai54), abs(ai54-ai52)) / avg(ai52, ai53, ai54) * 100",
+  "components": [
+    "ai52",
+    "ai53",
+    "ai54"
+  ],
+  "threshold": {
+    "warning": 10,
+    "critical": 15
+  },
+  "unit": "%",
+  "description": "三相电流不平衡度，超过15%表示电网严重不平衡",
+  "category": "质量类"
+}

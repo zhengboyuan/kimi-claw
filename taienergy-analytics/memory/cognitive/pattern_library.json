@@ -1,0 +1,3540 @@
+{
+  "patterns": [
+    {
+      "name": "power_gap_2025-08-06",
+      "signature": "power_gap_XHDL_5NBQ_XHDL_12NBQ_2025-08-06",
+      "description": "横向对比发现，XHDL_5NBQ平均功率10.1kW，XHDL_12NBQ平均功率7.2kW，差异达28.2%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_5NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 2.8487904411764706,
+        "power_gap_pct": 28.239593253002916,
+        "date": "2025-08-06"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T13:48:24.557205",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T20:32:07.927077"
+    },
+    {
+      "name": "power_gap_2025-10-01",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-10-01",
+      "description": "横向对比发现，XHDL_6NBQ平均功率31.9kW，XHDL_12NBQ平均功率22.8kW，差异达28.6%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 9.10133128837511,
+        "power_gap_pct": 28.56621223382453,
+        "date": "2025-10-01"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T13:50:41.916486",
+      "verified_count": 5,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:55:14.739260"
+    },
+    {
+      "name": "power_gap_2025-10-02",
+      "signature": "power_gap_XHDL_10NBQ_XHDL_16NBQ_2025-10-02",
+      "description": "横向对比发现，XHDL_10NBQ平均功率34.0kW，XHDL_16NBQ平均功率23.1kW，差异达31.9%，建议检查XHDL_16NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_10NBQ",
+        "XHDL_16NBQ"
+      ],
+      "evidence": {
+        "power_gap": 10.835322758358657,
+        "power_gap_pct": 31.882642683953016,
+        "date": "2025-10-02"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T13:50:51.924980",
+      "verified_count": 5,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:55:26.782337"
+    },
+    {
+      "name": "power_gap_2025-10-03",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_11NBQ_2025-10-03",
+      "description": "横向对比发现，XHDL_6NBQ平均功率33.3kW，XHDL_11NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_11NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_11NBQ"
+      ],
+      "evidence": {
+        "power_gap": 33.32174823766365,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-03"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T13:51:01.690050",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-27T14:13:51.250562"
+    },
+    {
+      "name": "power_gap_2025-10-03",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_10NBQ_2025-10-03",
+      "description": "横向对比发现，XHDL_6NBQ平均功率33.3kW，XHDL_10NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_10NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_10NBQ"
+      ],
+      "evidence": {
+        "power_gap": 33.32174823766365,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-03"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:10:42.521669",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:55:38.859387"
+    },
+    {
+      "name": "power_gap_2025-10-04",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_11NBQ_2025-10-04",
+      "description": "横向对比发现，XHDL_6NBQ平均功率24.3kW，XHDL_11NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_11NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_11NBQ"
+      ],
+      "evidence": {
+        "power_gap": 24.30158441558442,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-04"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:14:01.219637",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:55:50.499378"
+    },
+    {
+      "name": "power_gap_2025-10-05",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_10NBQ_2025-10-05",
+      "description": "横向对比发现，XHDL_6NBQ平均功率47.3kW，XHDL_10NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_10NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_10NBQ"
+      ],
+      "evidence": {
+        "power_gap": 47.28315557729941,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-05"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:14:11.263303",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:56:02.201742"
+    },
+    {
+      "name": "power_gap_2025-10-06",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-10-06",
+      "description": "横向对比发现，XHDL_6NBQ平均功率49.9kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 49.86512215909091,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-06"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:14:20.947014",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-07",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-10-07",
+      "description": "横向对比发现，XHDL_6NBQ平均功率48.9kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 48.88922468659595,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-07"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:14:30.869616",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:56:25.950794"
+    },
+    {
+      "name": "power_gap_2025-10-08",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-10-08",
+      "description": "横向对比发现，XHDL_6NBQ平均功率45.5kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 45.54621393998064,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-08"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:14:40.420681",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-09",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_10NBQ_2025-10-09",
+      "description": "横向对比发现，XHDL_6NBQ平均功率44.6kW，XHDL_10NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_10NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_10NBQ"
+      ],
+      "evidence": {
+        "power_gap": 44.59194482758621,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-09"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:14:50.102949",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-10",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-10-10",
+      "description": "横向对比发现，XHDL_6NBQ平均功率45.7kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 45.72233266533066,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-10"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:15:00.121821",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-11",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_11NBQ_2025-10-11",
+      "description": "横向对比发现，XHDL_6NBQ平均功率46.7kW，XHDL_11NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_11NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_11NBQ"
+      ],
+      "evidence": {
+        "power_gap": 46.740274052478135,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-11"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:15:09.790800",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-12",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_11NBQ_2025-10-12",
+      "description": "横向对比发现，XHDL_3NBQ平均功率31.4kW，XHDL_11NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_11NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_11NBQ"
+      ],
+      "evidence": {
+        "power_gap": 31.397084435401833,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-12"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:15:19.306415",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-13",
+      "signature": "power_gap_XHDL_5NBQ_XHDL_11NBQ_2025-10-13",
+      "description": "横向对比发现，XHDL_5NBQ平均功率8.1kW，XHDL_11NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_11NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_5NBQ",
+        "XHDL_11NBQ"
+      ],
+      "evidence": {
+        "power_gap": 8.11373894736842,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-13"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:15:29.068164",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-14",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-10-14",
+      "description": "横向对比发现，XHDL_6NBQ平均功率19.3kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 19.252504975124378,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-14"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:15:36.402373",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:57:46.740992"
+    },
+    {
+      "name": "power_gap_2025-10-15",
+      "signature": "power_gap_XHDL_13NBQ_XHDL_11NBQ_2025-10-15",
+      "description": "横向对比发现，XHDL_13NBQ平均功率12.9kW，XHDL_11NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_11NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_13NBQ",
+        "XHDL_11NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.877317220543807,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-15"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:15:42.821124",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-16",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_12NBQ_2025-10-16",
+      "description": "横向对比发现，XHDL_15NBQ平均功率12.7kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.651318510858324,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-16"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:15:48.796028",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:58:03.316138"
+    },
+    {
+      "name": "power_gap_2025-10-17",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_11NBQ_2025-10-17",
+      "description": "横向对比发现，XHDL_15NBQ平均功率18.2kW，XHDL_11NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_11NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_11NBQ"
+      ],
+      "evidence": {
+        "power_gap": 18.22236087866109,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-17"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:15:54.877891",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-18",
+      "signature": "power_gap_XHDL_2NBQ_XHDL_12NBQ_2025-10-18",
+      "description": "横向对比发现，XHDL_2NBQ平均功率7.3kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_2NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 7.27,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-18"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:16:01.116010",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:58:19.644725"
+    },
+    {
+      "name": "power_gap_2025-10-19",
+      "signature": "power_gap_XHDL_13NBQ_XHDL_12NBQ_2025-10-19",
+      "description": "横向对比发现，XHDL_13NBQ平均功率8.9kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_13NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 8.899831425598336,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-19"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:16:07.329734",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:58:27.928365"
+    },
+    {
+      "name": "power_gap_2025-10-20",
+      "signature": "power_gap_XHDL_13NBQ_XHDL_11NBQ_2025-10-20",
+      "description": "横向对比发现，XHDL_13NBQ平均功率10.2kW，XHDL_11NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_11NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_13NBQ",
+        "XHDL_11NBQ"
+      ],
+      "evidence": {
+        "power_gap": 10.211778625954198,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-20"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:16:13.476885",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:58:35.998328"
+    },
+    {
+      "name": "power_gap_2025-10-21",
+      "signature": "power_gap_XHDL_13NBQ_XHDL_12NBQ_2025-10-21",
+      "description": "横向对比发现，XHDL_13NBQ平均功率16.7kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_13NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 16.676253557567914,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-21"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:16:19.646368",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:58:43.815677"
+    },
+    {
+      "name": "power_gap_2025-10-22",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_11NBQ_2025-10-22",
+      "description": "横向对比发现，XHDL_15NBQ平均功率48.3kW，XHDL_11NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_11NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_11NBQ"
+      ],
+      "evidence": {
+        "power_gap": 48.33182922201139,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-22"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:16:25.724045",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:58:51.948205"
+    },
+    {
+      "name": "power_gap_2025-10-23",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_12NBQ_2025-10-23",
+      "description": "横向对比发现，XHDL_15NBQ平均功率46.4kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 46.43873333333333,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-23"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:16:32.075964",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:59:00.168594"
+    },
+    {
+      "name": "power_gap_2025-10-24",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_12NBQ_2025-10-24",
+      "description": "横向对比发现，XHDL_15NBQ平均功率46.8kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 46.751347181008896,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-24"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:16:38.260141",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:59:08.402211"
+    },
+    {
+      "name": "power_gap_2025-10-25",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_12NBQ_2025-10-25",
+      "description": "横向对比发现，XHDL_15NBQ平均功率23.7kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 23.650460721868367,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-25"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:16:44.529241",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-26",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_12NBQ_2025-10-26",
+      "description": "横向对比发现，XHDL_15NBQ平均功率15.8kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 15.757082644628099,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-26"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:16:50.831742",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-27",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_12NBQ_2025-10-27",
+      "description": "横向对比发现，XHDL_15NBQ平均功率35.1kW，XHDL_12NBQ平均功率3.1kW，差异达91.3%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 32.02021091736749,
+        "power_gap_pct": 91.2715495494493,
+        "date": "2025-10-27"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:16:57.855622",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:59:33.979583"
+    },
+    {
+      "name": "power_gap_2025-10-28",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-10-28",
+      "description": "横向对比发现，XHDL_6NBQ平均功率47.8kW，XHDL_12NBQ平均功率34.0kW，差异达29.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 13.888695273631846,
+        "power_gap_pct": 29.02653068821184,
+        "date": "2025-10-28"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:17:07.465595",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:59:45.685166"
+    },
+    {
+      "name": "power_gap_2025-10-29",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-10-29",
+      "description": "横向对比发现，XHDL_6NBQ平均功率36.7kW，XHDL_12NBQ平均功率26.2kW，差异达28.6%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 10.50738866803663,
+        "power_gap_pct": 28.631774054358477,
+        "date": "2025-10-29"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:17:17.837295",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T21:59:57.969305"
+    },
+    {
+      "name": "power_gap_2025-10-30",
+      "signature": "power_gap_XHDL_2NBQ_XHDL_12NBQ_2025-10-30",
+      "description": "横向对比发现，XHDL_2NBQ平均功率9.4kW，XHDL_12NBQ平均功率6.8kW，差异达28.4%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_2NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 2.6741314309842874,
+        "power_gap_pct": 28.35205145801111,
+        "date": "2025-10-30"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:17:27.890724",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T22:00:10.222403"
+    },
+    {
+      "name": "power_gap_2025-10-31",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_12NBQ_2025-10-31",
+      "description": "横向对比发现，XHDL_15NBQ平均功率29.5kW，XHDL_12NBQ平均功率20.6kW，差异达30.2%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 8.882659512678849,
+        "power_gap_pct": 30.15889836518208,
+        "date": "2025-10-31"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T14:17:37.160812",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T22:00:21.259718"
+    },
+    {
+      "name": "power_gap_2025-10-03",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-10-03",
+      "description": "横向对比发现，XHDL_6NBQ平均功率33.3kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 33.32174823766365,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-03"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T15:18:26.603386",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-04",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-10-04",
+      "description": "横向对比发现，XHDL_6NBQ平均功率24.3kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 24.30158441558442,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-04"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T15:18:36.614895",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-05",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-10-05",
+      "description": "横向对比发现，XHDL_6NBQ平均功率47.3kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 47.28315557729941,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-05"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-27T15:18:46.299558",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-20",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-20",
+      "description": "横向对比发现，XHDL_6NBQ平均功率56.6kW，XHDL_12NBQ平均功率40.2kW，差异达28.9%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 16.320548027554167,
+        "power_gap_pct": 28.85887573325813,
+        "date": "2025-08-20"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T19:09:15.889047",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T20:35:22.280894"
+    },
+    {
+      "name": "power_gap_2025-08-01",
+      "signature": "power_gap_XHDL_1NBQ_XHDL_12NBQ_2025-08-01",
+      "description": "横向对比发现，XHDL_1NBQ平均功率39.4kW，XHDL_12NBQ平均功率29.1kW，差异达26.3%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_1NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 10.374593295177302,
+        "power_gap_pct": 26.30060855084911,
+        "date": "2025-08-01"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T19:13:07.025438",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T20:31:07.501063"
+    },
+    {
+      "name": "power_gap_2025-08-02",
+      "signature": "power_gap_XHDL_1NBQ_XHDL_12NBQ_2025-08-02",
+      "description": "横向对比发现，XHDL_1NBQ平均功率52.3kW，XHDL_12NBQ平均功率37.4kW，差异达28.5%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_1NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 14.921025649882758,
+        "power_gap_pct": 28.53109113576311,
+        "date": "2025-08-02"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T19:13:21.477187",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T20:31:21.967302"
+    },
+    {
+      "name": "power_gap_2025-08-03",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-03",
+      "description": "横向对比发现，XHDL_6NBQ平均功率49.6kW，XHDL_12NBQ平均功率35.5kW，差异达28.4%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 14.090625791139246,
+        "power_gap_pct": 28.41025305638049,
+        "date": "2025-08-03"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T19:13:37.190520",
+      "verified_count": 2,
+      "status": "candidate",
+      "last_verified": "2026-02-28T20:31:35.905480"
+    },
+    {
+      "name": "power_gap_2025-08-04",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-04",
+      "description": "横向对比发现，XHDL_6NBQ平均功率52.8kW，XHDL_12NBQ平均功率37.6kW，差异达28.7%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 15.132836091612702,
+        "power_gap_pct": 28.687151151127026,
+        "date": "2025-08-04"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:31:50.314402",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-07",
+      "signature": "power_gap_XHDL_1NBQ_XHDL_12NBQ_2025-08-07",
+      "description": "横向对比发现，XHDL_1NBQ平均功率24.8kW，XHDL_12NBQ平均功率19.0kW，差异达23.2%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_1NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 5.757163147501142,
+        "power_gap_pct": 23.242489908887688,
+        "date": "2025-08-07"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:32:20.917335",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-08",
+      "signature": "power_gap_XHDL_5NBQ_XHDL_12NBQ_2025-08-08",
+      "description": "横向对比发现，XHDL_5NBQ平均功率44.4kW，XHDL_12NBQ平均功率32.8kW，差异达26.2%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_5NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 11.611401114973482,
+        "power_gap_pct": 26.155013514123805,
+        "date": "2025-08-08"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:32:34.771435",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-09",
+      "signature": "power_gap_XHDL_5NBQ_XHDL_12NBQ_2025-08-09",
+      "description": "横向对比发现，XHDL_5NBQ平均功率48.6kW，XHDL_12NBQ平均功率35.1kW，差异达27.8%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_5NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 13.497476379655502,
+        "power_gap_pct": 27.773889877278577,
+        "date": "2025-08-09"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:32:48.888668",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-10",
+      "signature": "power_gap_XHDL_1NBQ_XHDL_12NBQ_2025-08-10",
+      "description": "横向对比发现，XHDL_1NBQ平均功率32.0kW，XHDL_12NBQ平均功率22.7kW，差异达28.9%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_1NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 9.24597934874592,
+        "power_gap_pct": 28.93523137596717,
+        "date": "2025-08-10"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:33:02.015913",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-11",
+      "signature": "power_gap_XHDL_1NBQ_XHDL_12NBQ_2025-08-11",
+      "description": "横向对比发现，XHDL_1NBQ平均功率13.1kW，XHDL_12NBQ平均功率9.3kW，差异达28.9%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_1NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 3.784168304912285,
+        "power_gap_pct": 28.949179182308743,
+        "date": "2025-08-11"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:33:15.825768",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-12",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-12",
+      "description": "横向对比发现，XHDL_6NBQ平均功率29.9kW，XHDL_12NBQ平均功率21.1kW，差异达29.4%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 8.795940856823652,
+        "power_gap_pct": 29.425437649702985,
+        "date": "2025-08-12"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:33:29.880053",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-13",
+      "signature": "power_gap_XHDL_1NBQ_XHDL_12NBQ_2025-08-13",
+      "description": "横向对比发现，XHDL_1NBQ平均功率42.2kW，XHDL_12NBQ平均功率30.3kW，差异达28.2%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_1NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 11.916112459531632,
+        "power_gap_pct": 28.231088516500474,
+        "date": "2025-08-13"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:33:43.282686",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-14",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-14",
+      "description": "横向对比发现，XHDL_6NBQ平均功率54.7kW，XHDL_12NBQ平均功率39.5kW，差异达27.8%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 15.222961094230612,
+        "power_gap_pct": 27.822217726414838,
+        "date": "2025-08-14"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:33:57.598380",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-15",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-15",
+      "description": "横向对比发现，XHDL_6NBQ平均功率58.3kW，XHDL_12NBQ平均功率41.6kW，差异达28.7%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 16.718994961759165,
+        "power_gap_pct": 28.66124574619313,
+        "date": "2025-08-15"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:34:11.821751",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-16",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-16",
+      "description": "横向对比发现，XHDL_6NBQ平均功率46.8kW，XHDL_12NBQ平均功率33.4kW，差异达28.7%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 13.45262257280281,
+        "power_gap_pct": 28.73233527402791,
+        "date": "2025-08-16"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:34:25.916752",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-17",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-17",
+      "description": "横向对比发现，XHDL_6NBQ平均功率56.1kW，XHDL_12NBQ平均功率40.1kW，差异达28.5%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 15.984370826940157,
+        "power_gap_pct": 28.500918383331776,
+        "date": "2025-08-17"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:34:40.155397",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-18",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2025-08-18",
+      "description": "横向对比发现，XHDL_3NBQ平均功率44.3kW，XHDL_12NBQ平均功率31.7kW，差异达28.4%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.568223790150178,
+        "power_gap_pct": 28.395854177808655,
+        "date": "2025-08-18"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:34:53.985561",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-19",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-19",
+      "description": "横向对比发现，XHDL_6NBQ平均功率47.3kW，XHDL_12NBQ平均功率33.6kW，差异达29.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 13.70939318390949,
+        "power_gap_pct": 28.954865284244175,
+        "date": "2025-08-19"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:35:08.292774",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-21",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-21",
+      "description": "横向对比发现，XHDL_6NBQ平均功率55.8kW，XHDL_12NBQ平均功率40.0kW，差异达28.4%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 15.849690827968658,
+        "power_gap_pct": 28.399559882498178,
+        "date": "2025-08-21"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:35:36.141007",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-22",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-22",
+      "description": "横向对比发现，XHDL_6NBQ平均功率52.7kW，XHDL_12NBQ平均功率37.4kW，差异达29.1%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 15.311022805454243,
+        "power_gap_pct": 29.05141589725309,
+        "date": "2025-08-22"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:35:49.569462",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-23",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-23",
+      "description": "横向对比发现，XHDL_6NBQ平均功率51.0kW，XHDL_12NBQ平均功率37.3kW，差异达26.8%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 13.690977496277483,
+        "power_gap_pct": 26.826011900719998,
+        "date": "2025-08-23"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:36:03.483322",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-24",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-24",
+      "description": "横向对比发现，XHDL_6NBQ平均功率54.4kW，XHDL_12NBQ平均功率38.9kW，差异达28.5%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 15.51514139300481,
+        "power_gap_pct": 28.5141062533422,
+        "date": "2025-08-24"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:36:17.064948",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-25",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-25",
+      "description": "横向对比发现，XHDL_6NBQ平均功率45.9kW，XHDL_12NBQ平均功率33.2kW，差异达27.6%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.656830071139737,
+        "power_gap_pct": 27.60146300065283,
+        "date": "2025-08-25"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:36:31.052705",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-26",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-26",
+      "description": "横向对比发现，XHDL_6NBQ平均功率37.1kW，XHDL_12NBQ平均功率26.4kW，差异达28.9%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 10.712634793340644,
+        "power_gap_pct": 28.860857939491986,
+        "date": "2025-08-26"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:36:44.699560",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-27",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-27",
+      "description": "横向对比发现，XHDL_6NBQ平均功率54.3kW，XHDL_12NBQ平均功率38.8kW，差异达28.5%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 15.473858089284455,
+        "power_gap_pct": 28.4978582593898,
+        "date": "2025-08-27"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:36:58.132801",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-28",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-28",
+      "description": "横向对比发现，XHDL_6NBQ平均功率49.3kW，XHDL_12NBQ平均功率35.1kW，差异达28.7%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 14.139889168765741,
+        "power_gap_pct": 28.70760260504928,
+        "date": "2025-08-28"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:37:11.921803",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-29",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-08-29",
+      "description": "横向对比发现，XHDL_6NBQ平均功率45.9kW，XHDL_12NBQ平均功率32.9kW，差异达28.3%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.979960444735035,
+        "power_gap_pct": 28.302564518675833,
+        "date": "2025-08-29"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:37:25.598099",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-08-30",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2025-08-30",
+      "description": "横向对比发现，XHDL_3NBQ平均功率43.4kW，XHDL_12NBQ平均功率31.3kW，差异达27.9%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.084853660012097,
+        "power_gap_pct": 27.851157339209752,
+        "date": "2025-08-30"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T20:37:39.098825",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-09-01",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_12NBQ_2025-09-01",
+      "description": "横向对比发现，XHDL_15NBQ平均功率37.9kW，XHDL_12NBQ平均功率27.6kW，差异达27.1%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 10.274948608137038,
+        "power_gap_pct": 27.104128091606317,
+        "date": "2025-09-01"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T21:19:41.462190",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-09-30",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-09-30",
+      "description": "横向对比发现，XHDL_6NBQ平均功率12.8kW，XHDL_12NBQ平均功率9.1kW，差异达28.4%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 3.62847239263804,
+        "power_gap_pct": 28.443996647938587,
+        "date": "2025-09-30"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T21:23:00.278472",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-06",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_11NBQ_2025-10-06",
+      "description": "横向对比发现，XHDL_6NBQ平均功率49.9kW，XHDL_11NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_11NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_11NBQ"
+      ],
+      "evidence": {
+        "power_gap": 49.86512215909091,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-06"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T21:56:13.789727",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-08",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_9NBQ_2025-10-08",
+      "description": "横向对比发现，XHDL_6NBQ平均功率45.5kW，XHDL_9NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_9NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_9NBQ"
+      ],
+      "evidence": {
+        "power_gap": 45.54621393998064,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-08"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T21:56:38.169854",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-09",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_11NBQ_2025-10-09",
+      "description": "横向对比发现，XHDL_6NBQ平均功率44.6kW，XHDL_11NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_11NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_11NBQ"
+      ],
+      "evidence": {
+        "power_gap": 44.59194482758621,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-09"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T21:56:49.503835",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-10",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_11NBQ_2025-10-10",
+      "description": "横向对比发现，XHDL_6NBQ平均功率45.7kW，XHDL_11NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_11NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_11NBQ"
+      ],
+      "evidence": {
+        "power_gap": 45.72233266533066,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-10"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T21:57:01.547042",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-11",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-10-11",
+      "description": "横向对比发现，XHDL_6NBQ平均功率46.7kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 46.740274052478135,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-11"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T21:57:13.006384",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-12",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_10NBQ_2025-10-12",
+      "description": "横向对比发现，XHDL_3NBQ平均功率31.4kW，XHDL_10NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_10NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_10NBQ"
+      ],
+      "evidence": {
+        "power_gap": 31.397084435401833,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-12"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T21:57:24.913844",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-13",
+      "signature": "power_gap_XHDL_5NBQ_XHDL_10NBQ_2025-10-13",
+      "description": "横向对比发现，XHDL_5NBQ平均功率8.1kW，XHDL_10NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_10NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_5NBQ",
+        "XHDL_10NBQ"
+      ],
+      "evidence": {
+        "power_gap": 8.11373894736842,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-13"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T21:57:36.793933",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-15",
+      "signature": "power_gap_XHDL_13NBQ_XHDL_10NBQ_2025-10-15",
+      "description": "横向对比发现，XHDL_13NBQ平均功率12.9kW，XHDL_10NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_10NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_13NBQ",
+        "XHDL_10NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.877317220543807,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-15"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T21:57:55.339024",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-17",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_12NBQ_2025-10-17",
+      "description": "横向对比发现，XHDL_15NBQ平均功率18.2kW，XHDL_12NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 18.22236087866109,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-17"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T21:58:11.646384",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-25",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_10NBQ_2025-10-25",
+      "description": "横向对比发现，XHDL_15NBQ平均功率23.7kW，XHDL_10NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_10NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_10NBQ"
+      ],
+      "evidence": {
+        "power_gap": 23.650460721868367,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-25"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T21:59:16.688428",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-10-26",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_11NBQ_2025-10-26",
+      "description": "横向对比发现，XHDL_15NBQ平均功率15.8kW，XHDL_11NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_11NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_11NBQ"
+      ],
+      "evidence": {
+        "power_gap": 15.757082644628099,
+        "power_gap_pct": 100.0,
+        "date": "2025-10-26"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T21:59:24.882427",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-01",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-11-01",
+      "description": "横向对比发现，XHDL_6NBQ平均功率30.2kW，XHDL_12NBQ平均功率21.7kW，差异达28.1%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 8.470904702224818,
+        "power_gap_pct": 28.079359743200655,
+        "date": "2025-11-01"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:16:35.477827",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-02",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-11-02",
+      "description": "横向对比发现，XHDL_6NBQ平均功率31.9kW，XHDL_12NBQ平均功率22.2kW，差异达30.5%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 9.752044270122898,
+        "power_gap_pct": 30.53935130781295,
+        "date": "2025-11-02"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:16:47.134472",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-03",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-11-03",
+      "description": "横向对比发现，XHDL_6NBQ平均功率37.7kW，XHDL_12NBQ平均功率27.1kW，差异达28.2%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 10.626105814144982,
+        "power_gap_pct": 28.181849729987956,
+        "date": "2025-11-03"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:16:58.439598",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-04",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-11-04",
+      "description": "横向对比发现，XHDL_6NBQ平均功率32.4kW，XHDL_12NBQ平均功率23.1kW，差异达28.6%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 9.244875538669614,
+        "power_gap_pct": 28.568595638098955,
+        "date": "2025-11-04"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:17:10.039030",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-05",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-11-05",
+      "description": "横向对比发现，XHDL_6NBQ平均功率47.4kW，XHDL_12NBQ平均功率32.5kW，差异达31.3%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 14.853165682354522,
+        "power_gap_pct": 31.344321008628174,
+        "date": "2025-11-05"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:17:21.451092",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-06",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-11-06",
+      "description": "横向对比发现，XHDL_6NBQ平均功率8.0kW，XHDL_12NBQ平均功率5.7kW，差异达28.6%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 2.2763327633602017,
+        "power_gap_pct": 28.59734722100592,
+        "date": "2025-11-06"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:17:32.690515",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-07",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2025-11-07",
+      "description": "横向对比发现，XHDL_3NBQ平均功率10.5kW，XHDL_12NBQ平均功率7.7kW，差异达26.2%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 2.74654482212813,
+        "power_gap_pct": 26.183692770120416,
+        "date": "2025-11-07"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:17:44.077176",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-08",
+      "signature": "power_gap_XHDL_5NBQ_XHDL_12NBQ_2025-11-08",
+      "description": "横向对比发现，XHDL_5NBQ平均功率15.1kW，XHDL_12NBQ平均功率10.4kW，差异达30.9%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_5NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 4.676265176615807,
+        "power_gap_pct": 30.929635056984438,
+        "date": "2025-11-08"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:17:55.446578",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-09",
+      "signature": "power_gap_XHDL_8NBQ_XHDL_12NBQ_2025-11-09",
+      "description": "横向对比发现，XHDL_8NBQ平均功率11.2kW，XHDL_12NBQ平均功率8.0kW，差异达28.5%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_8NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 3.195793748263405,
+        "power_gap_pct": 28.45781308214107,
+        "date": "2025-11-09"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:18:06.518394",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-10",
+      "signature": "power_gap_XHDL_2NBQ_XHDL_12NBQ_2025-11-10",
+      "description": "横向对比发现，XHDL_2NBQ平均功率18.1kW，XHDL_12NBQ平均功率13.0kW，差异达28.2%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_2NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 5.087991615962228,
+        "power_gap_pct": 28.179159160977868,
+        "date": "2025-11-10"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:18:17.508253",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-11",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_14NBQ_2025-11-11",
+      "description": "横向对比发现，XHDL_6NBQ平均功率40.8kW，XHDL_14NBQ平均功率29.4kW，差异达28.0%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 11.391375711311579,
+        "power_gap_pct": 27.952105401073734,
+        "date": "2025-11-11"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:18:28.479826",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-12",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2025-11-12",
+      "description": "横向对比发现，XHDL_3NBQ平均功率29.1kW，XHDL_12NBQ平均功率21.0kW，差异达27.8%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 8.090000775153197,
+        "power_gap_pct": 27.800001686584185,
+        "date": "2025-11-12"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:18:39.545074",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-13",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-11-13",
+      "description": "横向对比发现，XHDL_6NBQ平均功率44.4kW，XHDL_12NBQ平均功率31.3kW，差异达29.6%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 13.154617908902686,
+        "power_gap_pct": 29.608045026921232,
+        "date": "2025-11-13"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:18:51.134618",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-14",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_14NBQ_2025-11-14",
+      "description": "横向对比发现，XHDL_6NBQ平均功率40.2kW，XHDL_14NBQ平均功率28.0kW，差异达30.5%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.281922042715191,
+        "power_gap_pct": 30.5241285591704,
+        "date": "2025-11-14"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:19:02.879480",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-15",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_12NBQ_2025-11-15",
+      "description": "横向对比发现，XHDL_15NBQ平均功率41.3kW，XHDL_12NBQ平均功率29.1kW，差异达29.6%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.211504173791518,
+        "power_gap_pct": 29.585607033060025,
+        "date": "2025-11-15"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:19:14.802167",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-16",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_14NBQ_2025-11-16",
+      "description": "横向对比发现，XHDL_6NBQ平均功率41.1kW，XHDL_14NBQ平均功率28.9kW，差异达29.8%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.246323002755858,
+        "power_gap_pct": 29.796495956402275,
+        "date": "2025-11-16"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:19:26.677291",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-17",
+      "signature": "power_gap_XHDL_10NBQ_XHDL_12NBQ_2025-11-17",
+      "description": "横向对比发现，XHDL_10NBQ平均功率3.6kW，XHDL_12NBQ平均功率2.7kW，差异达26.7%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_10NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 0.9653394865141149,
+        "power_gap_pct": 26.66101744644894,
+        "date": "2025-11-17"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:19:38.582741",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-18",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_14NBQ_2025-11-18",
+      "description": "横向对比发现，XHDL_3NBQ平均功率45.7kW，XHDL_14NBQ平均功率31.4kW，差异达31.2%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 14.258706490666249,
+        "power_gap_pct": 31.20473449340106,
+        "date": "2025-11-18"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:19:50.136906",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-19",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_14NBQ_2025-11-19",
+      "description": "横向对比发现，XHDL_3NBQ平均功率46.2kW，XHDL_14NBQ平均功率32.0kW，差异达30.7%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 14.157012575379518,
+        "power_gap_pct": 30.67469658484142,
+        "date": "2025-11-19"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:20:01.526448",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-20",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_14NBQ_2025-11-20",
+      "description": "横向对比发现，XHDL_3NBQ平均功率43.1kW，XHDL_14NBQ平均功率29.3kW，差异达32.1%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 13.859764487075005,
+        "power_gap_pct": 32.135119632096654,
+        "date": "2025-11-20"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:20:13.318528",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-21",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_14NBQ_2025-11-21",
+      "description": "横向对比发现，XHDL_6NBQ平均功率42.2kW，XHDL_14NBQ平均功率29.8kW，差异达29.3%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.368570536190244,
+        "power_gap_pct": 29.312799160338326,
+        "date": "2025-11-21"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:20:25.067621",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-22",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-11-22",
+      "description": "横向对比发现，XHDL_6NBQ平均功率41.1kW，XHDL_12NBQ平均功率28.4kW，差异达30.9%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.705095176010435,
+        "power_gap_pct": 30.883048203287423,
+        "date": "2025-11-22"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:20:37.112137",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-23",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-11-23",
+      "description": "横向对比发现，XHDL_6NBQ平均功率14.2kW，XHDL_12NBQ平均功率10.4kW，差异达26.6%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 3.780720626112883,
+        "power_gap_pct": 26.597860577651318,
+        "date": "2025-11-23"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:20:48.881988",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-24",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_4NBQ_2025-11-24",
+      "description": "横向对比发现，XHDL_15NBQ平均功率36.5kW，XHDL_4NBQ平均功率12.0kW，差异达67.0%，建议检查XHDL_4NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_4NBQ"
+      ],
+      "evidence": {
+        "power_gap": 24.406641389519898,
+        "power_gap_pct": 66.95019656603411,
+        "date": "2025-11-24"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:20:58.793623",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-25",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_4NBQ_2025-11-25",
+      "description": "横向对比发现，XHDL_6NBQ平均功率41.6kW，XHDL_4NBQ平均功率27.5kW，差异达33.9%，建议检查XHDL_4NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_4NBQ"
+      ],
+      "evidence": {
+        "power_gap": 14.093999999999998,
+        "power_gap_pct": 33.879807692307686,
+        "date": "2025-11-25"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:21:07.689537",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-26",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_4NBQ_2025-11-26",
+      "description": "横向对比发现，XHDL_6NBQ平均功率41.6kW，XHDL_4NBQ平均功率27.5kW，差异达33.9%，建议检查XHDL_4NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_4NBQ"
+      ],
+      "evidence": {
+        "power_gap": 14.093999999999994,
+        "power_gap_pct": 33.879807692307686,
+        "date": "2025-11-26"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:21:16.080038",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-27",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_12NBQ_2025-11-27",
+      "description": "横向对比发现，XHDL_15NBQ平均功率39.6kW，XHDL_12NBQ平均功率16.2kW，差异达59.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 23.3766746150645,
+        "power_gap_pct": 59.03524688304675,
+        "date": "2025-11-27"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:21:25.350058",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-28",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_14NBQ_2025-11-28",
+      "description": "横向对比发现，XHDL_6NBQ平均功率39.3kW，XHDL_14NBQ平均功率26.5kW，差异达32.5%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.77668671638881,
+        "power_gap_pct": 32.51843473423714,
+        "date": "2025-11-28"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:21:36.758377",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-29",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_14NBQ_2025-11-29",
+      "description": "横向对比发现，XHDL_6NBQ平均功率39.2kW，XHDL_14NBQ平均功率26.8kW，差异达31.5%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.331853881602274,
+        "power_gap_pct": 31.49285428807218,
+        "date": "2025-11-29"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:21:48.597191",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-11-30",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_14NBQ_2025-11-30",
+      "description": "横向对比发现，XHDL_6NBQ平均功率37.4kW，XHDL_14NBQ平均功率26.0kW，差异达30.5%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 11.428181302824154,
+        "power_gap_pct": 30.538100175661885,
+        "date": "2025-11-30"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:22:00.398882",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-01",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-12-01",
+      "description": "横向对比发现，XHDL_6NBQ平均功率34.4kW，XHDL_12NBQ平均功率23.6kW，差异达31.4%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 10.780109509470481,
+        "power_gap_pct": 31.351077304231588,
+        "date": "2025-12-01"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:42:06.444482",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-02",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2025-12-02",
+      "description": "横向对比发现，XHDL_3NBQ平均功率26.1kW，XHDL_12NBQ平均功率18.3kW，差异达29.9%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 7.7990743531867395,
+        "power_gap_pct": 29.856868966010495,
+        "date": "2025-12-02"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:42:18.128231",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-03",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_14NBQ_2025-12-03",
+      "description": "横向对比发现，XHDL_6NBQ平均功率38.3kW，XHDL_14NBQ平均功率25.3kW，差异达33.9%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 13.005823068140632,
+        "power_gap_pct": 33.93736871675561,
+        "date": "2025-12-03"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:42:29.851054",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-04",
+      "signature": "power_gap_XHDL_13NBQ_XHDL_12NBQ_2025-12-04",
+      "description": "横向对比发现，XHDL_13NBQ平均功率6.7kW，XHDL_12NBQ平均功率4.9kW，差异达27.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_13NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 1.8080835722799575,
+        "power_gap_pct": 26.97954501342342,
+        "date": "2025-12-04"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:42:40.964567",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-05",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-12-05",
+      "description": "横向对比发现，XHDL_6NBQ平均功率24.0kW，XHDL_12NBQ平均功率17.0kW，差异达29.1%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 7.005401454545456,
+        "power_gap_pct": 29.149995133812883,
+        "date": "2025-12-05"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:42:52.298102",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-06",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_14NBQ_2025-12-06",
+      "description": "横向对比发现，XHDL_3NBQ平均功率35.8kW，XHDL_14NBQ平均功率24.0kW，差异达32.9%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 11.783730909258068,
+        "power_gap_pct": 32.89251436579301,
+        "date": "2025-12-06"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:43:03.682807",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-07",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_14NBQ_2025-12-07",
+      "description": "横向对比发现，XHDL_3NBQ平均功率31.4kW，XHDL_14NBQ平均功率20.4kW，差异达35.0%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 10.97447383957655,
+        "power_gap_pct": 34.99998134970161,
+        "date": "2025-12-07"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:43:13.081394",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-08",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2025-12-08",
+      "description": "横向对比发现，XHDL_3NBQ平均功率27.9kW，XHDL_12NBQ平均功率19.5kW，差异达30.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 8.36638541666667,
+        "power_gap_pct": 29.99506289763842,
+        "date": "2025-12-08"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:43:22.295346",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-09",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_14NBQ_2025-12-09",
+      "description": "横向对比发现，XHDL_3NBQ平均功率32.3kW，XHDL_14NBQ平均功率22.6kW，差异达30.1%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 9.703674286580878,
+        "power_gap_pct": 30.073228564743527,
+        "date": "2025-12-09"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:43:33.067388",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-10",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-12-10",
+      "description": "横向对比发现，XHDL_6NBQ平均功率12.1kW，XHDL_12NBQ平均功率8.5kW，差异达30.3%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 3.6760478955007265,
+        "power_gap_pct": 30.28726056139121,
+        "date": "2025-12-10"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:43:44.376205",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-11",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2025-12-11",
+      "description": "横向对比发现，XHDL_3NBQ平均功率29.4kW，XHDL_12NBQ平均功率20.8kW，差异达29.2%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 8.59131613985711,
+        "power_gap_pct": 29.22661315134057,
+        "date": "2025-12-11"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:43:55.789510",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-12",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2025-12-12",
+      "description": "横向对比发现，XHDL_3NBQ平均功率15.9kW，XHDL_12NBQ平均功率10.9kW，差异达31.1%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 4.9399277024766945,
+        "power_gap_pct": 31.11211796323029,
+        "date": "2025-12-12"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:44:06.476258",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-13",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2025-12-13",
+      "description": "横向对比发现，XHDL_3NBQ平均功率37.6kW，XHDL_12NBQ平均功率26.3kW，差异达30.1%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 11.30080615942029,
+        "power_gap_pct": 30.06766380564803,
+        "date": "2025-12-13"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:44:17.638900",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-14",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_14NBQ_2025-12-14",
+      "description": "横向对比发现，XHDL_6NBQ平均功率1.4kW，XHDL_14NBQ平均功率0.7kW，差异达48.6%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 0.6923913043478264,
+        "power_gap_pct": 48.64377787280837,
+        "date": "2025-12-14"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:44:25.567003",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-15",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2025-12-15",
+      "description": "横向对比发现，XHDL_3NBQ平均功率40.6kW，XHDL_12NBQ平均功率28.8kW，差异达29.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 11.76699673658922,
+        "power_gap_pct": 29.009730508623043,
+        "date": "2025-12-15"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:44:35.090476",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-16",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2025-12-16",
+      "description": "横向对比发现，XHDL_3NBQ平均功率41.2kW，XHDL_12NBQ平均功率29.0kW，差异达29.5%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.151218425977738,
+        "power_gap_pct": 29.50232508459123,
+        "date": "2025-12-16"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:44:45.593110",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-17",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2025-12-17",
+      "description": "横向对比发现，XHDL_3NBQ平均功率32.3kW，XHDL_12NBQ平均功率22.4kW，差异达30.6%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 9.89325229035055,
+        "power_gap_pct": 30.64715019786426,
+        "date": "2025-12-17"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:44:56.261800",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-18",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-12-18",
+      "description": "横向对比发现，XHDL_6NBQ平均功率31.2kW，XHDL_12NBQ平均功率21.6kW，差异达30.8%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 9.625987730896906,
+        "power_gap_pct": 30.810406882964102,
+        "date": "2025-12-18"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:45:07.524587",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-19",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-12-19",
+      "description": "横向对比发现，XHDL_6NBQ平均功率26.4kW，XHDL_12NBQ平均功率18.5kW，差异达30.1%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 7.957833844592869,
+        "power_gap_pct": 30.109064541922802,
+        "date": "2025-12-19"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:45:18.565912",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-20",
+      "signature": "power_gap_XHDL_8NBQ_XHDL_12NBQ_2025-12-20",
+      "description": "横向对比发现，XHDL_8NBQ平均功率4.2kW，XHDL_12NBQ平均功率2.9kW，差异达31.6%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_8NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 1.3201593459563123,
+        "power_gap_pct": 31.58011314806278,
+        "date": "2025-12-20"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:45:29.347340",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-21",
+      "signature": "power_gap_XHDL_8NBQ_XHDL_12NBQ_2025-12-21",
+      "description": "横向对比发现，XHDL_8NBQ平均功率16.1kW，XHDL_12NBQ平均功率11.0kW，差异达31.4%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_8NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 5.052451057987401,
+        "power_gap_pct": 31.43945674713319,
+        "date": "2025-12-21"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:45:40.213115",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-22",
+      "signature": "power_gap_XHDL_2NBQ_XHDL_12NBQ_2025-12-22",
+      "description": "横向对比发现，XHDL_2NBQ平均功率14.6kW，XHDL_12NBQ平均功率10.2kW，差异达29.8%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_2NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 4.34566451611102,
+        "power_gap_pct": 29.805562817214554,
+        "date": "2025-12-22"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:45:51.225434",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-23",
+      "signature": "power_gap_XHDL_8NBQ_XHDL_12NBQ_2025-12-23",
+      "description": "横向对比发现，XHDL_8NBQ平均功率5.4kW，XHDL_12NBQ平均功率3.7kW，差异达31.7%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_8NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 1.7178770686294285,
+        "power_gap_pct": 31.700856928245972,
+        "date": "2025-12-23"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:46:02.101706",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-24",
+      "signature": "power_gap_XHDL_5NBQ_XHDL_12NBQ_2025-12-24",
+      "description": "横向对比发现，XHDL_5NBQ平均功率7.6kW，XHDL_12NBQ平均功率5.3kW，差异达30.5%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_5NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 2.3044991593695263,
+        "power_gap_pct": 30.50450134314534,
+        "date": "2025-12-24"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:46:12.927427",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-25",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2025-12-25",
+      "description": "横向对比发现，XHDL_3NBQ平均功率39.0kW，XHDL_12NBQ平均功率27.7kW，差异达29.1%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 11.330761035901954,
+        "power_gap_pct": 29.053923083870902,
+        "date": "2025-12-25"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:46:23.906548",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-26",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_14NBQ_2025-12-26",
+      "description": "横向对比发现，XHDL_3NBQ平均功率40.3kW，XHDL_14NBQ平均功率27.9kW，差异达30.7%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.399446916992876,
+        "power_gap_pct": 30.738660054686108,
+        "date": "2025-12-26"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:46:34.541111",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-27",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_14NBQ_2025-12-27",
+      "description": "横向对比发现，XHDL_6NBQ平均功率36.9kW，XHDL_14NBQ平均功率25.9kW，差异达29.9%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 11.032567422836912,
+        "power_gap_pct": 29.86512134285857,
+        "date": "2025-12-27"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:46:45.520040",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-28",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_14NBQ_2025-12-28",
+      "description": "横向对比发现，XHDL_15NBQ平均功率37.4kW，XHDL_14NBQ平均功率26.0kW，差异达30.5%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 11.412497384266885,
+        "power_gap_pct": 30.53806002265859,
+        "date": "2025-12-28"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:46:55.974791",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-29",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2025-12-29",
+      "description": "横向对比发现，XHDL_6NBQ平均功率32.8kW，XHDL_12NBQ平均功率23.4kW，差异达28.5%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 9.326070459855263,
+        "power_gap_pct": 28.468112226875753,
+        "date": "2025-12-29"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:47:07.184561",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-30",
+      "signature": "power_gap_XHDL_1NBQ_XHDL_12NBQ_2025-12-30",
+      "description": "横向对比发现，XHDL_1NBQ平均功率22.1kW，XHDL_12NBQ平均功率15.8kW，差异达28.5%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_1NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 6.313409020403293,
+        "power_gap_pct": 28.512252229914537,
+        "date": "2025-12-30"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:47:17.993856",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2025-12-31",
+      "signature": "power_gap_XHDL_8NBQ_XHDL_12NBQ_2025-12-31",
+      "description": "横向对比发现，XHDL_8NBQ平均功率15.2kW，XHDL_12NBQ平均功率10.8kW，差异达28.9%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_8NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 4.386219112583275,
+        "power_gap_pct": 28.88745423237033,
+        "date": "2025-12-31"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-02-28T22:47:28.638275",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-01",
+      "signature": "power_gap_XHDL_5NBQ_XHDL_12NBQ_2026-01-01",
+      "description": "横向对比发现，XHDL_5NBQ平均功率9.8kW，XHDL_12NBQ平均功率6.9kW，差异达29.6%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_5NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 2.8954993044943365,
+        "power_gap_pct": 29.6137036774699,
+        "date": "2026-01-01"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:23:25.650330",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-02",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2026-01-02",
+      "description": "横向对比发现，XHDL_3NBQ平均功率21.1kW，XHDL_12NBQ平均功率16.1kW，差异达23.9%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 5.050418025756041,
+        "power_gap_pct": 23.931896685149322,
+        "date": "2026-01-02"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:23:36.493356",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-03",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2026-01-03",
+      "description": "横向对比发现，XHDL_6NBQ平均功率36.4kW，XHDL_12NBQ平均功率26.5kW，差异达27.4%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 9.974961941906596,
+        "power_gap_pct": 27.374370071675514,
+        "date": "2026-01-03"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:23:47.438977",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-04",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2026-01-04",
+      "description": "横向对比发现，XHDL_6NBQ平均功率4.3kW，XHDL_12NBQ平均功率3.1kW，差异达29.5%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 1.2819175767655793,
+        "power_gap_pct": 29.473127929692396,
+        "date": "2026-01-04"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:23:58.010878",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-05",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2026-01-05",
+      "description": "横向对比发现，XHDL_3NBQ平均功率37.2kW，XHDL_12NBQ平均功率26.0kW，差异达30.2%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 11.223205794278211,
+        "power_gap_pct": 30.18803003531763,
+        "date": "2026-01-05"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:24:08.992490",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-06",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_14NBQ_2026-01-06",
+      "description": "横向对比发现，XHDL_6NBQ平均功率40.6kW，XHDL_14NBQ平均功率29.4kW，差异达27.5%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 11.156553779822072,
+        "power_gap_pct": 27.48737357700278,
+        "date": "2026-01-06"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:24:20.295084",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-07",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_14NBQ_2026-01-07",
+      "description": "横向对比发现，XHDL_3NBQ平均功率43.1kW，XHDL_14NBQ平均功率30.5kW，差异达29.1%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.556610764505447,
+        "power_gap_pct": 29.13577719114923,
+        "date": "2026-01-07"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:24:30.488681",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-08",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_12NBQ_2026-01-08",
+      "description": "横向对比发现，XHDL_15NBQ平均功率42.0kW，XHDL_12NBQ平均功率29.9kW，差异达28.9%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.14882472049689,
+        "power_gap_pct": 28.910069273077937,
+        "date": "2026-01-08"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:24:41.434247",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-09",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_14NBQ_2026-01-09",
+      "description": "横向对比发现，XHDL_6NBQ平均功率40.1kW，XHDL_14NBQ平均功率27.7kW，差异达31.0%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.45596672240303,
+        "power_gap_pct": 31.039918228322705,
+        "date": "2026-01-09"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:24:52.335645",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-10",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2026-01-10",
+      "description": "横向对比发现，XHDL_3NBQ平均功率42.1kW，XHDL_12NBQ平均功率28.9kW，差异达31.4%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 13.21551212434592,
+        "power_gap_pct": 31.35392538130325,
+        "date": "2026-01-10"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:25:03.215112",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-11",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2026-01-11",
+      "description": "横向对比发现，XHDL_3NBQ平均功率41.6kW，XHDL_12NBQ平均功率29.1kW，差异达30.2%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.583842524813893,
+        "power_gap_pct": 30.222444027268953,
+        "date": "2026-01-11"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:25:14.183596",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-12",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2026-01-12",
+      "description": "横向对比发现，XHDL_6NBQ平均功率33.4kW，XHDL_12NBQ平均功率24.0kW，差异达28.2%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 9.439692965743244,
+        "power_gap_pct": 28.242490875390015,
+        "date": "2026-01-12"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:25:25.305918",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-13",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2026-01-13",
+      "description": "横向对比发现，XHDL_3NBQ平均功率39.1kW，XHDL_12NBQ平均功率26.5kW，差异达32.2%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.606320939132239,
+        "power_gap_pct": 32.220620804759434,
+        "date": "2026-01-13"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:25:36.201316",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-14",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2026-01-14",
+      "description": "横向对比发现，XHDL_3NBQ平均功率44.5kW，XHDL_12NBQ平均功率31.1kW，差异达30.1%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 13.39791120844237,
+        "power_gap_pct": 30.13345993352311,
+        "date": "2026-01-14"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:25:46.981261",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-15",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2026-01-15",
+      "description": "横向对比发现，XHDL_3NBQ平均功率37.9kW，XHDL_12NBQ平均功率26.6kW，差异达29.7%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 11.233191195234298,
+        "power_gap_pct": 29.652326268905455,
+        "date": "2026-01-15"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:25:57.967740",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-16",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2026-01-16",
+      "description": "横向对比发现，XHDL_3NBQ平均功率28.5kW，XHDL_12NBQ平均功率19.8kW，差异达30.4%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 8.675795397783759,
+        "power_gap_pct": 30.42311961769264,
+        "date": "2026-01-16"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:26:09.275033",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-17",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2026-01-17",
+      "description": "横向对比发现，XHDL_3NBQ平均功率22.2kW，XHDL_12NBQ平均功率15.9kW，差异达28.7%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 6.38136945295895,
+        "power_gap_pct": 28.689485649731196,
+        "date": "2026-01-17"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:26:20.110711",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-18",
+      "signature": "power_gap_XHDL_13NBQ_XHDL_12NBQ_2026-01-18",
+      "description": "横向对比发现，XHDL_13NBQ平均功率16.0kW，XHDL_12NBQ平均功率11.1kW，差异达30.7%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_13NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 4.894531942625839,
+        "power_gap_pct": 30.685418544814773,
+        "date": "2026-01-18"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:26:31.186328",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-19",
+      "signature": "power_gap_XHDL_5NBQ_XHDL_12NBQ_2026-01-19",
+      "description": "横向对比发现，XHDL_5NBQ平均功率2.5kW，XHDL_12NBQ平均功率1.8kW，差异达28.6%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_5NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 0.7076828283806571,
+        "power_gap_pct": 28.559583019560552,
+        "date": "2026-01-19"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:26:41.957362",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-20",
+      "signature": "power_gap_XHDL_5NBQ_XHDL_16NBQ_2026-01-20",
+      "description": "横向对比发现，XHDL_5NBQ平均功率0.4kW，XHDL_16NBQ平均功率0.2kW，差异达45.7%，建议检查XHDL_16NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_5NBQ",
+        "XHDL_16NBQ"
+      ],
+      "evidence": {
+        "power_gap": 0.19410227272727273,
+        "power_gap_pct": 45.70044948630137,
+        "date": "2026-01-20"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:26:52.685601",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-21",
+      "signature": "power_gap_XHDL_5NBQ_XHDL_16NBQ_2026-01-21",
+      "description": "横向对比发现，XHDL_5NBQ平均功率1.0kW，XHDL_16NBQ平均功率0.5kW，差异达44.8%，建议检查XHDL_16NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_5NBQ",
+        "XHDL_16NBQ"
+      ],
+      "evidence": {
+        "power_gap": 0.4402316091954023,
+        "power_gap_pct": 44.82865979803773,
+        "date": "2026-01-21"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:27:02.981638",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-22",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_14NBQ_2026-01-22",
+      "description": "横向对比发现，XHDL_6NBQ平均功率10.3kW，XHDL_14NBQ平均功率3.2kW，差异达68.5%，建议检查XHDL_14NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_14NBQ"
+      ],
+      "evidence": {
+        "power_gap": 7.020574324656186,
+        "power_gap_pct": 68.47098797192565,
+        "date": "2026-01-22"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:27:13.850702",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-23",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_13NBQ_2026-01-23",
+      "description": "横向对比发现，XHDL_3NBQ平均功率40.2kW，XHDL_13NBQ平均功率14.1kW，差异达65.0%，建议检查XHDL_13NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_13NBQ"
+      ],
+      "evidence": {
+        "power_gap": 26.14531099213879,
+        "power_gap_pct": 65.01617499769797,
+        "date": "2026-01-23"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:27:24.090124",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-24",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_13NBQ_2026-01-24",
+      "description": "横向对比发现，XHDL_3NBQ平均功率42.4kW，XHDL_13NBQ平均功率17.9kW，差异达57.7%，建议检查XHDL_13NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_13NBQ"
+      ],
+      "evidence": {
+        "power_gap": 24.485601195129522,
+        "power_gap_pct": 57.70412943236062,
+        "date": "2026-01-24"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:27:35.013071",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-25",
+      "signature": "power_gap_XHDL_13NBQ_XHDL_12NBQ_2026-01-25",
+      "description": "横向对比发现，XHDL_13NBQ平均功率5.4kW，XHDL_12NBQ平均功率3.8kW，差异达29.1%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_13NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 1.5683349683889256,
+        "power_gap_pct": 29.08821098658956,
+        "date": "2026-01-25"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:27:45.857818",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-26",
+      "signature": "power_gap_XHDL_10NBQ_XHDL_12NBQ_2026-01-26",
+      "description": "横向对比发现，XHDL_10NBQ平均功率4.9kW，XHDL_12NBQ平均功率3.6kW，差异达27.4%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_10NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 1.3541000938379724,
+        "power_gap_pct": 27.356038014083133,
+        "date": "2026-01-26"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:27:56.608952",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-27",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_4NBQ_2026-01-27",
+      "description": "横向对比发现，XHDL_3NBQ平均功率15.0kW，XHDL_4NBQ平均功率9.5kW，差异达36.5%，建议检查XHDL_4NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_4NBQ"
+      ],
+      "evidence": {
+        "power_gap": 5.4670794126439315,
+        "power_gap_pct": 36.53476333533534,
+        "date": "2026-01-27"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:28:07.750396",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-28",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_13NBQ_2026-01-28",
+      "description": "横向对比发现，XHDL_6NBQ平均功率35.3kW，XHDL_13NBQ平均功率17.9kW，差异达49.5%，建议检查XHDL_13NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_13NBQ"
+      ],
+      "evidence": {
+        "power_gap": 17.485879636016524,
+        "power_gap_pct": 49.48447353800517,
+        "date": "2026-01-28"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:28:18.463711",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-29",
+      "signature": "power_gap_XHDL_8NBQ_XHDL_16NBQ_2026-01-29",
+      "description": "横向对比发现，XHDL_8NBQ平均功率5.5kW，XHDL_16NBQ平均功率4.0kW，差异达28.0%，建议检查XHDL_16NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_8NBQ",
+        "XHDL_16NBQ"
+      ],
+      "evidence": {
+        "power_gap": 1.5534044668646518,
+        "power_gap_pct": 28.0260564974339,
+        "date": "2026-01-29"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:28:29.320603",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-30",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2026-01-30",
+      "description": "横向对比发现，XHDL_3NBQ平均功率4.3kW，XHDL_12NBQ平均功率3.0kW，差异达29.5%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 1.2756661293370835,
+        "power_gap_pct": 29.53590055103828,
+        "date": "2026-01-30"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:28:40.330576",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-01-31",
+      "signature": "power_gap_XHDL_5NBQ_XHDL_12NBQ_2026-01-31",
+      "description": "横向对比发现，XHDL_5NBQ平均功率10.2kW，XHDL_12NBQ平均功率7.1kW，差异达29.7%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_5NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 3.015728238324254,
+        "power_gap_pct": 29.68275830091417,
+        "date": "2026-01-31"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:28:51.239039",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-01",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_13NBQ_2026-02-01",
+      "description": "横向对比发现，XHDL_6NBQ平均功率29.0kW，XHDL_13NBQ平均功率16.9kW，差异达41.6%，建议检查XHDL_13NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_13NBQ"
+      ],
+      "evidence": {
+        "power_gap": 12.046952111959289,
+        "power_gap_pct": 41.566880533448774,
+        "date": "2026-02-01"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:45:38.455964",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-02",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_12NBQ_2026-02-02",
+      "description": "横向对比发现，XHDL_15NBQ平均功率46.7kW，XHDL_12NBQ平均功率19.4kW，差异达58.5%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 27.320621261783902,
+        "power_gap_pct": 58.464201843483266,
+        "date": "2026-02-02"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:45:49.781447",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-03",
+      "signature": "power_gap_XHDL_5NBQ_XHDL_16NBQ_2026-02-03",
+      "description": "横向对比发现，XHDL_5NBQ平均功率18.2kW，XHDL_16NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_16NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_5NBQ",
+        "XHDL_16NBQ"
+      ],
+      "evidence": {
+        "power_gap": 18.15999683042789,
+        "power_gap_pct": 100.0,
+        "date": "2026-02-03"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:46:00.535653",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-04",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_16NBQ_2026-02-04",
+      "description": "横向对比发现，XHDL_6NBQ平均功率22.8kW，XHDL_16NBQ平均功率0.0kW，差异达100.0%，建议检查XHDL_16NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_16NBQ"
+      ],
+      "evidence": {
+        "power_gap": 22.84583035714286,
+        "power_gap_pct": 100.0,
+        "date": "2026-02-04"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:46:11.510290",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-05",
+      "signature": "power_gap_XHDL_13NBQ_XHDL_12NBQ_2026-02-05",
+      "description": "横向对比发现，XHDL_13NBQ平均功率11.7kW，XHDL_12NBQ平均功率7.0kW，差异达40.1%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_13NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 4.702224137506868,
+        "power_gap_pct": 40.149415514331835,
+        "date": "2026-02-05"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:46:22.377445",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-06",
+      "signature": "power_gap_XHDL_7NBQ_XHDL_12NBQ_2026-02-06",
+      "description": "横向对比发现，XHDL_7NBQ平均功率4.3kW，XHDL_12NBQ平均功率3.0kW，差异达28.9%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_7NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 1.2403192987220892,
+        "power_gap_pct": 28.927550551223785,
+        "date": "2026-02-06"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:46:33.422599",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-07",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2026-02-07",
+      "description": "横向对比发现，XHDL_6NBQ平均功率22.8kW，XHDL_12NBQ平均功率15.6kW，差异达31.7%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 7.207590492851542,
+        "power_gap_pct": 31.662553863869388,
+        "date": "2026-02-07"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:46:44.356165",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-08",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_16NBQ_2026-02-08",
+      "description": "横向对比发现，XHDL_6NBQ平均功率44.3kW，XHDL_16NBQ平均功率26.9kW，差异达39.2%，建议检查XHDL_16NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_16NBQ"
+      ],
+      "evidence": {
+        "power_gap": 17.361706284153005,
+        "power_gap_pct": 39.21869350773013,
+        "date": "2026-02-08"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:46:55.604789",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-09",
+      "signature": "power_gap_XHDL_15NBQ_XHDL_12NBQ_2026-02-09",
+      "description": "横向对比发现，XHDL_15NBQ平均功率7.8kW，XHDL_12NBQ平均功率4.6kW，差异达40.5%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_15NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 3.149983503312102,
+        "power_gap_pct": 40.50549977741058,
+        "date": "2026-02-09"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:47:06.061419",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-10",
+      "signature": "power_gap_XHDL_1NBQ_XHDL_16NBQ_2026-02-10",
+      "description": "横向对比发现，XHDL_1NBQ平均功率18.2kW，XHDL_16NBQ平均功率11.7kW，差异达35.7%，建议检查XHDL_16NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_1NBQ",
+        "XHDL_16NBQ"
+      ],
+      "evidence": {
+        "power_gap": 6.505848222107193,
+        "power_gap_pct": 35.66842369196168,
+        "date": "2026-02-10"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:47:16.866051",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-11",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_16NBQ_2026-02-11",
+      "description": "横向对比发现，XHDL_3NBQ平均功率37.1kW，XHDL_16NBQ平均功率20.6kW，差异达44.5%，建议检查XHDL_16NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_16NBQ"
+      ],
+      "evidence": {
+        "power_gap": 16.4859283218056,
+        "power_gap_pct": 44.45776246855158,
+        "date": "2026-02-11"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:47:26.823123",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-12",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2026-02-12",
+      "description": "横向对比发现，XHDL_3NBQ平均功率45.3kW，XHDL_12NBQ平均功率31.5kW，差异达30.6%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 13.85553591171129,
+        "power_gap_pct": 30.569406653089253,
+        "date": "2026-02-12"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:47:38.170899",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-13",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2026-02-13",
+      "description": "横向对比发现，XHDL_3NBQ平均功率42.4kW，XHDL_12NBQ平均功率30.5kW，差异达27.9%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 11.823406880510632,
+        "power_gap_pct": 27.917551841403533,
+        "date": "2026-02-13"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:47:49.535570",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-14",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2026-02-14",
+      "description": "横向对比发现，XHDL_6NBQ平均功率44.9kW，XHDL_12NBQ平均功率31.6kW，差异达29.6%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 13.258388407695076,
+        "power_gap_pct": 29.552134466986814,
+        "date": "2026-02-14"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:48:00.823301",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-15",
+      "signature": "power_gap_XHDL_2NBQ_XHDL_12NBQ_2026-02-15",
+      "description": "横向对比发现，XHDL_2NBQ平均功率22.6kW，XHDL_12NBQ平均功率15.8kW，差异达30.4%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_2NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 6.879799659303224,
+        "power_gap_pct": 30.390452578517014,
+        "date": "2026-02-15"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:48:12.222828",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-16",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2026-02-16",
+      "description": "横向对比发现，XHDL_3NBQ平均功率6.8kW，XHDL_12NBQ平均功率4.8kW，差异达28.8%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 1.9532669527851008,
+        "power_gap_pct": 28.829365530383978,
+        "date": "2026-02-16"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:48:23.519977",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-17",
+      "signature": "power_gap_XHDL_1NBQ_XHDL_12NBQ_2026-02-17",
+      "description": "横向对比发现，XHDL_1NBQ平均功率21.8kW，XHDL_12NBQ平均功率15.4kW，差异达29.7%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_1NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 6.493673309971761,
+        "power_gap_pct": 29.72436513481076,
+        "date": "2026-02-17"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:48:34.970354",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-18",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2026-02-18",
+      "description": "横向对比发现，XHDL_3NBQ平均功率40.2kW，XHDL_12NBQ平均功率29.3kW，差异达27.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 10.841048598436092,
+        "power_gap_pct": 26.99664579321191,
+        "date": "2026-02-18"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:48:46.251733",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-19",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2026-02-19",
+      "description": "横向对比发现，XHDL_6NBQ平均功率43.6kW，XHDL_12NBQ平均功率29.7kW，差异达31.9%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 13.908919360806493,
+        "power_gap_pct": 31.92191357652674,
+        "date": "2026-02-19"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:48:58.008023",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-20",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2026-02-20",
+      "description": "横向对比发现，XHDL_6NBQ平均功率55.0kW，XHDL_12NBQ平均功率38.5kW，差异达29.9%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 16.452420349627545,
+        "power_gap_pct": 29.932022122930334,
+        "date": "2026-02-20"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:49:09.839524",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-21",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2026-02-21",
+      "description": "横向对比发现，XHDL_3NBQ平均功率53.6kW，XHDL_12NBQ平均功率38.1kW，差异达29.0%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 15.523579084639081,
+        "power_gap_pct": 28.956127179659795,
+        "date": "2026-02-21"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:49:21.738216",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-22",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2026-02-22",
+      "description": "横向对比发现，XHDL_6NBQ平均功率46.0kW，XHDL_12NBQ平均功率31.4kW，差异达31.7%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 14.592884418802747,
+        "power_gap_pct": 31.749796600827224,
+        "date": "2026-02-22"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:49:33.250980",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-23",
+      "signature": "power_gap_XHDL_1NBQ_XHDL_12NBQ_2026-02-23",
+      "description": "横向对比发现，XHDL_1NBQ平均功率8.3kW，XHDL_12NBQ平均功率5.8kW，差异达29.9%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_1NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 2.4704894470521666,
+        "power_gap_pct": 29.93543521496508,
+        "date": "2026-02-23"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:49:44.621603",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-24",
+      "signature": "power_gap_XHDL_5NBQ_XHDL_12NBQ_2026-02-24",
+      "description": "横向对比发现，XHDL_5NBQ平均功率12.8kW，XHDL_12NBQ平均功率9.3kW，差异达27.7%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_5NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 3.5563783411336463,
+        "power_gap_pct": 27.69291650666815,
+        "date": "2026-02-24"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:49:55.988787",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-25",
+      "signature": "power_gap_XHDL_6NBQ_XHDL_12NBQ_2026-02-25",
+      "description": "横向对比发现，XHDL_6NBQ平均功率27.5kW，XHDL_12NBQ平均功率19.4kW，差异达29.6%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_6NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 8.134582375300184,
+        "power_gap_pct": 29.584277291051205,
+        "date": "2026-02-25"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:50:07.331715",
+      "verified_count": 1,
+      "status": "candidate"
+    },
+    {
+      "name": "power_gap_2026-02-26",
+      "signature": "power_gap_XHDL_3NBQ_XHDL_12NBQ_2026-02-26",
+      "description": "横向对比发现，XHDL_3NBQ平均功率7.1kW，XHDL_12NBQ平均功率5.0kW，差异达29.6%，建议检查XHDL_12NBQ的运行状态",
+      "devices_involved": [
+        "XHDL_3NBQ",
+        "XHDL_12NBQ"
+      ],
+      "evidence": {
+        "power_gap": 2.113305620159416,
+        "power_gap_pct": 29.582472698430916,
+        "date": "2026-02-26"
+      },
+      "type": "comparison_pattern",
+      "created_at": "2026-03-01T02:50:18.626758",
+      "verified_count": 1,
+      "status": "candidate"
+    }
+  ]
+}

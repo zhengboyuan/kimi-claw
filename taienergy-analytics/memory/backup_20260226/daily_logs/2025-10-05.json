@@ -1,0 +1,25 @@
+{
+  "date": "2025-10-05",
+  "device_sn": "XHDL_1NBQ",
+  "timestamp": "2026-02-26T17:19:15.737386",
+  "data": {
+    "quality_score": 70.0,
+    "indicators_analyzed": [
+      "ai20",
+      "ai44"
+    ],
+    "has_anomaly": false,
+    "analysis_summary": {
+      "ai20": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai20"
+      },
+      "ai44": {
+        "status": "ok",
+        "anomaly_count": 0,
+        "code": "ai44"
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "总有功功率",
+  "formula": "(ai12 + ai41 + ai59) * 220 / 1000",
+  "components": [
+    "ai12",
+    "ai41",
+    "ai59"
+  ],
+  "threshold": {
+    "warning": 50,
+    "critical": 80
+  },
+  "unit": "kW",
+  "description": "三相总有功功率，反映实际发电能力",
+  "category": "效率类"
+}

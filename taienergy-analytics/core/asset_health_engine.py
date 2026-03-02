@@ -19,6 +19,15 @@ import json
 import os
 import numpy as np
 from datetime import datetime, timedelta
+from typing import Dict, List, Optional
+
+from config.system_config import HISTORY_CONFIG, THRESHOLD_CONFIG
+
+# 使用配置
+MAX_HISTORY_DAYS = HISTORY_CONFIG["health_history_limit"]
+HEALTH_WARNING_THRESHOLD = THRESHOLD_CONFIG["health_score_warning"]
+HEALTH_DANGER_THRESHOLD = THRESHOLD_CONFIG["health_score_danger"]
+from datetime import datetime, timedelta
 from typing import Dict, List, Tuple
 import pandas as pd
 
@@ -338,10 +347,9 @@ class AssetHealthEngine:
         if not updated:
             history.append(record)
         
-        # 限制历史记录数量，只保留最近30天
-        MAX_HISTORY_DAYS = 30
+        # 限制历史记录数量，只保留最近N天
         if len(history) > MAX_HISTORY_DAYS:
-            # 按日期排序，保留最新的30条
+            # 按日期排序，保留最新的N条
             history.sort(key=lambda x: x.get('date', ''), reverse=True)
             history = history[:MAX_HISTORY_DAYS]
         

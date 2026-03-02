@@ -18,6 +18,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from config.system_config import DEVICE_CONFIG, STATION_CONFIG, THRESHOLD_CONFIG
 from skills.skill_1_data_collector import DataCollector
 from core.asset_health_engine import AssetHealthEngine
 from core.maintenance_advisor import MaintenanceAdvisor
@@ -28,11 +29,16 @@ from core.unified_history import UnifiedHistoryStore
 from core.discovery_rules import DiscoveryRuleEngine
 from core.aggregation_engine import AggregationEngine
 
+# 使用配置
+DEVICE_COUNT = DEVICE_CONFIG["count"]
+INSTALLED_CAPACITY = STATION_CONFIG["installed_capacity_kw"]
+DEFAULT_THRESHOLD = THRESHOLD_CONFIG["default_percentage"]
+
 
 class DailyAssetManagementV5:
     """资产运营分析 V5.1 - 从 registry 读取指标配置"""
     
-    DEVICE_CLUSTER = [f'XHDL_{i}NBQ' for i in range(1, 17)]
+    DEVICE_CLUSTER = [f'XHDL_{i}NBQ' for i in range(1, DEVICE_COUNT + 1)]
     
     def __init__(self):
         self.memory = MemorySystem()
@@ -40,7 +46,7 @@ class DailyAssetManagementV5:
         self.indicators = self.registry.get('indicators', {})
         # V5.1 竞赛指标计算器
         self.competition_calc = CompetitionIndicatorCalculator(
-            station_config={'installed_capacity': 16000}  # 16台 * 1000kW = 16MW
+            station_config={'installed_capacity': INSTALLED_CAPACITY}
         )
         # V5.1 新增：统一历史存储、发现规则、聚合引擎
         self.history_store = UnifiedHistoryStore()
@@ -692,7 +698,7 @@ class DailyAssetManagementV5:
         
         # 从 registry 获取趋势变化指标配置
         trend_config = self._get_indicator_config('health_trend_change')
-        threshold = 30  # 默认阈值 30%
+        threshold = DEFAULT_THRESHOLD  # 使用配置默认阈值
         if trend_config:
             # 可以从配置中读取阈值
             pass

@@ -204,16 +204,14 @@ class DailyAssetManagementV5:
                 collector = DataCollector(sn)
                 data = collector.collect_daily_data(date_str)
                 
-                # 保留原始DataFrame数据（用于横向对比）
-                # 同时提取关键指标（用于指标发现）
+                # 提取关键指标（用于指标发现和健康评分）
                 metrics = {}
                 for code, df in data.items():
                     if not df.empty and 'value' in df.columns:
                         metrics[code] = df['value'].tolist()
                 
-                # 返回包含原始DataFrame和提取指标的数据
+                # 返回提取的指标数据（不保留原始DataFrame，避免内存累积）
                 return sn, {
-                    'raw_data': data,  # 保留原始DataFrame
                     'raw_metrics': metrics,
                     'quality': 70.0
                 }

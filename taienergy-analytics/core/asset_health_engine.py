@@ -98,8 +98,8 @@ class AssetHealthEngine:
         # 确定等级
         result['level'] = self._determine_level(total)
         
-        # 保存（包含原始指标数据用于后续分析）
-        result['raw_metrics'] = device_data.get('raw_metrics', {})
+        # 保存（不存储原始指标数据，避免内存累积）
+        # 只存储分数和维度，raw_metrics 用于计算但不存储
         self._save_health_record(result)
         
         return result
@@ -320,7 +320,7 @@ class AssetHealthEngine:
             return 'danger'
     
     def _save_health_record(self, record: Dict):
-        """保存健康记录"""
+        """保存健康记录 - 限制最多保留30天，防止内存累积"""
         # 读取现有历史
         history = []
         if os.path.exists(self.health_path):
@@ -337,6 +337,13 @@ class AssetHealthEngine:
         
         if not updated:
             history.append(record)
+        
+        # 限制历史记录数量，只保留最近30天
+        MAX_HISTORY_DAYS = 30
+        if len(history) > MAX_HISTORY_DAYS:
+            # 按日期排序，保留最新的30条
+            history.sort(key=lambda x: x.get('date', ''), reverse=True)
+            history = history[:MAX_HISTORY_DAYS]
         
         # 保存
         with open(self.health_path, 'w') as f:

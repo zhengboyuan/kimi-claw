@@ -369,11 +369,14 @@ class DailyAssetManagementV5:
 
             # 统一三层发现入口（当前默认不接LLM）
             result = run_discovery_pipeline(date_str, device_data, llm_client=None, write_pending=False)
+            
+            # 使用原始候选（未经过滤）保存到候选池
+            raw_candidates = result.get("layer1_raw", [])
             candidates = result.get("layer1", [])
 
-            # 保存 Layer1 候选（兼容旧候选池）
+            # 保存 Layer1 原始候选（兼容旧候选池）
             saved = 0
-            for c in candidates:
+            for c in raw_candidates:
                 if self.memory.write_candidate(c.name, date_str, c.to_dict()):
                     saved += 1
 

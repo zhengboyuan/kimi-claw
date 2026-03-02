@@ -77,6 +77,9 @@ def run_discovery_pipeline(
     # Layer 1
     discovery = IndicatorDiscovery(llm_client=llm_client)
     layer1_candidates = discovery.scan_daily(date_str, device_data)
+    
+    # 获取原始候选（未经过滤），用于保存到候选池
+    raw_candidates = discovery.candidates
 
     # Layer 2（按设备）
     layer2_results = {}
@@ -105,6 +108,7 @@ def run_discovery_pipeline(
 
     return {
         "layer1": layer1_candidates,
+        "layer1_raw": raw_candidates,  # 原始候选，未经过滤
         "layer2": layer2_results,
         "layer3": layer3_result,
     }

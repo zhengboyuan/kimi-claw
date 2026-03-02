@@ -111,8 +111,29 @@ def run_discovery_pipeline(
 
 
 def _write_llm_pending(date_str: str, indicators: list) -> None:
+    """写入 pending 指标 - 每指标单文件格式，复制对象避免原地修改"""
+    from datetime import datetime
+    import copy
+    
     base = Path("config/indicators/llm_generated/pending")
     base.mkdir(parents=True, exist_ok=True)
-    path = base / f"{date_str}_pending.json"
-    payload = {"date": date_str, "indicators": indicators}
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    
+    for indicator in indicators:
+        # 复制对象，避免原地修改原始数据
+        indicator_copy = copy.deepcopy(indicator)
+        
+        indicator_id = indicator_copy.get("id")
+        if not indicator_id:
+            continue
+        
+        # 添加元数据（写入复制后的对象）
+        indicator_copy["discovered_at"] = datetime.now().isoformat()
+        indicator_copy["discovery_date"] = date_str
+        indicator_copy["lifecycle_status"] = "pending"
+        
+        # 每指标单文件写入
+        path = base / f"{indicator_id}.json"
+        path.write_text(
+            json.dumps(indicator_copy, ensure_ascii=False, indent=2),
+            encoding="utf-8"
+        )

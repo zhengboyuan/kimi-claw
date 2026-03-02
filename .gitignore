@@ -1,0 +1,31 @@
+# V5.1 运行产物（不提交到版本库）
+# 本次新增的运行产物
+memory/**/daily/
+memory/**/profile/
+memory/reports/
+memory/backup_*/
+memory/cognitive/
+memory/composite_indicators/
+memory/station/daily/
+memory/prompt_tracking.jsonl
+
+# 大数据文件
+*.tar
+*.tar.gz
+daily_reports_*/
+
+# 测试输出
+batch_*_results.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

@@ -240,9 +240,12 @@ class MemorySystem:
         return candidates
     
     def update_registry(self, indicator: Dict) -> bool:
-        """更新指标注册表"""
-        path = f"{self.base_path}/indicators/registry.json"
-        registry = self._read_json(path) or {"version": 1, "indicators": {}}
+        """更新指标注册表 - 复用 indicator_registry 模块"""
+        from core.indicator_registry import read_registry, write_registry
+        
+        registry = read_registry()
+        if "indicators" not in registry:
+            registry["indicators"] = {}
         
         name = indicator.get("name")
         if name in registry["indicators"]:
@@ -256,15 +259,18 @@ class MemorySystem:
                 "created_at": datetime.now().isoformat()
             }
         
-        registry["version"] += 1
-        self._write_json(path, registry)
+        # 更新版本和时间戳
+        registry["version"] = registry.get("version", "v5.1")
+        registry["updated_at"] = datetime.now().isoformat()
+        
+        write_registry(registry)
         logger.info(f"[Registry] UPDATE: {name}")
         return True
     
     def read_registry(self) -> Dict:
-        """读取注册表"""
-        path = f"{self.base_path}/indicators/registry.json"
-        return self._read_json(path) or {"version": 0, "indicators": {}}
+        """读取注册表 - 复用 indicator_registry 模块"""
+        from core.indicator_registry import read_registry
+        return read_registry()
     
     def read_recent_reports(self, days: int = 30) -> List[Dict]:
         """读取最近N天的日报"""

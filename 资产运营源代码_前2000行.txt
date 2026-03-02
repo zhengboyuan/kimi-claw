@@ -1,0 +1,2000 @@
+#!/usr/bin/env python3
+"""
+V5.1 指标审批脚本
+将 pending 状态的指标审批合并到 registry
+"""
+import json
+import shutil
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Optional
+
+# 路径配置
+PENDING_DIR = Path("config/indicators/llm_generated/pending")
+APPROVED_DIR = Path("config/indicators/llm_generated/approved")
+RETIRED_DIR = Path("config/indicators/llm_generated/retired")
+REGISTRY_PATH = Path("config/indicators/registry.json")
+HISTORY_PATH = Path("memory/indicators/registry_history.json")
+
+
+class IndicatorApprover:
+    """指标审批管理器"""
+    
+    def __init__(self):
+        self.pending_dir = PENDING_DIR
+        self.approved_dir = APPROVED_DIR
+        self.retired_dir = RETIRED_DIR
+        self.registry_path = REGISTRY_PATH
+        self.history_path = HISTORY_PATH
+        
+        # 确保目录存在
+        for d in [self.pending_dir, self.approved_dir, self.retired_dir, self.history_path.parent]:
+            d.mkdir(parents=True, exist_ok=True)
+    
+    def list_pending(self) -> List[Dict]:
+        """列出所有 pending 指标"""
+        pending = []
+        if not self.pending_dir.exists():
+            return pending
+        
+        for f in self.pending_dir.glob("*.json"):
+            try:
+                data = json.loads(f.read_text())
+                data['_file'] = f.name
+                pending.append(data)
+            except Exception as e:
+                print(f"  ⚠️ 读取失败 {f.name}: {e}")
+        
+        return pending
+    
+    def approve(self, indicator_id: str, reviewer: str = "system", notes: str = "") -> bool:
+        """
+        审批通过一个指标
+        
+        Args:
+            indicator_id: 指标ID
+            reviewer: 审批人
+            notes: 审批备注
+        
+        Returns:
+            是否成功
+        """
+        # 查找 pending 文件
+        pending_file = self.pending_dir / f"{indicator_id}.json"
+        if not pending_file.exists():
+            print(f"  ❌ Pending 指标不存在: {indicator_id}")
+            return False
+        
+        # 读取指标定义
+        try:
+            indicator = json.loads(pending_file.read_text())
+        except Exception as e:
+            print(f"  ❌ 读取指标失败: {e}")
+            return False
+        
+        # 更新状态
+        indicator['lifecycle_status'] = 'approved'
+        indicator['approved_at'] = datetime.now().isoformat()
+        indicator['approved_by'] = reviewer
+        indicator['approval_notes'] = notes
+        
+        # 1. 移动到 approved 目录
+        approved_file = self.approved_dir / f"{indicator_id}.json"
+        approved_file.write_text(json.dumps(indicator, ensure_ascii=False, indent=2), encoding='utf-8')
+        pending_file.unlink()
+        print(f"  ✓ 移动到 approved: {indicator_id}")
+        
+        # 2. 合并到 registry
+        self._merge_to_registry(indicator)
+        
+        # 3. 记录历史
+        self._record_history('approve', indicator, reviewer, notes)
+        
+        return True
+    
+    def reject(self, indicator_id: str, reviewer: str = "system", reason: str = "") -> bool:
+        """拒绝一个指标"""
+        pending_file = self.pending_dir / f"{indicator_id}.json"
+        if not pending_file.exists():
+            print(f"  ❌ Pending 指标不存在: {indicator_id}")
+            return False
+        
+        try:
+            indicator = json.loads(pending_file.read_text())
+        except Exception as e:
+            print(f"  ❌ 读取指标失败: {e}")
+            return False
+        
+        # 更新状态
+        indicator['lifecycle_status'] = 'retired'
+        indicator['rejected_at'] = datetime.now().isoformat()
+        indicator['rejected_by'] = reviewer
+        indicator['reject_reason'] = reason
+        
+        # 移动到 retired
+        retired_file = self.retired_dir / f"{indicator_id}.json"
+        retired_file.write_text(json.dumps(indicator, ensure_ascii=False, indent=2), encoding='utf-8')
+        pending_file.unlink()
+        print(f"  ✓ 移动到 retired: {indicator_id}")
+        
+        # 记录历史
+        self._record_history('reject', indicator, reviewer, reason)
+        
+        return True
+    
+    def retire(self, indicator_id: str, reviewer: str = "system", reason: str = "") -> bool:
+        """退役一个已批准的指标"""
+        # 从 registry 中移除
+        registry = self._load_registry()
+        if indicator_id not in registry.get('indicators', {}):
+            print(f"  ❌ Registry 中不存在: {indicator_id}")
+            return False
+        
+        indicator = registry['indicators'].pop(indicator_id)
+        indicator['lifecycle_status'] = 'retired'
+        indicator['retired_at'] = datetime.now().isoformat()
+        indicator['retired_by'] = reviewer
+        indicator['retire_reason'] = reason
+        
+        # 保存 registry
+        self._save_registry(registry)
+        
+        # 移动到 retired
+        retired_file = self.retired_dir / f"{indicator_id}.json"
+        retired_file.write_text(json.dumps(indicator, ensure_ascii=False, indent=2), encoding='utf-8')
+        
+        # 清理 approved
+        approved_file = self.approved_dir / f"{indicator_id}.json"
+        if approved_file.exists():
+            approved_file.unlink()
+        
+        print(f"  ✓ 退役指标: {indicator_id}")
+        
+        # 记录历史
+        self._record_history('retire', indicator, reviewer, reason)
+        
+        return True
+    
+    def _load_registry(self) -> Dict:
+        """加载 registry"""
+        if not self.registry_path.exists():
+            return {"version": "v5.1", "updated_at": None, "indicators": {}}
+        return json.loads(self.registry_path.read_text(encoding='utf-8'))
+    
+    def _save_registry(self, registry: Dict):
+        """保存 registry"""
+        registry['updated_at'] = datetime.now().isoformat()
+        self.registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2), encoding='utf-8')
+    
+    def _merge_to_registry(self, indicator: Dict):
+        """合并指标到 registry"""
+        registry = self._load_registry()
+        
+        ind_id = indicator.get('id')
+        if not ind_id:
+            print(f"  ❌ 指标缺少 id")
+            return
+        
+        # 添加/更新指标
+        registry['indicators'][ind_id] = indicator
+        self._save_registry(registry)
+        print(f"  ✓ 合并到 registry: {ind_id}")
+    
+    def _record_history(self, action: str, indicator: Dict, operator: str, notes: str):
+        """记录审批历史"""
+        history = []
+        if self.history_path.exists():
+            try:
+                history = json.loads(self.history_path.read_text())
+            except:
+                pass
+        
+        history.append({
+            'timestamp': datetime.now().isoformat(),
+            'action': action,  # approve, reject, retire
+            'indicator_id': indicator.get('id'),
+            'indicator_name': indicator.get('name'),
+            'operator': operator,
+            'notes': notes
+        })
+        
+        self.history_path.write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding='utf-8')
+    
+    def batch_approve(self, reviewer: str = "system") -> int:
+        """批量审批所有 pending 指标"""
+        pending = self.list_pending()
+        if not pending:
+            print("  没有 pending 指标需要审批")
+            return 0
+        
+        print(f"\n发现 {len(pending)} 个 pending 指标:")
+        for p in pending:
+            print(f"  - {p.get('id')}: {p.get('name')}")
+        
+        approved_count = 0
+        for p in pending:
+            ind_id = p.get('id')
+            if self.approve(ind_id, reviewer, "批量审批"):
+                approved_count += 1
+        
+        return approved_count
+    
+    def sync_approved_to_registry(self):
+        """同步所有 approved 指标到 registry（用于修复）"""
+        if not self.approved_dir.exists():
+            print("  没有 approved 目录")
+            return
+        
+        registry = self._load_registry()
+        count = 0
+        
+        for f in self.approved_dir.glob("*.json"):
+            try:
+                indicator = json.loads(f.read_text())
+                ind_id = indicator.get('id')
+                if ind_id:
+                    registry['indicators'][ind_id] = indicator
+                    count += 1
+            except Exception as e:
+                print(f"  ⚠️ 读取失败 {f.name}: {e}")
+        
+        self._save_registry(registry)
+        print(f"  ✓ 同步 {count} 个 approved 指标到 registry")
+
+
+def main():
+    """命令行入口"""
+    import sys
+    
+    approver = IndicatorApprover()
+    
+    if len(sys.argv) < 2:
+        print("Usage: python approve_indicators.py <command> [args...]")
+        print("")
+        print("Commands:")
+        print("  list                          列出 pending 指标")
+        print("  approve <indicator_id>       审批单个指标")
+        print("  reject <indicator_id> [reason] 拒绝单个指标")
+        print("  retire <indicator_id> [reason] 退役已批准指标")
+        print("  batch-approve                 批量审批所有 pending")
+        print("  sync                          同步 approved 到 registry")
+        return
+    
+    cmd = sys.argv[1]
+    
+    if cmd == 'list':
+        pending = approver.list_pending()
+        if pending:
+            print(f"\nPending 指标 ({len(pending)}):")
+            for p in pending:
+                print(f"  - {p.get('id')}: {p.get('name')} (source: {p.get('source')})")
+        else:
+            print("\n没有 pending 指标")
+    
+    elif cmd == 'approve':
+        if len(sys.argv) < 3:
+            print("Usage: approve <indicator_id>")
+            return
+        approver.approve(sys.argv[2])
+    
+    elif cmd == 'reject':
+        if len(sys.argv) < 3:
+            print("Usage: reject <indicator_id> [reason]")
+            return
+        reason = sys.argv[3] if len(sys.argv) > 3 else ""
+        approver.reject(sys.argv[2], reason=reason)
+    
+    elif cmd == 'retire':
+        if len(sys.argv) < 3:
+            print("Usage: retire <indicator_id> [reason]")
+            return
+        reason = sys.argv[3] if len(sys.argv) > 3 else ""
+        approver.retire(sys.argv[2], reason=reason)
+    
+    elif cmd == 'batch-approve':
+        count = approver.batch_approve()
+        print(f"\n✅ 审批完成: {count} 个指标")
+    
+    elif cmd == 'sync':
+        approver.sync_approved_to_registry()
+    
+    else:
+        print(f"Unknown command: {cmd}")
+
+
+if __name__ == '__main__':
+    main()#!/usr/bin/env python3
+"""
+V4.4 批量运行7-8月数据
+"""
+
+import sys
+import os
+from datetime import datetime, timedelta
+
+sys.path.insert(0, '/root/.openclaw/workspace/taienergy-analytics')
+
+from workflows.daily_asset_management import DailyAssetManagementWorkflow
+from workflows.weekly_analysis import WeeklyAnalysisWorkflow
+from workflows.monthly_review import MonthlyReviewWorkflow
+
+def run_batch():
+    """运行7-8月批量数据"""
+    
+    print("="*80)
+    print("V4.4 批量运行: 2025年7-8月")
+    print("="*80)
+    
+    # 日期范围
+    start_date = datetime(2025, 7, 1)
+    end_date = datetime(2025, 8, 31)
+    
+    # 运行每日资产管理
+    daily_workflow = DailyAssetManagementWorkflow()
+    weekly_workflow = WeeklyAnalysisWorkflow()
+    
+    current = start_date
+    week_count = 0
+    
+    while current <= end_date:
+        date_str = current.strftime('%Y-%m-%d')
+        
+        # 每日资产管理
+        print(f"\n[{date_str}] 每日资产管理...")
+        try:
+            result = daily_workflow.run_daily(date_str)
+            print(f"  完成: {len(result['device_status'])} 台设备")
+        except Exception as e:
+            print(f"  错误: {e}")
+        
+        # 周日运行周度分析
+        if current.weekday() == 6:  # 周日
+            week_count += 1
+            print(f"\n[{date_str}] 周度分析 (第{week_count}周)...")
+            try:
+                weekly_result = weekly_workflow.run_weekly(date_str)
+                print(f"  退化趋势: {len(weekly_result['degradation_trends'])} 台")
+                print(f"  新异常模式: {len(weekly_result['new_anomaly_patterns'])} 种")
+                print(f"  候选指标: {len(weekly_result['candidate_indicators'])} 个")
+            except Exception as e:
+                print(f"  错误: {e}")
+        
+        # 每月1日运行月度评审
+        if current.day == 1:
+            month_str = current.strftime('%Y-%m-%d')
+            print(f"\n[{month_str}] 月度评审...")
+            try:
+                from workflows.monthly_review import run_v44_monthly_review
+                monthly_result = run_v44_monthly_review(month_str)
+                print(f"  候选入库: {monthly_result['candidate_review'].get('promoted', 0)} 个")
+                print(f"  临时转正: {monthly_result['temp_indicator_review'].get('approved', 0)} 个")
+            except Exception as e:
+                print(f"  错误: {e}")
+        
+        current += timedelta(days=1)
+    
+    print("\n" + "="*80)
+    print("批量运行完成!")
+    print("="*80)
+
+if __name__ == '__main__':
+    run_batch()#!/usr/bin/env python3
+"""
+V4.4 批量运行7-8月数据 - 改进版（带进度保存）
+"""
+
+import sys
+import os
+from datetime import datetime, timedelta
+
+sys.path.insert(0, '/root/.openclaw/workspace/taienergy-analytics')
+
+from workflows.daily_asset_management import DailyAssetManagementWorkflow
+
+def run_batch():
+    """运行7-8月批量数据"""
+    
+    print("="*80)
+    print("V4.4 批量运行: 2025年7-8月")
+    print("="*80)
+    
+    # 日期范围
+    start_date = datetime(2025, 7, 1)
+    end_date = datetime(2025, 8, 31)
+    
+    # 检查已完成的日期
+    completed = set()
+    daily_path = '/root/.openclaw/workspace/taienergy-analytics/memory/daily'
+    if os.path.exists(daily_path):
+        for f in os.listdir(daily_path):
+            if f.endswith('_report.json'):
+                date_str = f.replace('_report.json', '')
+                completed.add(date_str)
+    
+    print(f"已跳过 {len(completed)} 个已完成日期")
+    
+    # 运行每日资产管理
+    daily_workflow = DailyAssetManagementWorkflow()
+    
+    current = start_date
+    success_count = 0
+    error_count = 0
+    
+    while current <= end_date:
+        date_str = current.strftime('%Y-%m-%d')
+        
+        # 跳过已完成的
+        if date_str in completed:
+            current += timedelta(days=1)
+            continue
+        
+        print(f"\n[{date_str}] 每日资产管理...", flush=True)
+        try:
+            result = daily_workflow.run_daily(date_str)
+            print(f"  ✅ 完成: {len(result['device_status'])} 台设备", flush=True)
+            success_count += 1
+            completed.add(date_str)
+        except Exception as e:
+            print(f"  ❌ 错误: {e}", flush=True)
+            error_count += 1
+        
+        current += timedelta(days=1)
+    
+    print("\n" + "="*80)
+    print("批量运行完成!")
+    print(f"成功: {success_count} 天")
+    print(f"错误: {error_count} 天")
+    print(f"总计: {len(completed)} 天")
+    print("="*80)
+
+if __name__ == '__main__':
+    run_batch()#!/usr/bin/env python3
+"""
+V3.1 混沌测试 (Fault Injection)
+人工制造异常，验证雷达是否正常工作
+"""
+import sys
+sys.path.insert(0, '.')
+
+import pandas as pd
+import numpy as np
+from datetime import datetime
+from core.composite_engine_v31 import CompositeIndicatorEngineV31, AnomalyConfig
+from skills.skill_1_data_collector import DataCollector
+
+
+def inject_faults(df_day: pd.DataFrame, fault_type: str) -> pd.DataFrame:
+    """
+    注入故障数据
+    
+    Args:
+        df_day: 原始数据
+        fault_type: 故障类型
+    
+    Returns:
+        注入故障后的数据
+    """
+    df_fault = df_day.copy()
+    
+    if fault_type == "pv_shading":
+        # 模拟PV3(ai10)被树叶遮挡，电流下降15%
+        print("  🔧 注入故障: PV3组串遮挡 (电流下降15%)")
+        if 'ai10' in df_fault.columns:
+            # 只在白天（功率>1000W）时注入
+            mask = df_fault.get('ai45', pd.Series([0]*len(df_fault))) > 1000
+            df_fault.loc[mask, 'ai10'] = df_fault.loc[mask, 'ai10'] * 0.85
+            
+    elif fault_type == "high_temp_derating":
+        # 模拟高温降载，转换效率掉到93%
+        print("  🔧 注入故障: 高温降载 (效率93%)")
+        if 'ai45' in df_fault.columns and 'ai56' in df_fault.columns:
+            # 半载以上才注入
+            mask = df_fault['ai45'] > 25000  # 50kW的50%
+            df_fault.loc[mask, 'ai56'] = df_fault.loc[mask, 'ai45'] * 0.93
+            
+    elif fault_type == "grid_unbalance":
+        # 模拟电网三相不平衡，U相电压偏高5%
+        print("  🔧 注入故障: 电网三相不平衡 (U相+5%)")
+        if 'ai49' in df_fault.columns:
+            df_fault['ai49'] = df_fault['ai49'] * 1.05
+            
+    elif fault_type == "multi_fault":
+        # 多重故障：遮挡 + 降载
+        print("  🔧 注入故障: 多重故障 (遮挡+降载)")
+        if 'ai10' in df_fault.columns:
+            mask = df_fault.get('ai45', pd.Series([0]*len(df_fault))) > 1000
+            df_fault.loc[mask, 'ai10'] = df_fault.loc[mask, 'ai10'] * 0.85
+        if 'ai45' in df_fault.columns and 'ai56' in df_fault.columns:
+            mask = df_fault['ai45'] > 25000
+            df_fault.loc[mask, 'ai56'] = df_fault.loc[mask, 'ai45'] * 0.93
+    
+    return df_fault
+
+
+def run_chaos_test(date_str: str, fault_type: str):
+    """运行混沌测试"""
+    print(f'\n{"="*60}')
+    print(f'混沌测试: {date_str} | 故障类型: {fault_type}')
+    print(f'{"="*60}')
+    
+    # 获取真实数据
+    collector = DataCollector('XHDL_1NBQ')
+    daily_data = collector.collect_daily_data(date_str)
+    
+    # 合并数据
+    df_merged = pd.DataFrame()
+    for code, data in daily_data.items():
+        if not data.empty and 'value' in data.columns:
+            df_merged[code] = data['value']
+    
+    print(f'原始数据: {df_merged.shape}')
+    
+    # 先测试正常数据
+    print('\n--- 测试1: 正常数据 ---')
+    config = AnomalyConfig()
+    engine_normal = CompositeIndicatorEngineV31(df_merged, config)
+    survivors_normal = engine_normal.generate_and_select()
+    
+    if not survivors_normal:
+        print('  ✅ 正常数据无异常（符合预期）')
+    else:
+        print(f'  ⚠️ 正常数据发现 {len(survivors_normal)} 个异常')
+    
+    # 注入故障
+    print('\n--- 测试2: 注入故障后 ---')
+    df_fault = inject_faults(df_merged, fault_type)
+    
+    # 运行V3.1引擎
+    engine_fault = CompositeIndicatorEngineV31(df_fault, config)
+    survivors_fault = engine_fault.generate_and_select()
+    
+    # 验证结果
+    print('\n--- 验证结果 ---')
+    if survivors_fault:
+        print(f'  ✅ 雷达正常工作! 抓到 {len(survivors_fault)} 个异常')
+        for name, info in survivors_fault.items():
+            severity_emoji = {'critical': '🔴', 'warning': '🟡', 'info': '🔵'}.get(info['severity'], '⚪')
+            print(f'    {severity_emoji} {name}')
+            print(f'       级别: {info["severity"]}')
+            print(f'       峰值: {info["anomaly_peak"]}')
+            print(f'       持续: {info["continuous_points"]}个点')
+        return True
+    else:
+        print('  ❌ 雷达失效! 未抓到注入的故障')
+        return False
+
+
+def main():
+    """主入口"""
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='V3.1混沌测试')
+    parser.add_argument('--date', default='2025-08-01', help='测试日期')
+    parser.add_argument('--fault', default='multi_fault', 
+                       choices=['pv_shading', 'high_temp_derating', 'grid_unbalance', 'multi_fault'],
+                       help='故障类型')
+    
+    args = parser.parse_args()
+    
+    print('='*60)
+    print('V3.1 混沌测试 (Fault Injection)')
+    print('='*60)
+    
+    success = run_chaos_test(args.date, args.fault)
+    
+    print('\n' + '='*60)
+    if success:
+        print('✅ 混沌测试通过! V3.1雷达工作正常')
+    else:
+        print('❌ 混沌测试失败! 需要调优阈值')
+    print('='*60)
+
+
+if __name__ == '__main__':
+    main()
+"""
+设备配置文件
+支持动态指标发现和进化
+"""
+
+# 泰能平台配置
+TAIENERGY_CONFIG = {
+    "base_url": "https://taienergy.console.chintiot.net",
+    "appid": "076c1320524e4cdaaf6904da90fcf910",
+    "appkey": "c7b655dd-33a1-49fa-b7d8-49023afb9827",
+}
+
+# 核心基准指标配置
+CORE_BENCHMARKS = {
+    "daytime": "ai56",    # 日间基准：有功功率
+    "nighttime": "ai61",  # 夜间基准：内部温度
+}
+
+# 哨兵指标（禁止自动淘汰）
+SENTINEL_INDICATORS = [
+    "ai63",   # 设备状态
+    "ai64",   # 故障码
+    "di39", "di40", "di41", "di42", "di43", "di44",  # 告警类
+]
+
+# 测试设备配置
+# 注意：实际指标列表将从 GetDevicePropertyList 接口或自动探测获取
+DEVICES = {
+    "XHDL_1NBQ": {
+        "name": "测试逆变器",
+        "type": "inverter",
+        "capacity_kw": 50,
+        "location": "测试站点",
+        # 探测配置
+        "discovery": {
+            "probe_range": 200,        # 探测范围 ai1-200, di1-200
+            "full_scan_interval": 7,   # 全量扫描间隔（天）
+            "daily_probe_sample": 10,  # 日常抽样探测数量
+        },
+        # 进化阈值
+        "evolution": {
+            "upgrade_threshold": 0.6,   # 升级阈值
+            "upgrade_days": 3,          # 升级所需连续天数
+            "downgrade_days": 7,        # 降级所需连续天数
+            "silent_days": 7,           # 进入静默池天数
+            "remove_days": 30,          # 彻底移除天数
+        }
+    }
+}
+
+# 分析配置
+ANALYSIS_CONFIG = {
+    "start_date": "2025-02-22",
+    "min_data_points": 5,
+    "change_point_threshold": 2.0,
+    "outlier_std_threshold": 2.5,
+    "seasonality_periods": [24, 12],
+    "batch_size": 20,  # 每批查询的指标数量（避免 API 超时）
+}
+"""
+记忆文件规则配置
+定义各记忆文件的写入规则和强制读取关系
+"""
+
+from typing import Dict, List
+
+# ========== 记忆文件注册表 ==========
+MEMORY_REGISTRY = {
+    
+    # ========== Layer 3: 认知层 ==========
+    "cognitive/relationship_graph.json": {
+        "description": "指标关系图谱",
+        "layer": "cognitive",
+        "required_readers": ["daily_discovery", "feature_engineering"],
+        "decision_mode": "llm",  # 大模型决策
+        "max_size_mb": 10,
+    },
+    
+    "cognitive/pattern_library.json": {
+        "description": "可复用模式库",
+        "layer": "cognitive", 
+        "required_readers": ["risk_identification", "anomaly_detection"],
+        "decision_mode": "llm",
+        "max_size_mb": 50,
+    },
+    
+    "cognitive/insights.json": {
+        "description": "认知洞察记录",
+        "layer": "cognitive",
+        "required_readers": ["daily_report"],
+        "decision_mode": "llm",
+        "max_size_mb": 5,
+    },
+    
+    # ========== Layer 2: 设备层 ==========
+    "devices/{sn}/memory.json": {
+        "description": "设备长期记忆",
+        "layer": "device",
+        "required_readers": ["health_scoring", "risk_identification"],
+        "decision_mode": "hybrid",  # 混合决策（规则+LLM）
+        "max_entries": 100,  # 最多保留100条记录
+    },
+    
+    "devices/{sn}/predictions.json": {
+        "description": "预测记录（用于偏差计算）",
+        "layer": "device",
+        "required_readers": ["health_scoring"],
+        "decision_mode": "auto",  # 自动写入
+        "max_entries": 30,  # 保留最近30天预测
+    },
+    
+    "devices/{sn}/anomaly_history.json": {
+        "description": "异常历史记录",
+        "layer": "device",
+        "required_readers": ["risk_identification"],
+        "decision_mode": "auto",
+        "max_entries": 50,
+    },
+    
+    # ========== Layer 1: 日报层 ==========
+    "daily/{date}_report.json": {
+        "description": "每日资产管理日报",
+        "layer": "daily",
+        "required_readers": ["monthly_review", "portfolio_analytics"],
+        "decision_mode": "auto",  # 每日必须生成
+        "max_size_kb": 50,  # 精简版，不超过50KB
+        "retention_days": 365,  # 保留1年
+    },
+    
+    # ========== 指标层 ==========
+    "indicators/registry.json": {
+        "description": "指标注册表（核心资产）",
+        "layer": "indicator",
+        "required_readers": ["daily_discovery", "evaluation_engine", "monthly_review"],
+        "decision_mode": "auto",
+        "backup_count": 10,  # 保留10个备份
+    },
+    
+    "indicators/candidate/{name}_{date}.md": {
+        "description": "候选指标规格文档",
+        "layer": "indicator",
+        "required_readers": ["evaluation_engine"],
+        "decision_mode": "auto",
+        "retention_days": 90,  # 候选保留90天
+    },
+}
+
+
+# ========== 决策Prompt模板 ==========
+DECISION_PROMPTS = {
+    
+    "cognitive_relationship": """
+你是一位知识管理专家，负责判断新的指标相关性是否值得记录。
+
+## 现有关系图谱
+{existing}
+
+## 新发现
+{new_data}
+
+## 判断标准
+1. 是否是全新的指标组合？（未在现有关系中）
+2. 相关系数是否足够高？（>0.85）
+3. 是否可以用于生成交叉特征？
+4. 是否与现有关系本质重复？
+
+## 输出
+返回JSON：
+{{
+    "action": "SKIP|WRITE|MERGE",
+    "reason": "简要说明",
+    "confidence": 0.95
+}}
+""",
+
+    "cognitive_pattern": """
+你是一位模式识别专家，判断新发现的模式是否值得入库。
+
+## 现有模式库
+{existing}
+
+## 新模式
+{new_data}
+
+## 判断标准
+1. 模式是否可复用？（跨设备/跨时间）
+2. 置信度是否足够高？
+3. 是否与现有模式重复？
+4. 是否有预测价值？
+
+## 输出
+返回JSON：
+{{
+    "action": "SKIP|WRITE|MERGE",
+    "reason": "简要说明",
+    "confidence": 0.85
+}}
+""",
+
+    "device_memory": """
+你是一位设备管理专家，判断是否需要更新设备记忆。
+
+## 设备历史
+{existing}
+
+## 今日数据
+{new_data}
+
+## 判断标准
+1. 评分是否有显著变化？（>5分）
+2. 是否有新的异常？
+3. 是否超过7天未更新？
+4. 趋势是否有变化？（改善/恶化）
+
+## 输出
+返回JSON：
+{{
+    "action": "SKIP|WRITE",
+    "reason": "简要说明"
+}}
+""",
+}
+
+
+# ========== 清理规则 ==========
+CLEANUP_RULES = {
+    "daily_reports": {
+        "retention_days": 365,
+        "action": "archive",  # 归档而非删除
+    },
+    "candidate_indicators": {
+        "retention_days": 90,
+        "action": "delete",  # 超过90天未晋升则删除
+    },
+    "validation_logs": {
+        "retention_days": 7,
+        "action": "delete",  # 验证日志只保留7天
+    },
+    "temp_files": {
+        "retention_days": 1,
+        "action": "delete",
+    },
+}
+"""
+V5.1 自动聚合引擎
+生成设备画像和场站排名
+"""
+import json
+import numpy as np
+from typing import Dict, List, Optional
+from datetime import datetime
+from collections import defaultdict
+
+from core.unified_history import UnifiedHistoryStore, get_history_store
+from core.discovery_rules import DiscoveryRuleEngine
+
+
+class AggregationEngine:
+    """自动聚合引擎"""
+    
+    def __init__(self, history_store: UnifiedHistoryStore = None):
+        self.history = history_store or get_history_store()
+        self.rule_engine = DiscoveryRuleEngine()
+    
+    def generate_device_profile(self, sn: str, days: int = 30) -> Dict:
+        """生成设备画像"""
+        daily_series = self.history.read_device_daily_series(sn, days)
+        
+        if len(daily_series) < 3:
+            return {"sn": sn, "status": "insufficient_data"}
+        
+        health_scores = [d['metrics'].get('health_score') for d in daily_series 
+                        if d['metrics'].get('health_score') is not None]
+        
+        profile = {
+            "sn": sn,
+            "generated_at": datetime.now().isoformat(),
+            "lookback_days": days,
+            "data_points": len(daily_series),
+            "health": {
+                "current": health_scores[-1] if health_scores else None,
+                "avg": round(np.mean(health_scores), 2) if health_scores else None,
+                "trend": "stable"
+            }
+        }
+        
+        self.history.update_device_profile(sn, profile)
+        return profile
+    
+    def generate_station_ranking(self, date_str: str, device_profiles: Dict[str, Dict]) -> Dict:
+        """生成场站排名"""
+        health_ranking = sorted(
+            [(sn, p['health']['current']) for sn, p in device_profiles.items() 
+             if p.get('health', {}).get('current') is not None],
+            key=lambda x: x[1], reverse=True
+        )
+        
+        return {
+            "date": date_str,
+            "rankings": {"by_health": [sn for sn, _ in health_ranking]},
+            "top_performers": {"by_health": [sn for sn, _ in health_ranking[:3]]},
+            "bottom_performers": {"by_health": [sn for sn, _ in health_ranking[-3:]]}
+        }"""
+V4.4 资产健康评估引擎
+
+核心功能：
+1. 每日健康评分（5维度+趋势分）
+2. 版本控制与基准校准
+3. 健康历史记录
+
+健康分维度：
+- 异常频率 (30%): 最近7天P0/P1/P2异常加权
+- 指标退化 (25%): 核心指标趋势分析
+- 数据质量 (20%): 数据完整率 × 质量评分
+- 稳定性 (15%): 关键指标波动率
+- 历史对比 (10%): 与上月同期对比
+- 趋势分 (附加): 健康分二阶导数（退化加速度）
+"""
+
+import json
+import os
+import numpy as np
+from datetime import datetime, timedelta
+from typing import Dict, List, Tuple
+import pandas as pd
+
+
+class AssetHealthEngine:
+    """资产健康评估引擎"""
+    
+    # 评分维度权重
+    WEIGHTS = {
+        'anomaly': 0.30,
+        'degradation': 0.25,
+        'quality': 0.20,
+        'stability': 0.15,
+        'history': 0.10
+    }
+    
+    # 评分逻辑版本
+    VERSION = "v1.0"
+    
+    # 阈值
+    THRESHOLDS = {
+        'excellent': 90,
+        'good': 75,
+        'attention': 60,
+        'warning': 40,
+        'danger': 0
+    }
+    
+    def __init__(self, device_sn: str):
+        self.device_sn = device_sn
+        self.health_path = f"memory/devices/{device_sn}/health_history.json"
+        self.trend_path = f"memory/devices/{device_sn}/trend_analysis.json"
+        self.anomaly_path = f"memory/devices/{device_sn}/anomaly_log.json"
+        
+        # 确保目录存在
+        os.makedirs(os.path.dirname(self.health_path), exist_ok=True)
+    
+    def calculate_daily_health(self, date_str: str, device_data: Dict) -> Dict:
+        """
+        计算每日健康评分
+        
+        Args:
+            date_str: 日期，如 "2025-07-16"
+            device_data: 当日设备数据
+        
+        Returns:
+            健康评分结果
+        """
+        result = {
+            'date': date_str,
+            'version': self.VERSION,
+            'timestamp': datetime.now().isoformat(),
+            'dimensions': {},
+            'total_score': 0,
+            'trend_score': 0,  # 二阶导数
+            'level': 'unknown',
+            'calibrated': True
+        }
+        
+        # 计算5维度分数
+        result['dimensions']['anomaly'] = self._calc_anomaly_score(date_str)
+        result['dimensions']['degradation'] = self._calc_degradation_score(date_str, device_data)
+        result['dimensions']['quality'] = self._calc_quality_score(device_data)
+        result['dimensions']['stability'] = self._calc_stability_score(device_data)
+        result['dimensions']['history'] = self._calc_history_score(date_str)
+        
+        # 加权总分
+        total = sum(
+            result['dimensions'][k] * self.WEIGHTS[k]
+            for k in self.WEIGHTS.keys()
+        )
+        result['total_score'] = round(total, 1)
+        
+        # 计算趋势分（二阶导数）
+        result['trend_score'] = self._calc_trend_score(date_str, total)
+        
+        # 确定等级
+        result['level'] = self._determine_level(total)
+        
+        # 保存
+        self._save_health_record(result)
+        
+        return result
+    
+    def _calc_anomaly_score(self, date_str: str) -> float:
+        """异常频率评分（最近7天）"""
+        # P0=Critical, P1=Warning, P2=Info
+        weights = {'P0': 10, 'P1': 5, 'P2': 1}
+        
+        # 读取最近7天异常记录
+        anomalies = self._get_recent_anomalies(date_str, days=7)
+        
+        if not anomalies:
+            return 100.0
+        
+        # 计算加权异常分
+        total_weight = sum(
+            weights.get(a['level'], 1) 
+            for a in anomalies
+        )
+        
+        # 异常分越低，健康分越高
+        score = max(0, 100 - total_weight * 2)
+        return score
+    
+    def _calc_degradation_score(self, date_str: str, device_data: Dict) -> float:
+        """指标退化评分"""
+        # 核心指标列表
+        core_indicators = ['vol_unbalance', 'efficiency', 'power_factor']
+        
+        scores = []
+        for indicator in core_indicators:
+            trend = self._get_indicator_trend(indicator, date_str)
+            if trend == 'improving':
+                scores.append(100)
+            elif trend == 'stable':
+                scores.append(85)
+            elif trend == 'degrading':
+                scores.append(60)
+            else:
+                scores.append(75)  # 未知
+        
+        return np.mean(scores) if scores else 75.0
+    
+    def _calc_quality_score(self, device_data: Dict) -> float:
+        """数据质量评分"""
+        # 从device_data中提取质量信息
+        completeness = device_data.get('completeness', 0.95)
+        quality_rating = device_data.get('quality_rating', 70.0)
+        
+        # 完整率 × 质量评分归一化
+        score = completeness * (quality_rating / 100) * 100
+        return round(score, 1)
+    
+    def _calc_stability_score(self, device_data: Dict) -> float:
+        """
+        稳定性评分（关键指标波动率）
+        基于raw_metrics中的时间序列数据计算变异系数
+        """
+        # 从raw_metrics获取关键指标数据
+        raw_metrics = device_data.get('raw_metrics', {})
+        
+        # 映射到实际的指标代码
+        metric_mapping = {
+            'voltage_a': ['ai51', 'ai52', 'ai53'],  # 三相电压
+            'current_a': ['ai54', 'ai55', 'ai56'],  # 三相电流
+            'power_active': ['ai68']  # 有功功率
+        }
+        
+        cv_scores = []
+        for metric_name, possible_codes in metric_mapping.items():
+            # 查找匹配的指标数据
+            values = None
+            for code in possible_codes:
+                if code in raw_metrics and len(raw_metrics[code]) > 1:
+                    values = raw_metrics[code]
+                    break
+            
+            if values:
+                mean_val = np.mean(values)
+                std_val = np.std(values)
+                if mean_val > 0:
+                    cv = std_val / mean_val
+                    # CV转换为分数
+                    if cv < 0.05:
+                        cv_scores.append(100)
+                    elif cv < 0.1:
+                        cv_scores.append(85)
+                    elif cv < 0.2:
+                        cv_scores.append(60)
+                    else:
+                        cv_scores.append(40)
+        
+        if cv_scores:
+            return np.mean(cv_scores)
+        else:
+            print(f"  [DEBUG] 稳定性: 未找到有效指标数据，使用默认值")
+            return 75.0
+    
+    def _calc_history_score(self, date_str: str) -> float:
+        """
+        历史对比评分（与上月同期）
+        """
+        try:
+            # 获取上月同期日期
+            current_date = datetime.strptime(date_str, '%Y-%m-%d')
+            last_month = current_date - timedelta(days=30)
+            last_month_str = last_month.strftime('%Y-%m-%d')
+            
+            # 读取上月健康分
+            history = self._get_health_record(last_month_str)
+            current = self._get_health_record(date_str)
+            
+            if not history or not current:
+                print(f"  [DEBUG] 历史对比: 无历史记录 ({last_month_str})")
+                return 75.0
+            
+            history_score = history.get('total_score', 75)
+            current_score = current.get('total_score', 75)
+            
+            # 计算变化
+            change = current_score - history_score
+            
+            print(f"  [DEBUG] 历史对比: 上月={history_score:.1f}, 本月={current_score:.1f}, 变化={change:+.1f}")
+            
+            # 变化越小越好
+            if abs(change) < 5:
+                return 100
+            elif abs(change) < 10:
+                return 85
+            elif abs(change) < 20:
+                return 60
+            else:
+                return 40
+        except Exception as e:
+            print(f"  [DEBUG] 历史对比计算失败: {e}")
+            return 75.0
+    
+    def _calc_trend_score(self, date_str: str, current_score: float) -> float:
+        """
+        计算趋势分（健康分的二阶导数）
+        
+        正值：加速变好
+        负值：加速变差（退化加速）
+        接近0：平稳
+        """
+        # 获取最近3天的健康分
+        dates = []
+        scores = []
+        
+        for i in range(3):
+            d = datetime.strptime(date_str, '%Y-%m-%d') - timedelta(days=i)
+            d_str = d.strftime('%Y-%m-%d')
+            record = self._get_health_record(d_str)
+            if record:
+                dates.append(i)
+                scores.append(record.get('total_score', 75))
+        
+        if len(scores) < 3:
+            return 0.0
+        
+        # 计算二阶导数（加速度）
+        # f''(x) ≈ (f(x+h) - 2f(x) + f(x-h)) / h^2
+        # 这里用离散点近似
+        first_deriv = (scores[0] - scores[1])  # 今天 vs 昨天
+        second_deriv = (scores[0] - 2*scores[1] + scores[2])  # 二阶
+        
+        return round(second_deriv, 2)
+    
+    def _determine_level(self, score: float) -> str:
+        """确定健康等级"""
+        if score >= self.THRESHOLDS['excellent']:
+            return 'excellent'
+        elif score >= self.THRESHOLDS['good']:
+            return 'good'
+        elif score >= self.THRESHOLDS['attention']:
+            return 'attention'
+        elif score >= self.THRESHOLDS['warning']:
+            return 'warning'
+        else:
+            return 'danger'
+    
+    def _save_health_record(self, record: Dict):
+        """保存健康记录"""
+        # 读取现有历史
+        history = []
+        if os.path.exists(self.health_path):
+            with open(self.health_path, 'r') as f:
+                history = json.load(f)
+        
+        # 更新或追加
+        updated = False
+        for i, h in enumerate(history):
+            if h.get('date') == record['date']:
+                history[i] = record
+                updated = True
+                break
+        
+        if not updated:
+            history.append(record)
+        
+        # 保存
+        with open(self.health_path, 'w') as f:
+            json.dump(history, f, indent=2)
+    
+    def _get_health_record(self, date_str: str) -> Dict:
+        """获取指定日期的健康记录"""
+        if not os.path.exists(self.health_path):
+            return None
+        
+        with open(self.health_path, 'r') as f:
+            history = json.load(f)
+        
+        for h in history:
+            if h.get('date') == date_str:
+                return h
+        
+        return None
+    
+    def _get_recent_anomalies(self, date_str: str, days: int = 7) -> List:
+        """获取最近N天的异常记录"""
+        if not os.path.exists(self.anomaly_path):
+            return []
+        
+        with open(self.anomaly_path, 'r') as f:
+            all_anomalies = json.load(f)
+        
+        # 过滤最近N天
+        end_date = datetime.strptime(date_str, '%Y-%m-%d')
+        start_date = end_date - timedelta(days=days)
+        
+        recent = []
+        for a in all_anomalies:
+            a_date = datetime.strptime(a.get('date', '2000-01-01'), '%Y-%m-%d')
+            if start_date <= a_date <= end_date:
+                recent.append(a)
+        
+        return recent
+    
+    def _get_indicator_trend(self, indicator: str, date_str: str) -> str:
+        """
+        获取指标趋势
+        通过对比当天和过去7天的平均值判断趋势
+        """
+        try:
+            # 获取当天数据
+            today_data = self._get_metric_history(indicator, date_str, days=1)
+            # 获取过去7天数据（不含今天）
+            history_data = self._get_metric_history(indicator, 
+                (datetime.strptime(date_str, '%Y-%m-%d') - timedelta(days=7)).strftime('%Y-%m-%d'),
+                days=7)
+            
+            if not today_data or not history_data:
+                return 'unknown'
+            
+            today_avg = np.mean(today_data)
+            history_avg = np.mean(history_data)
+            
+            if history_avg == 0:
+                return 'stable'
+            
+            change_pct = (today_avg - history_avg) / history_avg * 100
+            
+            if change_pct > 2:
+                return 'improving'
+            elif change_pct < -2:
+                return 'degrading'
+            else:
+                return 'stable'
+        except Exception as e:
+            print(f"  [DEBUG] 趋势计算失败: {e}")
+            return 'unknown'
+    
+    def _get_metric_history(self, indicator: str, date_str: str, days: int = 1) -> List:
+        """
+        获取指标历史数据
+        从健康历史记录中读取指定日期的指标数据
+        """
+        try:
+            # 构建日期列表
+            dates = []
+            for i in range(days):
+                d = datetime.strptime(date_str, '%Y-%m-%d') - timedelta(days=i)
+                dates.append(d.strftime('%Y-%m-%d'))
+            
+            values = []
+            # 读取健康历史中的原始指标数据
+            health_path = f"memory/devices/{self.device_sn}/health_history.json"
+            if os.path.exists(health_path):
+                with open(health_path, 'r') as f:
+                    history = json.load(f)
+                
+                for record in history:
+                    if record.get('date') in dates:
+                        # 尝试从记录中获取指标数据
+                        raw_metrics = record.get('raw_metrics', {})
+                        if indicator in raw_metrics:
+                            values.extend(raw_metrics[indicator])
+            
+            return values
+        except Exception as e:
+            print(f"  [DEBUG] 获取历史数据失败: {e}")
+            return []
+    
+    def recalibrate_baseline(self, new_version: str, days: int = 30):
+        """
+        版本升级时重算基准
+        
+        Args:
+            new_version: 新版本号
+            days: 重算天数
+        """
+        print(f"[{self.device_sn}] 版本升级: {self.VERSION} -> {new_version}")
+        print(f"重算最近{days}天健康分...")
+        
+        # 这里实现重算逻辑
+        # 1. 读取最近days天的原始数据
+        # 2. 用新逻辑重新计算
+        # 3. 标记为已校准
+        
+        self.VERSION = new_version
+        print("校准完成")
+
+
+# 便捷函数
+def calculate_device_health(device_sn: str, date_str: str, device_data: Dict) -> Dict:
+    """计算单设备健康分"""
+    engine = AssetHealthEngine(device_sn)
+    return engine.calculate_daily_health(date_str, device_data)
+
+
+def calculate_all_devices_health(date_str: str, all_device_data: Dict[str, Dict]) -> Dict[str, Dict]:
+    """计算所有设备健康分"""
+    results = {}
+    for sn, data in all_device_data.items():
+        results[sn] = calculate_device_health(sn, date_str, data)
+    return results"""
+分析器基类
+定义所有分析器的通用接口
+"""
+from abc import ABC, abstractmethod
+from typing import Dict, List, Any
+import pandas as pd
+
+
+class BaseAnalyzer(ABC):
+    """分析器基类"""
+    
+    def __init__(self, indicator_code: str, indicator_name: str):
+        self.indicator_code = indicator_code
+        self.indicator_name = indicator_name
+        self.history_data = []  # 历史数据累积
+        self.analysis_results = {}  # 分析结果
+    
+    @abstractmethod
+    def analyze(self, new_data: pd.DataFrame) -> Dict[str, Any]:
+        """
+        执行分析
+        
+        Args:
+            new_data: 新数据 DataFrame，包含 ts 和 value 列
+        
+        Returns:
+            分析结果字典
+        """
+        pass
+    
+    @abstractmethod
+    def update_model(self, new_data: pd.DataFrame):
+        """更新内部模型"""
+        pass
+    
+    def get_summary(self) -> str:
+        """获取分析摘要"""
+        return f"{self.indicator_name}({self.indicator_code}): 基础分析器"
+
+
+class RuleEngineAnalyzer(BaseAnalyzer):
+    """
+    规则引擎分析器（轻量级）
+    用于简单规则判断，不走 LLM
+    """
+    
+    def analyze(self, new_data: pd.DataFrame) -> Dict[str, Any]:
+        """基础统计分析"""
+        if new_data.empty:
+            return {"status": "no_data"}
+        
+        values = new_data['value'].dropna()
+        
+        return {
+            "status": "ok",
+            "count": len(values),
+            "mean": values.mean(),
+            "std": values.std(),
+            "min": values.min(),
+            "max": values.max(),
+            "non_zero_ratio": (values > 0).sum() / len(values) if len(values) > 0 else 0
+        }
+    
+    def update_model(self, new_data: pd.DataFrame):
+        """累积数据"""
+        self.history_data.append(new_data)
+
+
+class LLMAgentAnalyzer(BaseAnalyzer):
+    """
+    LLM 代理分析器（重量级）
+    用于复杂分析，需要调用 LLM
+    """
+    
+    def __init__(self, indicator_code: str, indicator_name: str):
+        super().__init__(indicator_code, indicator_name)
+        self.context = {}  # 上下文信息
+    
+    def set_context(self, context: Dict):
+        """设置分析上下文"""
+        self.context = context
+    
+    def analyze(self, new_data: pd.DataFrame) -> Dict[str, Any]:
+        """
+        执行深度分析（需要子类实现 LLM 调用）
+        """
+        raise NotImplementedError("LLM 分析器需要子类实现")
+    
+    def update_model(self, new_data: pd.DataFrame):
+        """更新模型"""
+        self.history_data.append(new_data)"""
+V4.5.0 业务规则过滤器
+防止假阳性指标，确保候选指标有业务价值
+"""
+
+import re
+import json
+import os
+from typing import List, Dict, Set
+from dataclasses import dataclass
+import numpy as np
+
+
+@dataclass
+class BusinessRuleConfig:
+    """业务规则配置"""
+    # 名称规范
+    valid_patterns: List[str] = None
+    
+    # 依赖要求
+    required_deps: List[str] = None  # 必须存在的指标
+    optional_deps: List[str] = None  # 可选指标
+    max_deps: int = 5  # 最大依赖数
+    
+    # 值范围
+    value_range: List[float] = None  # [min, max]
+    
+    # 黑名单
+    blacklisted_combinations: List[List[str]] = None
+    
+    def __post_init__(self):
+        if self.valid_patterns is None:
+            self.valid_patterns = [
+                r".*_rate$",      # 比率类
+                r".*_ratio$",     # 比例类
+                r".*_index$",     # 指数类
+                r".*_score$",     # 分数类
+                r".*_std$",       # 标准差类
+                r".*_cv$",        # 变异系数类
+                r".*_slope$",     # 斜率类
+                r".*_efficiency$", # 效率类
+            ]
+        if self.required_deps is None:
+            self.required_deps = ["ai56", "ai62", "ai68"]  # 功率相关
+        if self.optional_deps is None:
+            self.optional_deps = ["ai51", "ai52", "ai53", "ai54", "ai55"]
+        if self.value_range is None:
+            self.value_range = [0, 100]  # 默认归一化到0-100
+        if self.blacklisted_combinations is None:
+            self.blacklisted_combinations = []
+
+
+class BusinessRuleFilter:
+    """业务规则过滤器"""
+    
+    def __init__(self, config_path: str = None):
+        self.config = self._load_config(config_path)
+        self.valid_ai_codes = self._load_valid_ai_codes()
+        self.core_indicators = self._load_core_indicators()
+        
+    def _load_config(self, config_path: str = None) -> BusinessRuleConfig:
+        """加载配置"""
+        if config_path and os.path.exists(config_path):
+            with open(config_path, 'r') as f:
+                data = json.load(f)
+            return BusinessRuleConfig(**data)
+        return BusinessRuleConfig()  # 默认配置
+    
+    def _load_valid_ai_codes(self) -> Set[str]:
+        """加载有效的AI指标代码"""
+        # 从设备配置中加载
+        try:
+            from config.device_config import DeviceConfig
+            config = DeviceConfig()
+            return set(config.get_all_metric_codes())
+        except:
+            # 默认常用指标
+            return {
+                'ai51', 'ai52', 'ai53',  # 三相电压
+                'ai54', 'ai55', 'ai56',  # 三相电流
+                'ai62', 'ai63', 'ai64',  # 功率相关
+                'ai68', 'ai69', 'ai70',  # 有功功率
+                'ai99',  # 温度（如果有）
+            }
+    
+    def _load_core_indicators(self) -> Dict[str, List[float]]:
+        """加载现有核心指标的历史数据（用于冗余检查）"""
+        core_indicators = {}
+        
+        # 从健康历史加载
+        memory_path = "memory/devices"
+        if os.path.exists(memory_path):
+            for device_dir in os.listdir(memory_path):
+                health_path = os.path.join(memory_path, device_dir, "health_history.json")
+                if os.path.exists(health_path):
+                    with open(health_path, 'r') as f:
+                        history = json.load(f)
+                    # 提取维度分数作为参考
+                    for record in history:
+                        for dim, score in record.get("dimensions", {}).items():
+                            if dim not in core_indicators:
+                                core_indicators[dim] = []
+                            core_indicators[dim].append(score)
+        
+        return core_indicators
+    
+    def check(self, candidate) -> bool:
+        """
+        全面检查候选指标是否符合业务规则
+        
+        Returns:
+            True: 通过所有检查
+            False: 任一检查失败
+        """
+        checks = [
+            ("名称规范", self._check_name_pattern(candidate.name)),
+            ("依赖有效性", self._check_dependencies_valid(candidate.dependencies)),
+            ("依赖数量", self._check_deps_count(candidate.dependencies)),
+            ("黑名单", self._check_not_blacklisted(candidate.dependencies)),
+            ("冗余度", self._check_not_redundant(candidate)),
+        ]
+        
+        for name, result in checks:
+            if not result:
+                print(f"    ❌ 业务规则失败: {name}")
+                return False
+        
+        return True
+    
+    def _check_name_pattern(self, name: str) -> bool:
+        """检查名称是否符合规范（*_rate, *_index等）"""
+        for pattern in self.config.valid_patterns:
+            if re.match(pattern, name):
+                return True
+        return False
+    
+    def _check_dependencies_valid(self, dependencies: List[str]) -> bool:
+        """检查依赖的指标是否存在"""
+        for dep in dependencies:
+            if dep not in self.valid_ai_codes:
+                return False
+        return True
+    
+    def _check_deps_count(self, dependencies: List[str]) -> bool:
+        """检查依赖数量是否合理"""
+        return len(dependencies) <= self.config.max_deps
+    
+    def _check_not_blacklisted(self, dependencies: List[str]) -> bool:
+        """检查是否在黑名单组合中"""
+        dep_set = set(dependencies)
+        for blacklisted in self.config.blacklisted_combinations:
+            if dep_set == set(blacklisted):
+                return False
+        return True
+    
+    def _check_not_redundant(self, candidate) -> bool:
+        """检查是否与现有核心指标高度冗余"""
+        # 简化版：检查名称相似度
+        candidate_base = candidate.name.split('_')[0]
+        
+        for core_name in self.core_indicators.keys():
+            # 如果名称高度相似，可能冗余
+            if candidate_base in core_name or core_name in candidate_base:
+                # 计算相关性（如果有历史数据）
+                # 这里简化处理，实际应该计算指标值的相关性
+                return False
+        
+        return True
+    
+    def get_check_details(self, candidate) -> Dict[str, bool]:
+        """获取详细检查结果"""
+        return {
+            "名称规范": self._check_name_pattern(candidate.name),
+            "依赖有效性": self._check_dependencies_valid(candidate.dependencies),
+            "依赖数量": self._check_deps_count(candidate.dependencies),
+            "黑名单": self._check_not_blacklisted(candidate.dependencies),
+            "冗余度": self._check_not_redundant(candidate),
+        }
+    
+    def explain_failure(self, candidate) -> str:
+        """解释为什么失败"""
+        details = self.get_check_details(candidate)
+        failed = [k for k, v in details.items() if not v]
+        return f"指标 {candidate.name} 未通过: {', '.join(failed)}"
+
+
+# 便捷函数
+def filter_candidates(candidates: List, config_path: str = None) -> List:
+    """
+    批量过滤候选指标
+    
+    Args:
+        candidates: 候选指标列表
+        config_path: 业务规则配置文件路径
+    
+    Returns:
+        通过过滤的候选指标列表
+    """
+    filter_obj = BusinessRuleFilter(config_path)
+    valid = []
+    
+    for c in candidates:
+        if filter_obj.check(c):
+            valid.append(c)
+        else:
+            print(f"  过滤掉: {filter_obj.explain_failure(c)}")
+    
+    return valid
+
+
+if __name__ == "__main__":
+    # 测试
+    from daily_discovery import CandidateIndicator
+    
+    test_candidates = [
+        CandidateIndicator(
+            name="ai56_rolling_std",
+            discovery_method="stat_features",
+            formula="std",
+            dependencies=["ai56"],
+            pseudo_code="def calc(): pass",
+            info_gain=0.05,
+            missing_rate=0.0,
+            cv=0.1,
+            timestamp="2025-08-15"
+        ),
+        CandidateIndicator(
+            name="invalid_metric",  # 不符合命名规范
+            discovery_method="stat_features",
+            formula="std",
+            dependencies=["ai999"],  # 不存在的指标
+            pseudo_code="def calc(): pass",
+            info_gain=0.05,
+            missing_rate=0.0,
+            cv=0.1,
+            timestamp="2025-08-15"
+        ),
+    ]
+    
+    valid = filter_candidates(test_candidates)
+    print(f"\n通过过滤: {len(valid)}/{len(test_candidates)}")
+"""
+Claw Agent 关联分析器
+利用Kimi Claw自身的大模型能力进行指标关联分析
+"""
+import json
+from typing import Dict, List, Optional
+from datetime import datetime
+
+from core.evolution_manager import IndicatorEvolutionManager
+
+
+class ClawAgentCorrelationAnalyzer:
+    """
+    使用Claw Agent进行指标关联分析
+    
+    不依赖外部LLM API，而是spawn一个sub-agent来完成分析任务
+    """
+    
+    def __init__(self, device_sn: str, memory_dir: str = "memory"):
+        self.device_sn = device_sn
+        self.evolution_manager = IndicatorEvolutionManager(device_sn, memory_dir)
+    
+    def generate_analysis_task(self, max_indicators: int = 10) -> str:
+        """
+        生成关联分析任务描述（增强版）
+        """
+        # 获取L2和L1指标
+        l2_indicators = self.evolution_manager.get_indicators_by_level('L2')
+        l1_indicators = self.evolution_manager.get_indicators_by_level('L1')
+        
+        # 优先分析L2，再取L1前N个
+        all_indicators = l2_indicators + l1_indicators
+        selected_indicators = all_indicators[:max_indicators]
+        
+        # 生成指标描述
+        indicator_descriptions = []
+        
+        for code in selected_indicators:
+            info = self.evolution_manager.catalog['indicators'].get(code, {})
+            meta = self.evolution_manager.get_indicator_metadata(code)
+            history = info.get('evaluation_history', [])
+            
+            if len(history) >= 3:
+                recent_scores = [h.get('score', 0) for h in history[-3:]]
+                avg_score = sum(recent_scores) / len(recent_scores)
+                
+                desc = f"- {code}: {meta.get('name', code)}"
+                desc += f", 最近评分{avg_score:.2f}"
+                
+                # 添加趋势
+                if len(recent_scores) >= 2:
+                    if recent_scores[-1] > recent_scores[0] * 1.05:
+                        desc += ", 上升"
+                    elif recent_scores[-1] < recent_scores[0] * 0.95:
+                        desc += ", 下降"
+                    else:
+                        desc += ", 稳定"
+                
+                indicator_descriptions.append(desc)
+        
+        # 生成任务描述
+        task = f"""你是一个光伏设备数据分析专家。请基于以下指标信息，分析它们的关联性并设计复合指标。
+
+【设备信息】
+设备SN: {self.device_sn}
+分析时间: {datetime.now().strftime('%Y-%m-%d %H:%M')}
+
+【指标列表】（共{len(indicator_descriptions)}个）
+{chr(10).join(indicator_descriptions)}
+
+【分析要求】
+
+1. 识别物理关联：
+   - 哪些指标在物理上相关？（如同一相电压电流、输入输出功率）
+   - 关联强度（强/中/弱）
+
+2. 设计复合指标（2-4个）：
+   - 指标名称（中文，业务易懂）
+   - 计算公式（使用指标代码如ai52, ai53）
+   - 涉及的原子指标列表
+   - 告警阈值（warning/critical）
+   - 单位
+   - 业务含义说明
+
+3. 识别异常模式：
+   - 哪些指标组合异常代表特定故障？
+
+【输出格式】
+必须返回有效的JSON，格式如下：
+{{
+  "composite_indicators": [
+    {{
+      "name": "三相不平衡度",
+      "formula": "max(abs(ai52-ai53), abs(ai53-ai54), abs(ai54-ai52)) / avg(ai52, ai53, ai54)",
+      "components": ["ai52", "ai53", "ai54"],
+      "threshold": {{"warning": 0.10, "critical": 0.15}},
+      "unit": "%",
+      "description": "三相电流不平衡度，超过15%表示电网严重不平衡"
+    }}
+  ],
+  "correlation_groups": [
+    {{
+      "indicators": ["ai52", "ai53", "ai54"],
+      "relation_type": "物理关联",
+      "strength": "强"
+    }}
+  ],
+  "anomaly_patterns": [
+    {{
+      "pattern": "电压降+电流升",
+      "indicators": ["ai49", "ai12"],
+      "meaning": "可能存在短路风险"
+    }}
+  ]
+}}
+"""
+        return task
+    
+    def analyze_with_claw_agent(self) -> Optional[Dict]:
+        """
+        使用Claw Agent进行关联分析
+        """
+        try:
+            # 生成任务
+            task = self.generate_analysis_task(max_indicators=10)
+            
+            print(f"[Claw Agent关联分析] 生成任务，长度: {len(task)} 字符")
+            print(f"[Claw Agent关联分析] 准备spawn sub-agent...")
+            
+            # 执行分析
+            result = self._call_claw_agent(task)
+            
+            if result:
+                print(f"[Claw Agent关联分析] 成功生成 {len(result.get('composite_indicators', []))} 个复合指标")
+                return result
+            else:
+                print("[Claw Agent关联分析] 未返回有效结果")
+                return None
+                
+        except Exception as e:
+            print(f"[Claw Agent关联分析] 错误: {e}")
+            return None
+    
+    def _call_claw_agent(self, task: str) -> Optional[Dict]:
+        """
+        调用Claw Agent
+        """
+        # 检查是否在Claw环境中
+        try:
+            # 尝试使用sessions_spawn
+            from tools import sessions_spawn
+            
+            # Spawn一个sub-agent来执行任务
+            spawn_result = sessions_spawn(
+                task=task,
+                agent_id="main",
+                label="correlation_analysis",
+                runTimeoutSeconds=120
+            )
+            
+            # 解析结果
+            if spawn_result:
+                return self._extract_json(spawn_result)
+            return None
+            
+        except ImportError:
+            print("[Claw Agent] 不在Claw环境中，使用备用方案")
+            # 备用：返回一个基于规则的默认结果
+            return self._generate_default_result()
+    
+    def _extract_json(self, text: str) -> Optional[Dict]:
+        """从响应中提取JSON"""
+        import re
+        
+        # 尝试直接解析
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError:
+            pass
+        
+        # 尝试提取```json ```块
+        json_pattern = r'```(?:json)?\s*(\{.*?\})\s*```'
+        matches = re.findall(json_pattern, text, re.DOTALL)
+        
+        for match in matches:
+            try:
+                return json.loads(match)
+            except json.JSONDecodeError:
+                continue
+        
+        # 尝试提取{}块
+        brace_pattern = r'(\{[\s\S]*\})'
+        matches = re.findall(brace_pattern, text)
+        
+        for match in matches:
+            try:
+                return json.loads(match)
+            except json.JSONDecodeError:
+                continue
+        
+        return None
+    
+    def _generate_default_result(self) -> Dict:
+        """
+        生成默认的关联分析结果（增强版）
+        """
+        # 获取当前L2指标
+        l2_indicators = self.evolution_manager.get_indicators_by_level('L2')
+        l2_set = set(l2_indicators)
+        
+        composite_indicators = []
+        
+        # 1. 三相不平衡度
+        if {'ai52', 'ai53', 'ai54'}.issubset(l2_set):
+            composite_indicators.append({
+                "name": "三相不平衡度",
+                "formula": "max(abs(ai52-ai53), abs(ai53-ai54), abs(ai54-ai52)) / avg(ai52, ai53, ai54) * 100",
+                "components": ["ai52", "ai53", "ai54"],
+                "threshold": {"warning": 10, "critical": 15},
+                "unit": "%",
+                "description": "三相电流不平衡度，超过15%表示电网严重不平衡",
+                "category": "质量类"
+            })
+        
+        # 2. 转换效率
+        if {'ai56', 'ai45'}.issubset(l2_set):
+            composite_indicators.append({
+                "name": "转换效率",
+                "formula": "ai56 / ai45 * 100",
+                "components": ["ai56", "ai45"],
+                "threshold": {"warning": 95, "critical": 90},
+                "unit": "%",
+                "description": "逆变器转换效率，低于90%表示设备效率严重下降",
+                "category": "效率类"
+            })
+        
+        # 3. 总有功功率
+        if {'ai12', 'ai41', 'ai59'}.issubset(l2_set):
+            composite_indicators.append({
+                "name": "总有功功率",
+                "formula": "(ai12 + ai41 + ai59) * 220 / 1000",
+                "components": ["ai12", "ai41", "ai59"],
+                "threshold": {"warning": 50, "critical": 80},
+                "unit": "kW",
+                "description": "三相总有功功率，反映实际发电能力",
+                "category": "效率类"
+            })
+        
+        # 4. 热效率指数
+        if {'ai37', 'ai42'}.issubset(l2_set):
+            composite_indicators.append({
+                "name": "热效率指数",
+                "formula": "ai42 / (ai37 + 273) * 100",
+                "components": ["ai37", "ai42"],
+                "threshold": {"warning": 0.5, "critical": 0.3},
+                "unit": "指数",
+                "description": "单位温度下的功率输出，反映散热效率",
+                "category": "效率类"
+            })
+        
+        # 5. 电压质量指数
+        if {'ai49', 'ai9', 'ai54'}.issubset(l2_set):
+            composite_indicators.append({
+                "name": "电压质量指数",
+                "formula": "std([ai49, ai9, ai54]) / avg([ai49, ai9, ai54]) * 100",
+                "components": ["ai49", "ai9", "ai54"],
+                "threshold": {"warning": 5, "critical": 10},
+                "unit": "%",
+                "description": "三相电压不平衡度，反映电网电压质量",
+                "category": "质量类"
+            })
+        
+        # 6. 功率因数健康度
+        if 'ai11' in l2_set:
+            composite_indicators.append({
+                "name": "功率因数健康度",
+                "formula": "ai11 * 100",
+                "components": ["ai11"],
+                "threshold": {"warning": 85, "critical": 80},
+                "unit": "%",
+                "description": "功率因数，低于0.8表示无功功率过大",
+                "category": "质量类"
+            })
+        
+        # 7. 设备负载率
+        if {'ai12', 'ai45'}.issubset(l2_set):
+            composite_indicators.append({
+                "name": "设备负载率",
+                "formula": "ai12 / ai45 * 100",
+                "components": ["ai12", "ai45"],
+                "threshold": {"warning": 80, "critical": 95},
+                "unit": "%",
+                "description": "A相电流与额定电流比值，超过95%为过载",
+                "category": "安全类"
+            })
+        
+        # 8. 发电稳定性指数
+        if 'ai56' in l2_set:
+            composite_indicators.append({
+                "name": "日发电稳定性",
+                "formula": "1 - (std(ai56_history) / avg(ai56_history))",
+                "components": ["ai56"],
+                "threshold": {"warning": 0.8, "critical": 0.6},
+                "unit": "指数",
+                "description": "日发电量的稳定性，反映设备运行平稳程度",
+                "category": "经济类"
+            })
+        
+        return {
+            "composite_indicators": composite_indicators,
+            "correlation_groups": [
+                {
+                    "name": "三相电流组",
+                    "indicators": ["ai52", "ai53", "ai54"],
+                    "correlation": "强"
+                },
+                {
+                    "name": "三相电压组", 
+                    "indicators": ["ai49", "ai9", "ai54"],
+                    "correlation": "强"
+                },
+                {
+                    "name": "功率组",
+                    "indicators": ["ai45", "ai56"],
+                    "correlation": "强"
+                },
+                {
+                    "name": "温度功率组",
+                    "indicators": ["ai37", "ai42"],
+                    "correlation": "中"
+                }
+            ],
+            "anomaly_patterns": [
+                {
+                    "name": "电网电压异常",

@@ -9,6 +9,7 @@
 使用新的 MemorySystem，实现三层数据流动
 """
 
+import gc
 import os
 import sys
 from datetime import datetime
@@ -805,7 +806,10 @@ class DailyAssetManagementV5:
 def run_daily_v5(date_str: str) -> Dict:
     """运行V4.5每日资产管理"""
     workflow = DailyAssetManagementV5()
-    return workflow.run(date_str)
+    result = workflow.run(date_str)
+    # 释放内存，防止批量处理时内存溢出
+    gc.collect()
+    return result
 
 
 if __name__ == '__main__':

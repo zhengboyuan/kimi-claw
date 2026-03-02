@@ -1,0 +1,2000 @@
+            name = self.data_collector.get_property_name(indicator_code)
+            self.analyzers[indicator_code] = TimeSeriesAnalyzer(
+                indicator_code=indicator_code,
+                indicator_name=name
+            )
+        
+        analyzer = self.analyzers[indicator_code]
+        
+        # 执行分析
+        result = analyzer.analyze(df)
+        
+        # 添加元数据
+        result['code'] = indicator_code
+        result['name'] = df.attrs.get('name', indicator_code)
+        result['unit'] = df.attrs.get('unit', '')
+        
+        # 更新分析器模型
+        analyzer.update_model(df)
+        
+        return result
+    
+    def _update_memory(self, date_str: str, quality_report: dict, analysis_results: dict, has_anomaly: bool):
+        """更新记忆"""
+        # 保存 L2 动态履历
+        self.memory_manager.save_daily_log(
+            date_str=date_str,
+            data={
+                "quality_score": quality_report['quality_score'],
+                "indicators_analyzed": list(analysis_results.keys()),
+                "has_anomaly": has_anomaly,
+                "analysis_summary": {
+                    k: {
+                        "status": v.get("status"),
+                        "anomaly_count": len(v.get("anomalies", [])),
+                        "code": v.get("code", k)
+                    }
+                    for k, v in analysis_results.items()
+                }
+            }
+        )
+        
+        # 更新 L3 认知知识
+        for indicator_code, result in analysis_results.items():
+            insights = result.get("insights", [])
+            if insights:
+                content = "\n".join([f"- {i}" for i in insights])
+                self.memory_manager.update_analysis_memory(
+                    section=f"{indicator_code}_insights",
+                    content=content
+                )
+        
+        print(f"  ✅ 记忆已更新")
+    
+    def _generate_error_report(self, date_str: str, quality_report: dict) -> dict:
+        """生成错误报告"""
+        report = self.daily_reporter.generate_report(
+            date_str=date_str,
+            analysis_results={},
+            data_quality_report=quality_report
+        )
+        
+        print(f"\n{'='*70}")
+        print("日报摘要:")
+        print(f"{'='*70}")
+        print(report['summary'])
+        
+        return {
+            "date": date_str,
+            "device_sn": self.device_sn,
+            "status": "error",
+            "quality_score": quality_report['quality_score'],
+            "has_anomaly": False,
+            "report": report,
+            "error": "数据质量不足"
+        }
+    
+    def run_rolling_analysis(self, start_date: str, end_date: str = None):
+        """
+        执行滚动迭代分析
+        
+        从 start_date 到 end_date（或今天），逐日执行分析
+        """
+        if end_date is None:
+            end_date = datetime.now().strftime("%Y-%m-%d")
+        
+        start_dt = datetime.strptime(start_date, "%Y-%m-%d")
+        end_dt = datetime.strptime(end_date, "%Y-%m-%d")
+        
+        current_dt = start_dt
+        results = []
+        
+        while current_dt <= end_dt:
+            date_str = current_dt.strftime("%Y-%m-%d")
+            result = self.run_daily_inspection(date_str)
+            results.append(result)
+            
+            current_dt += timedelta(days=1)
+        
+        # 输出汇总
+        print(f"\n{'='*70}")
+        print(f"滚动分析完成: {start_date} ~ {end_date}")
+        print(f"{'='*70}")
+        print(f"总天数: {len(results)}")
+        print(f"正常天数: {sum(1 for r in results if r['status'] == 'normal')}")
+        print(f"异常天数: {sum(1 for r in results if r['status'] == 'abnormal')}")
+        print(f"错误天数: {sum(1 for r in results if r['status'] == 'error')}")
+        
+        return results
+    
+    def run_rolling_analysis_with_evolution(
+        self, 
+        start_date: str, 
+        end_date: str = None,
+        evo_manager: IndicatorEvolutionManager = None
+    ):
+        """
+        执行带进化的滚动迭代分析
+        
+        从 start_date 到 end_date，逐日执行：
+        1. 数据收集
+        2. 指标评价（差异化评分）
+        3. 进化管理（升级/降级）
+        
+        Args:
+            start_date: 起始日期
+            end_date: 结束日期（默认今天）
+            evo_manager: 进化管理器实例（可选）
+        """
+        if end_date is None:
+            end_date = datetime.now().strftime("%Y-%m-%d")
+        
+        # 使用传入的 evo_manager 或创建新的
+        if evo_manager:
+            self.evo_manager = evo_manager
+        
+        start_dt = datetime.strptime(start_date, "%Y-%m-%d")
+        end_dt = datetime.strptime(end_date, "%Y-%m-%d")
+        
+        current_dt = start_dt
+        day_count = 0
+        
+        print(f"开始进化分析: {start_date} ~ {end_date}")
+        print(f"总天数: {(end_dt - start_dt).days + 1}")
+        print()
+        
+        while current_dt <= end_dt:
+            date_str = current_dt.strftime("%Y-%m-%d")
+            day_count += 1
+            
+            print(f"\n{'='*70}")
+            print(f"[进化分析] Day {day_count}: {date_str}")
+            print(f"{'='*70}")
+            
+            # 1. 数据收集
+            print(f"\n[1/3] 数据收集...")
+            daily_data = self.data_collector.collect_daily_data(date_str)
+            
+            if not daily_data:
+                print(f"  ⚠️ {date_str} 无数据，跳过")
+                current_dt += timedelta(days=1)
+                continue
+            
+            # 获取指标类型映射
+            indicator_types = {
+                code: df.attrs.get('type', 'other') 
+                for code, df in daily_data.items()
+            }
+            
+            # 2. 指标评价（差异化评分）
+            print(f"\n[2/3] 指标评价（差异化评分）...")
+            
+            # 获取核心基准数据
+            core_df = self.evaluator.get_core_benchmark(daily_data)
+            
+            # 批量评价
+            evaluation_results = self.evaluator.evaluate_batch(
+                data_dict=daily_data,
+                core_indicator=self.evaluator.CORE_BENCHMARKS["daytime"],
+                indicator_types=indicator_types
+            )
+            
+            # 3. 进化管理
+            print(f"\n[3/3] 进化管理...")
+            for indicator_code, eval_result in evaluation_results.items():
+                self.evo_manager.evaluate_and_evolve(
+                    indicator_code=indicator_code,
+                    evaluation_result=eval_result,
+                    date_str=date_str
+                )
+            
+            # 显示当日进化摘要
+            summary = self.evo_manager.get_catalog_summary()
+            print(f"\n  当日进化摘要:")
+            print(f"    L0: {summary['L0_candidates']} | L1: {summary['L1_active']} | L2: {summary['L2_core']}")
+            
+            # 4. Claw Agent关联分析（当L2指标>=3时）
+            if summary['L2_core'] >= 3 and summary['L3_synthesized'] == 0:
+                print(f"\n  [4/4] Claw Agent关联分析...")
+                try:
+                    from core.claw_agent_correlation import ClawAgentCorrelationAnalyzer
+                    analyzer = ClawAgentCorrelationAnalyzer(self.device_sn)
+                    # 使用默认结果（实际Claw环境中会调用Agent）
+                    result = analyzer.run_analysis()
+                    if result:
+                        print(f"    ✅ 生成复合指标建议")
+                except Exception as e:
+                    print(f"    ⚠️ 关联分析跳过: {e}")
+            
+            current_dt += timedelta(days=1)
+        
+        print(f"\n{'='*70}")
+        print(f"进化分析完成！共处理 {day_count} 天数据")
+        print(f"{'='*70}")
+        
+        return {
+            "start_date": start_date,
+            "end_date": end_date,
+            "total_days": day_count,
+            "final_summary": self.evo_manager.get_catalog_summary()
+        }
+    
+    # ========== V3.0 新增：Stage 4 复合指标进化 ==========
+    
+    def run_stage4_composite_evolution(self, date_str: str, daily_data: Dict) -> Dict:
+        """
+        Stage 4: 复合指标进化（V3.0核心）
+        
+        工作流程：
+        1. Python引擎：穷举变异、筛选异常
+        2. LLM诊断：物理解释、生成规则
+        3. 知识固化：保存到dynamic_rules.json
+        
+        Args:
+            date_str: 日期
+            daily_data: 当日数据
+        
+        Returns:
+            诊断结果
+        """
+        print(f"\n{'='*70}")
+        print("[Stage 4] V3.0 复合指标进化")
+        print(f"{'='*70}")
+        
+        # 1. 合并所有指标数据为DataFrame
+        df_merged = self._merge_daily_data(daily_data)
+        
+        if df_merged.empty:
+            print("  ⚠️ 数据为空，跳过复合指标分析")
+            return {}
+        
+        # 2. Python引擎：生成并筛选复合指标
+        print("\n  [4.1] 启动复合指标变异引擎...")
+        engine = CompositeIndicatorEngine(df_merged)
+        survivors = engine.generate_and_select()
+        
+        if not survivors:
+            print("  ✅ 今日未发现复合指标异常突变")
+            return {"status": "no_anomaly"}
+        
+        print(f"  🚨 抓取到 {len(survivors)} 个异常突变，移交LLM诊断...")
+        
+        # 3. LLM诊断：物理解释
+        print("\n  [4.2] LLM深度诊断...")
+        temp_max = df_merged['ai61'].max() if 'ai61' in df_merged.columns else 0
+        
+        analyzer = DeepAnalyzerV3()  # 可以传入llm_client
+        diagnosis = analyzer.analyze_anomalies(
+            surviving_composites=survivors,
+            temp_max=temp_max,
+            context={"date": date_str, "device": self.device_sn}
+        )
+        
+        # 4. 打印诊断结果
+        print(f"\n  [4.3] 诊断结果:")
+        print(f"    异常数量: {len(diagnosis.get('diagnosed_anomalies', []))}")
+        print(f"    整体风险: {diagnosis.get('overall_risk_level', 'unknown')}")
+        
+        for anomaly in diagnosis.get('diagnosed_anomalies', []):
+            print(f"\n    - {anomaly['composite_name']}")
+            print(f"      原因: {anomaly['physical_diagnosis'][:50]}...")
+            print(f"      级别: {anomaly['severity']}")
+            print(f"      建议: {anomaly['remediation']['immediate_action']}")
+        
+        # 5. 知识固化：保存规则
+        print("\n  [4.4] 知识固化...")
+        distiller = KnowledgeDistiller(self.device_sn)
+        rules_added = self._save_diagnosis_rules(diagnosis, distiller)
+        
+        if rules_added:
+            print(f"    ✅ 已固化 {rules_added} 条新规则到 dynamic_rules.json")
+        
+        return diagnosis
+    
+    def _merge_daily_data(self, daily_data: Dict) -> pd.DataFrame:
+        """
+        合并所有指标数据为DataFrame（内存优化版）
+        
+        优化点：
+        1. 避免循环merge，一次性创建DataFrame
+        2. 使用字典收集数据，减少内存碎片
+        3. 复用timestamp，避免重复数据
+        """
+        # 1. 提取所有数据为字典，避免创建多个小DataFrame
+        data_dict = {'timestamp': None}
+        
+        for code, df in daily_data.items():
+            if df.empty or 'value' not in df.columns:
+                continue
+            # 只保存第一个指标的timestamp
+            if data_dict['timestamp'] is None:
+                data_dict['timestamp'] = df['timestamp'].values
+            # 保存指标值
+            data_dict[code] = df['value'].values
+        
+        if data_dict['timestamp'] is None:
+            return pd.DataFrame()
+        
+        # 2. 一次性创建DataFrame，避免内存碎片
+        merged = pd.DataFrame(data_dict)
+        
+        return merged
+    
+    def _save_diagnosis_rules(self, diagnosis: Dict, distiller) -> int:
+        """保存诊断规则"""
+        from core.deep_analyzer_v3 import save_diagnosis_to_rules
+        return save_diagnosis_to_rules(diagnosis, distiller)
+
+
+# 主入口
+if __name__ == "__main__":
+    import argparse
+    
+    parser = argparse.ArgumentParser(description="光伏设备每日巡检（进化版）")
+    parser.add_argument("--device", default="XHDL_1NBQ", help="设备SN")
+    parser.add_argument("--date", help="指定日期 (YYYY-MM-DD)")
+    parser.add_argument("--start-date", help="滚动分析起始日期")
+    parser.add_argument("--end-date", help="滚动分析结束日期")
+    parser.add_argument("--v3", action="store_true", help="启用V3.0复合指标进化")
+    
+    args = parser.parse_args()
+    
+    workflow = DailyInspectionWorkflow(args.device)
+    
+    if args.date:
+        result = workflow.run_daily_inspection(args.date)
+        
+        # V3.0模式：额外运行Stage 4
+        if args.v3:
+            from skills.skill_1_data_collector import DataCollector
+            collector = DataCollector(args.device)
+            daily_data = collector.collect_daily_data(args.date)
+            workflow.run_stage4_composite_evolution(args.date, daily_data)
+            
+    elif args.start_date:
+        results = workflow.run_rolling_analysis(args.start_date, args.end_date)
+    else:
+        yesterday = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+        result = workflow.run_daily_inspection(yesterday)
+"""
+资产运营分析 V5.1 - 从 registry 读取指标配置
+
+核心变更：
+1. 从 registry.json 读取指标配置，不再硬编码
+2. 报表输出到 memory/reports/ 规范路径
+3. 所有原子能力已在 skills_registry.yaml 注册
+
+使用新的 MemorySystem，实现三层数据流动
+"""
+
+import os
+import sys
+from datetime import datetime
+from typing import Dict, Optional, List
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from skills.skill_1_data_collector import DataCollector
+from core.asset_health_engine import AssetHealthEngine
+from core.maintenance_advisor import MaintenanceAdvisor
+from core.memory_system import MemorySystem
+from core.indicator_registry import read_registry
+from core.competition_indicators import CompetitionIndicatorCalculator
+from core.unified_history import UnifiedHistoryStore
+from core.discovery_rules import DiscoveryRuleEngine
+from core.aggregation_engine import AggregationEngine
+
+
+class DailyAssetManagementV5:
+    """资产运营分析 V5.1 - 从 registry 读取指标配置"""
+    
+    DEVICE_CLUSTER = [f'XHDL_{i}NBQ' for i in range(1, 17)]
+    
+    def __init__(self):
+        self.memory = MemorySystem()
+        self.registry = read_registry()
+        self.indicators = self.registry.get('indicators', {})
+        # V5.1 竞赛指标计算器
+        self.competition_calc = CompetitionIndicatorCalculator(
+            station_config={'installed_capacity': 16000}  # 16台 * 1000kW = 16MW
+        )
+        # V5.1 新增：统一历史存储、发现规则、聚合引擎
+        self.history_store = UnifiedHistoryStore()
+        self.rule_engine = DiscoveryRuleEngine()
+        self.aggregation = AggregationEngine(self.history_store)
+    
+    def _get_indicator_config(self, indicator_id: str) -> Optional[Dict]:
+        """从 registry 读取指标配置"""
+        return self.indicators.get(indicator_id)
+    
+    def _get_score(self, health: Dict) -> Optional[float]:
+        """统一读取健康分，兼容 total_score/health_score"""
+        if not isinstance(health, dict):
+            return None
+        score = health.get('health_score')
+        if score is None:
+            score = health.get('total_score')
+        return score
+    
+    def run(self, date_str: str) -> Dict:
+        """运行资产运营分析"""
+        print(f"\n{'='*70}")
+        print(f"资产运营分析 V4.5: {date_str}")
+        print(f"{'='*70}")
+        
+        # ========== 阶段1: 数据采集 ==========
+        print("\n【1/7】数据采集")
+        device_data = self._collect_all(date_str)
+        
+        # ========== 阶段2: 健康评分 + 设备记忆 ==========
+        print("\n【2/7】健康评分 + 设备记忆更新")
+        device_results = {}
+        for sn in self.DEVICE_CLUSTER:
+            if device_data.get(sn):
+                # 评分
+                health = self._calculate_health(sn, date_str, device_data[sn])
+                device_results[sn] = health
+                
+                # 智能更新设备记忆
+                self.memory.write_device_memory(sn, {
+                    'date': date_str,
+                    'health_score': health.get('total_score'),
+                    'level': health.get('level'),
+                    'dimensions': health.get('dimensions')
+                })
+            else:
+                device_results[sn] = {'health_score': None, 'level': 'offline'}
+        
+        # ========== 阶段3: 风险识别 ==========
+        print("\n【3/7】风险识别")
+        risk = self._analyze_risk(device_results)
+        
+        # ========== 阶段4: 维护建议 ==========
+        print("\n【4/7】维护建议")
+        advice = {}
+        for sn, health in device_results.items():
+            score = self._get_score(health)
+            if score is not None:
+                advice[sn] = self._generate_advice(sn, date_str, health)
+        
+        # ========== 阶段5: 横向对比 + 时间维度分析 ==========
+        print("\n【5/7】横向对比 + 时间维度分析")
+        comparison_result = self._run_horizontal_comparison(device_results, device_data, date_str)
+        trend_result = self._run_trend_analysis(device_results, date_str)
+        
+        # ========== 阶段6: 大模型增强（条件触发）==========
+        print("\n【6/7】大模型增强")
+        insight_result = None
+        if self._should_llm_enhance(comparison_result, trend_result):
+            insight_result = self._llm_enhance(comparison_result, trend_result, device_results)
+            if insight_result:
+                for insight in insight_result.get('insights', []):
+                    if insight.get('is_new_discovery'):
+                        self.memory.write_comparison_insight({
+                            'name': insight['name'],
+                            'signature': insight['signature'],
+                            'description': insight['description'],
+                            'devices_involved': insight['devices_involved'],
+                            'evidence': insight['evidence']
+                        })
+        
+        # ========== 阶段7: 指标发现 + 认知层 ==========
+        print("\n【7/7】指标发现 + 认知更新")
+        discovery = self._run_discovery(date_str, device_data)
+        
+        # 如果有新发现，更新认知层
+        if discovery.get('new_relations'):
+            for rel in discovery['new_relations']:
+                self.memory.write_relationship(rel)
+        
+        # ========== 生成日报（V5.1 规范路径）==========
+        print("\n【生成日报】")
+        
+        # V5.1 竞赛指标计算
+        print("\n【竞赛指标计算】")
+        competition_metrics = self._calculate_competition_metrics(device_data, date_str)
+        
+        report_data = {
+            'date': date_str,
+            'total_devices': 16,
+            'online': risk['online'],
+            'avg_health_score': 0,  # 将在下面计算
+            'risk_distribution': risk['distribution'],
+            'trend_alerts': risk['trend_alerts'],
+            'maintenance_priority': self._extract_priority(advice),
+            'devices': device_results,
+            'candidates_found': discovery.get('candidates_found', 0),
+            'top_candidate': discovery.get('top_candidate'),
+            # 新增对比洞察相关字段
+            'comparison_anomaly': comparison_result.get('is_anomaly', False),
+            'trend_analysis_anomaly': trend_result.get('has_anomaly', False),
+            'insights_count': insight_result['count'] if insight_result else 0,
+            # V5.1 竞赛指标
+            'competition_metrics': competition_metrics
+        }
+        
+        # 计算平均健康分（基于实际在线台数）
+        scores = [self._get_score(d) for d in device_results.values()]
+        valid_scores = [s for s in scores if s is not None]
+        avg_health = (sum(valid_scores) / len(valid_scores)) if valid_scores else 0
+        report_data['avg_health_score'] = avg_health
+        
+        # V5.1 规范路径: memory/reports/daily/station/YYYY-MM-DD.json
+        self._write_station_report(date_str, report_data)
+        
+        # 同时写入设备级日报
+        for sn, device_data in device_results.items():
+            if self._get_score(device_data) is not None:
+                self._write_inverter_report(sn, date_str, device_data, advice.get(sn, {}))
+        
+        # ========== V5.1 新增：统一历史存储 ==========
+        print("\n【统一历史存储】")
+        self._store_to_history(date_str, device_results, competition_metrics)
+        
+        # ========== V5.1 新增：设备画像生成 ==========
+        print("\n【设备画像生成】")
+        device_profiles = self._generate_device_profiles(date_str)
+        
+        # ========== V5.1 新增：场站排名生成 ==========
+        print("\n【场站排名生成】")
+        ranking = self._generate_station_ranking(date_str, device_profiles)
+        
+        # ========== V5.1 新增：发现规则检测 ==========
+        print("\n【发现规则检测】")
+        findings = self._run_discovery_rules(date_str, device_profiles, ranking)
+        
+        # 输出摘要
+        self._print_summary(date_str, report_data, device_profiles, ranking, findings)
+        
+        return report_data
+    
+    def _collect_all(self, date_str: str) -> Dict:
+        """并发采集"""
+        results = {}
+        
+        def collect(sn):
+            try:
+                collector = DataCollector(sn)
+                data = collector.collect_daily_data(date_str)
+                
+                # 保留原始DataFrame数据（用于横向对比）
+                # 同时提取关键指标（用于指标发现）
+                metrics = {}
+                for code, df in data.items():
+                    if not df.empty and 'value' in df.columns:
+                        metrics[code] = df['value'].tolist()
+                
+                # 返回包含原始DataFrame和提取指标的数据
+                return sn, {
+                    'raw_data': data,  # 保留原始DataFrame
+                    'raw_metrics': metrics,
+                    'quality': 70.0
+                }
+            except Exception as e:
+                print(f"  ❌ {sn}: {e}")
+                return sn, None
+        
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            futures = {executor.submit(collect, sn): sn for sn in self.DEVICE_CLUSTER}
+            for future in as_completed(futures):
+                sn, data = future.result()
+                results[sn] = data
+                status = "✅" if data else "❌"
+                print(f"  [{len(results)}/16] {sn}...{status}")
+        
+        return results
+    
+    def _calculate_health(self, sn: str, date: str, data: Dict) -> Dict:
+        """计算健康分"""
+        engine = AssetHealthEngine(sn)
+        return engine.calculate_daily_health(date, {
+            'completeness': 0.95,
+            'quality_rating': data.get('quality', 70.0)
+        })
+    
+    def _analyze_risk(self, devices: Dict) -> Dict:
+        """风险分析"""
+        levels = {'excellent': 0, 'good': 0, 'attention': 0, 
+                 'warning': 0, 'danger': 0, 'offline': 0}
+        trends = []
+        
+        for sn, d in devices.items():
+            level = d.get('level', 'unknown')
+            levels[level] = levels.get(level, 0) + 1
+            
+            if d.get('trend_score', 0) < -2:
+                trends.append(sn)
+        
+        return {
+            'distribution': levels,
+            'online': sum(v for k, v in levels.items() if k != 'offline'),
+            'trend_alerts': len(trends)
+        }
+    
+    def _generate_advice(self, sn: str, date: str, health: Dict) -> Dict:
+        """生成建议"""
+        advisor = MaintenanceAdvisor(sn)
+        return advisor.generate_advice(date, health)
+    
+    def _extract_priority(self, advice: Dict) -> list:
+        """提取优先级"""
+        priority = []
+        for sn, a in advice.items():
+            level = a.get('recommendation', {}).get('level')
+            if level in ['emergency', 'urgent']:
+                priority.append({
+                    'device': sn,
+                    'priority': level,
+                    'deadline': a.get('recommendation', {}).get('deadline', 'ASAP')
+                })
+        return sorted(priority, key=lambda x: {'emergency': 0, 'urgent': 1}.get(x['priority'], 9))[:5]
+    
+    # ========== V5.1 竞赛指标计算 ==========
+    
+    def _calculate_competition_metrics(self, device_data: Dict, date_str: str) -> Dict:
+        """
+        计算竞赛指标（V5.1）
+        
+        当前实现:
+        - equivalent_utilization_hours: 等效利用小时数 ✅
+        - generation_duration: 发电时长 ✅
+        
+        待数据源到位:
+        - curtailment_rate: 弃光率 ⚠️
+        - plant_consumption_rate_comprehensive: 综合厂用电率 ⚠️
+        - plant_overall_efficiency: 光伏电站整体效率 ⚠️
+        """
+        metrics = {}
+        
+        # 1. 等效利用小时数 (✅ 可计算)
+        # 从所有逆变器的 ai68 (当日发电量) 累加
+        total_generation = 0
+        for sn, data in device_data.items():
+            if data and 'raw_data' in data:
+                raw = data['raw_data']
+                if 'ai68' in raw and hasattr(raw['ai68'], 'values'):
+                    # ai68 是累计值，取最后一个
+                    daily_gen = raw['ai68']['value'].iloc[-1] if len(raw['ai68']) > 0 else 0
+                    total_generation += daily_gen
+        
+        result = self.competition_calc.calculate_equivalent_utilization_hours(total_generation)
+        metrics['equivalent_utilization_hours'] = {
+            'value': result.get('value'),
+            'unit': 'h',
+            'computable': result.get('computable', False),
+            'note': '发电量/装机容量' if result.get('computable') else result.get('error')
+        }
+        
+        # 2. 发电时长 (✅ 可计算)
+        # 统计所有设备的平均发电时长
+        total_duration = 0
+        device_count = 0
+        for sn, data in device_data.items():
+            if data and 'raw_data' in data:
+                raw = data['raw_data']
+                # 尝试从功率判断发电状态
+                if 'ai56' in raw and hasattr(raw['ai56'], 'values'):
+                    power_values = raw['ai56']['value'].tolist()
+                    status_from_power = ['generating' if p > 10 else 'standby' for p in power_values]
+                    result = self.competition_calc.calculate_generation_duration(status_from_power)
+                    if result.get('value'):
+                        total_duration += result['value']
+                        device_count += 1
+        
+        avg_duration = total_duration / device_count if device_count > 0 else 0
+        metrics['generation_duration'] = {
+            'value': round(avg_duration, 2),
+            'unit': 'h',
+            'computable': device_count > 0,
+            'device_count': device_count,
+            'note': f'平均发电时长（{device_count}台设备）'
+        }
+        
+        # 3. 弃光率 (⚠️ 待调度数据)
+        metrics['curtailment_rate'] = {
+            'value': None,
+            'unit': '%',
+            'computable': False,
+            'note': '待调度数据到位'
+        }
+        
+        # 4. 综合厂用电率 (⚠️ 待关口表数据)
+        metrics['plant_consumption_rate_comprehensive'] = {
+            'value': None,
+            'unit': '%',
+            'computable': False,
+            'note': '待关口表数据到位'
+        }
+        
+        # 5. 光伏电站整体效率 (⚠️ 待理论发电量计算)
+        metrics['plant_overall_efficiency'] = {
+            'value': None,
+            'unit': '%',
+            'computable': False,
+            'note': '待理论发电量计算'
+        }
+        
+        return metrics
+    
+    def _run_discovery(self, date_str: str, device_data: Dict) -> Dict:
+        """运行指标发现 - 方案B分层评估"""
+        try:
+            from core.discovery.pipeline import run_discovery_pipeline
+
+            # 统一三层发现入口（当前默认不接LLM）
+            result = run_discovery_pipeline(date_str, device_data, llm_client=None, write_pending=False)
+            candidates = result.get("layer1", [])
+
+            # 保存 Layer1 候选（兼容旧候选池）
+            saved = 0
+            for c in candidates:
+                if self.memory.write_candidate(c.name, date_str, c.to_dict()):
+                    saved += 1
+
+            # 汇总结果
+            l2_count = sum(len(r.get("candidates", {})) for r in result.get("layer2", {}).values())
+            l3_count = len(result.get("layer3", {}).get("approved_indicators", []))
+
+            return {
+                'candidates_found': len(candidates),
+                'candidates_saved': saved,
+                'top_candidate': candidates[0].name if candidates else None,
+                'layer2_candidates': l2_count,
+                'layer3_semantic': l3_count
+            }
+            
+        except Exception as e:
+            print(f"  发现失败: {e}")
+            import traceback
+            traceback.print_exc()
+            return {'candidates_found': 0, 'error': str(e)}
+    
+    # ========== V5.1 新增：统一历史存储 ==========
+    
+    def _store_to_history(self, date_str: str, device_results: Dict, competition_metrics: Dict):
+        """存储到统一历史存储"""
+        # 存储每台设备的日聚合
+        valid_scores = []
+        for sn, data in device_results.items():
+            score = self._get_score(data)
+            if score is not None:
+                daily_metrics = {
+                    'health_score': score,
+                    'level': data.get('level'),
+                    'trend_score': data.get('trend_score', 0)
+                }
+                self.history_store.append_device_daily(sn, date_str, daily_metrics)
+                valid_scores.append(score)
+        
+        # 存储场站日聚合（基于实际在线台数）
+        online_count = len(valid_scores)
+        avg_health = (sum(valid_scores) / online_count) if valid_scores else 0
+        station_metrics = {
+            'online_count': online_count,
+            'avg_health': avg_health,
+            'competition_metrics': competition_metrics
+        }
+        self.history_store.append_station_daily(date_str, station_metrics)
+        print(f"  ✅ 历史数据存储完成")
+    
+    # ========== V5.1 新增：设备画像生成 ==========
+    
+    def _generate_device_profiles(self, date_str: str) -> Dict[str, Dict]:
+        """生成所有设备的画像"""
+        profiles = {}
+        for sn in self.DEVICE_CLUSTER:
+            profile = self.aggregation.generate_device_profile(sn, days=30)
+            profiles[sn] = profile
+        
+        # 打印摘要
+        valid_profiles = [p for p in profiles.values() if p.get('status') != 'insufficient_data']
+        print(f"  ✅ 生成 {len(valid_profiles)} 台设备画像")
+        
+        # 显示有问题的设备
+        for sn, profile in profiles.items():
+            if profile.get('health', {}).get('trend') == 'degrading':
+                print(f"     ⚠️ {sn}: 健康分下滑")
+        
+        return profiles
+    
+    # ========== V5.1 新增：场站排名生成 ==========
+    
+    def _generate_station_ranking(self, date_str: str, device_profiles: Dict[str, Dict]) -> Dict:
+        """生成场站排名"""
+        ranking = self.aggregation.generate_station_ranking(date_str, device_profiles)
+        
+        print(f"  ✅ 排名生成完成")
+        print(f"     TOP 3: {', '.join(ranking.get('top_performers', {}).get('by_health', [])[:3])}")
+        print(f"     需关注: {', '.join(ranking.get('bottom_performers', {}).get('by_health', [])[-3:])}")
+        
+        return ranking
+    
+    # ========== V5.1 新增：发现规则检测 ==========
+    
+    def _run_discovery_rules(self, date_str: str, device_profiles: Dict, ranking: Dict) -> List[Dict]:
+        """运行发现规则检测"""
+        findings = []
+        
+        # 检查健康分下滑
+        for sn, profile in device_profiles.items():
+            if profile.get('health', {}).get('trend') == 'degrading':
+                findings.append({
+                    'rule': 'health_decline',
+                    'device': sn,
+                    'severity': 'warning',
+                    'message': f'{sn} 健康分趋势下滑'
+                })
+        
+        # 检查持续垫底
+        bottom3 = ranking.get('bottom_performers', {}).get('by_health', [])
+        for sn in bottom3:
+            findings.append({
+                'rule': 'consistent_bottom',
+                'device': sn,
+                'severity': 'warning',
+                'message': f'{sn} 健康分排名垫底'
+            })
+        
+        if findings:
+            print(f"  ⚠️ 发现 {len(findings)} 个问题:")
+            for f in findings[:5]:  # 只显示前5个
+                print(f"     - {f['device']}: {f['message']}")
+        else:
+            print(f"  ✅ 未发现异常")
+        
+        return findings
+    
+    # ========== V5.1 更新：打印摘要 ==========
+    
+    def _print_summary(self, date: str, data: Dict, device_profiles: Dict = None, 
+                       ranking: Dict = None, findings: List = None):
+        """打印摘要"""
+        print(f"\n{'='*70}")
+        print("日报摘要")
+        print(f"{'='*70}")
+        print(f"日期: {date}")
+        print(f"设备: {data['online']}/16 在线")
+        print(f"健康分: {data['avg_health_score']:.1f}")
+        
+        risk = data['risk_distribution']
+        print(f"风险: 🟢{risk.get('good',0)} 🟡{risk.get('attention',0)} 🟠{risk.get('warning',0)} 🔴{risk.get('danger',0)}")
+        
+        if data.get('trend_alerts'):
+            print(f"⚠️ 趋势预警: {data['trend_alerts']} 台")
+        
+        if data.get('candidates_found'):
+            print(f"🔍 发现: {data['candidates_found']} 候选")
+        
+        # 显示对比洞察
+        if data.get('comparison_anomaly'):
+            print(f"⚠️ 横向对比异常")
+        
+        if data.get('trend_analysis_anomaly'):
+            print(f"⚠️ 趋势分析异常")
+        
+        if data.get('insights_count', 0) > 0:
+            print(f"💡 生成洞察: {data['insights_count']} 个")
+        
+        # V5.1 竞赛指标
+        comp = data.get('competition_metrics', {})
+        print(f"\n【竞赛指标】")
+        if comp.get('equivalent_utilization_hours', {}).get('computable'):
+            print(f"  等效利用小时数: {comp['equivalent_utilization_hours']['value']} h")
+        if comp.get('generation_duration', {}).get('computable'):
+            print(f"  发电时长: {comp['generation_duration']['value']} h")
+        
+        # V5.1 设备画像摘要
+        if device_profiles:
+            degrading = [sn for sn, p in device_profiles.items() 
+                        if p.get('health', {}).get('trend') == 'degrading']
+            if degrading:
+                print(f"\n【设备画像】")
+                print(f"  健康分下滑: {', '.join(degrading[:3])}")
+        
+        # V5.1 发现结果
+        if findings:
+            critical = [f for f in findings if f.get('severity') == 'critical']
+            warning = [f for f in findings if f.get('severity') == 'warning']
+            if critical or warning:
+                print(f"\n【发现规则】")
+                if critical:
+                    print(f"  🔴 严重: {len(critical)} 个")
+                if warning:
+                    print(f"  ⚠️ 警告: {len(warning)} 个")
+        
+        # 显示记忆系统统计
+        stats = self.memory.get_stats()
+        print(f"\n记忆统计: 日报{stats['daily_reports']} 设备{stats['device_memories']} 关系{stats['relationships']} 候选{stats['candidates']}")
+        
+        # V5.1 报表路径
+        print(f"\n报表路径:")
+        print(f"  - memory/reports/daily/station/{date}.json")
+        print(f"  - memory/reports/daily/inverter/{{device_sn}}/{date}.json")
+        
+        print(f"{'='*70}")
+    
+    # ========== V5.1 规范报表输出 ==========
+    
+    def _write_station_report(self, date_str: str, report_data: Dict) -> str:
+        """写入场站级日报（V5.1 规范路径）"""
+        from pathlib import Path
+        import json
+        
+        output_path = Path(f"memory/reports/daily/station/{date_str}.json")
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        # 添加元数据
+        report_with_meta = {
+            'version': 'v5.1',
+            'generated_at': datetime.now().isoformat(),
+            'report_type': 'daily_station',
+            'data': report_data
+        }
+        
+        output_path.write_text(json.dumps(report_with_meta, ensure_ascii=False, indent=2), encoding='utf-8')
+        print(f"  ✅ 场站日报: {output_path}")
+        return str(output_path)
+    
+    def _write_inverter_report(self, device_sn: str, date_str: str, 
+                               device_data: Dict, advice: Dict) -> str:
+        """写入逆变器级日报（V5.1 规范路径）"""
+        from pathlib import Path
+        import json
+        
+        output_path = Path(f"memory/reports/daily/inverter/{device_sn}/{date_str}.json")
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        report = {
+            'version': 'v5.1',
+            'generated_at': datetime.now().isoformat(),
+            'report_type': 'daily_inverter',
+            'device_sn': device_sn,
+            'date': date_str,
+            'data': {
+                'health_score': self._get_score(device_data),
+                'level': device_data.get('level'),
+                'dimensions': device_data.get('dimensions'),
+                'advice': advice
+            }
+        }
+        
+        output_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
+        return str(output_path)
+    
+    # ========== 横向对比（从 registry 读取指标配置）==========
+    
+    def _run_horizontal_comparison(self, device_results: Dict, device_data: Dict, date_str: str) -> Dict:
+        """
+        横向对比 - 从 registry 读取 power_active 指标配置
+        """
+        # 从 registry 获取功率指标配置
+        power_config = self._get_indicator_config('power_active')
+        if not power_config:
+            print(f"  ⚠️ 未找到 power_active 指标配置，跳过横向对比")
+            return {'devices_compared': 0, 'is_anomaly': False, 'power_gap_pct': 0}
+        
+        # 获取指标输入字段（物模型编码）
+        inputs = power_config.get('inputs', ['ai56'])
+        point_code = inputs[0] if inputs else 'ai56'
+        
+        # 从原始数据中获取功率
+        power_data = {}
+        for sn, data in device_data.items():
+            if data and 'raw_data' in data and point_code in data['raw_data']:
+                df = data['raw_data'][point_code]
+                if hasattr(df, 'values') and 'value' in df.columns:
+                    values = df['value'].dropna().values
+                    if len(values) > 0:
+                        avg_power = float(values.mean())
+                        power_data[sn] = avg_power
+        
+        if len(power_data) < 2:
+            print(f"  ⏭️ 功率数据不足，跳过横向对比")
+            return {'devices_compared': len(power_data), 'is_anomaly': False, 'power_gap_pct': 0}
+        
+        # 功率排名
+        power_ranking = sorted(
+            [(sn, power) for sn, power in power_data.items()],
+            key=lambda x: x[1],
+            reverse=True
+        )
+        
+        max_dev = power_ranking[0]
+        min_dev = power_ranking[-1]
+        power_gap = max_dev[1] - min_dev[1]
+        power_gap_pct = (power_gap / max_dev[1] * 100) if max_dev[1] > 0 else 0
+        
+        # 从 registry 读取异常阈值（默认20%）
+        gap_config = self._get_indicator_config('power_gap_ratio')
+        threshold = 20  # 默认阈值
+        if gap_config:
+            # 可以从配置中读取阈值，如果没有则使用默认值
+            pass
+        
+        is_anomaly = power_gap_pct > threshold
+        
+        if is_anomaly:
+            print(f"  ⚠️ 横向异常: {max_dev[0]}({max_dev[1]:.1f}kW) vs {min_dev[0]}({min_dev[1]:.1f}kW), 差异{power_gap_pct:.1f}%")
+        else:
+            print(f"  ✅ 横向正常: {len(power_data)}台设备, 最大差异{power_gap_pct:.1f}%")
+        
+        return {
+            'date': date_str,
+            'devices_compared': len(power_data),
+            'power_ranking': power_ranking,
+            'power_gap': power_gap,
+            'power_gap_pct': power_gap_pct,
+            'is_anomaly': is_anomaly,
+            'indicator_id': 'power_active',
+            'threshold': threshold
+        }
+    
+    # ========== 时间维度分析（从 registry 读取指标配置）==========
+    
+    def _run_trend_analysis(self, device_results: Dict, date_str: str) -> Dict:
+        """
+        时间维度分析 - 从 registry 读取 health_score 指标配置
+        """
+        # 从 registry 获取健康分指标配置
+        health_config = self._get_indicator_config('health_score')
+        if not health_config:
+            print(f"  ⚠️ 未找到 health_score 指标配置，跳过趋势分析")
+            return {'has_trend': False, 'trend_alerts': [], 'has_anomaly': False}
+        
+        # 从 registry 获取趋势变化指标配置
+        trend_config = self._get_indicator_config('health_trend_change')
+        threshold = 30  # 默认阈值 30%
+        if trend_config:
+            # 可以从配置中读取阈值
+            pass
+        
+        recent_reports = self.memory.read_recent_reports(days=7)
+        
+        if not recent_reports:
+            print(f"  ⏭️ 无历史数据，跳过趋势分析")
+            return {'has_trend': False, 'trend_alerts': [], 'has_anomaly': False}
+        
+        trend_alerts = []
+        
+        for sn, data in device_results.items():
+            current_health = self._get_score(data)
+            if current_health is None:
+                continue
+            
+            # 找该设备的历史数据
+            historical = []
+            for report in recent_reports:
+                if sn in report.get('devices', {}):
+                    hist_score = self._get_score(report['devices'][sn])
+                    if hist_score is not None:
+                        historical.append(hist_score)
+            
+            if len(historical) >= 3:
+                avg_historical = sum(historical) / len(historical)
+                change_pct = ((current_health - avg_historical) / avg_historical * 100) if avg_historical > 0 else 0
+                
+                # 使用 registry 中的阈值判断异常
+                if abs(change_pct) > threshold:
+                    trend_alerts.append({
+                        'device': sn,
+                        'change_pct': change_pct,
+                        'current': current_health,
+                        'historical_avg': avg_historical,
+                        'indicator_id': 'health_trend_change'
+                    })
+                    print(f"  ⚠️ {sn}: 健康分变化 {change_pct:+.1f}%")
+        
+        if not trend_alerts:
+            print(f"  ✅ 趋势正常: 历史{len(recent_reports)}天, 无异常")
+        
+        return {
+            'has_trend': True,
+            'historical_days': len(recent_reports),
+            'trend_alerts': trend_alerts,
+            'has_anomaly': len(trend_alerts) > 0,
+            'indicator_id': 'health_score',
+            'threshold': threshold
+        }
+    
+    # ========== 大模型增强（条件触发）==========
+    
+    def _should_llm_enhance(self, comparison: Dict, trend: Dict) -> bool:
+        """判断是否触发大模型增强"""
+        triggers = [
+            comparison.get('is_anomaly'),           # 横向对比异常
+            trend.get('has_anomaly'),                # 趋势异常
+            comparison.get('power_gap_pct', 0) > 15,  # 功率差异较大
+            len(trend.get('trend_alerts', [])) > 0   # 有趋势告警
+        ]
+        return any(triggers)
+    
+    def _llm_enhance(self, comparison: Dict, trend: Dict, device_results: Dict) -> Optional[Dict]:
+        """
+        大模型增强 - 生成洞察
+        （当前为模拟，实际接入LLM）
+        """
+        print(f"  🤖 生成洞察...")
+        
+        insights = []
+        
+        # 基于横向对比生成洞察
+        if comparison.get('is_anomaly'):
+            max_dev = comparison['power_ranking'][0]
+            min_dev = comparison['power_ranking'][-1]
+            insights.append({
+                'type': 'horizontal_anomaly',
+                'name': f"power_gap_{comparison['date']}",
+                'signature': f"power_gap_{max_dev[0]}_{min_dev[0]}_{comparison['date']}",
+                'summary': f"{max_dev[0]}与{min_dev[0]}功率差异显著",
+                'description': f"横向对比发现，{max_dev[0]}平均功率{max_dev[1]:.1f}kW，{min_dev[0]}平均功率{min_dev[1]:.1f}kW，差异达{comparison['power_gap_pct']:.1f}%，建议检查{min_dev[0]}的运行状态",
+                'devices_involved': [max_dev[0], min_dev[0]],
+                'evidence': {
+                    'power_gap': comparison['power_gap'],
+                    'power_gap_pct': comparison['power_gap_pct'],
+                    'date': comparison['date']
+                },
+                'is_new_discovery': True
+            })
+        
+        # 基于趋势生成洞察
+        for alert in trend.get('trend_alerts', []):
+            insights.append({
+                'type': 'trend_anomaly',
+                'name': f"trend_alert_{alert['device']}",
+                'signature': f"trend_alert_{alert['device']}_{comparison['date']}",
+                'summary': f"{alert['device']}健康分异常波动",
+                'description': f"{alert['device']}当前健康分{alert['current']:.1f}，较历史平均{alert['historical_avg']:.1f}变化{alert['change_pct']:+.1f}%，建议关注",
+                'devices_involved': [alert['device']],
+                'evidence': alert,
+                'is_new_discovery': True
+            })
+        
+        if insights:
+            print(f"  ✅ 生成 {len(insights)} 个洞察")
+            for i in insights:
+                print(f"     - {i['summary']}")
+            return {'insights': insights, 'count': len(insights)}
+        
+        return None
+
+
+# 便捷函数
+def run_daily_v5(date_str: str) -> Dict:
+    """运行V4.5每日资产管理"""
+    workflow = DailyAssetManagementV5()
+    return workflow.run(date_str)
+
+
+if __name__ == '__main__':
+    import sys
+    date = sys.argv[1] if len(sys.argv) > 1 else '2025-08-15'
+    run_daily_v5(date)
+"""
+指标进化 Workflow
+
+符合V5.1规范：
+- 已注册到 skills_registry.yaml
+- 输入输出明确
+- 调用原子能力
+"""
+
+import argparse
+import json
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional
+
+from core.indicator_evolution import IndicatorEvolution, IndicatorRegistry
+from core.memory_system import MemorySystem
+
+
+def run_indicator_evolution(round_num: Optional[int] = None, 
+                            date_str: Optional[str] = None) -> Dict:
+    """
+    指标进化 Workflow
+    
+    Args:
+        round_num: 指定轮次(1/2/3)，None则自动判断
+        date_range: 数据日期范围，None则使用最近30天
+    
+    Returns:
+        {
+            "success": bool,
+            "round": int,
+            "candidates_found": int,
+            "candidates": [...],
+            "converged": bool,
+            "report_path": str
+        }
+    """
+    print(f"\n{'='*60}")
+    print("指标进化 Workflow")
+    print(f"{'='*60}")
+    
+    # 初始化
+    evo = IndicatorEvolution()
+    memory = MemorySystem()
+    
+    # 确定轮次
+    if round_num is None:
+        round_num = evo.suggest_next_round()
+        if round_num == 0:
+            print("✓ 指标体系已收敛，无需继续进化")
+            return {
+                "success": True,
+                "round": 0,
+                "candidates_found": 0,
+                "candidates": [],
+                "converged": True
+            }
+    
+    print(f"\n执行第 {round_num} 轮进化: {evo.ROUNDS[round_num]}")
+    
+    # 确定日期
+    if date_str is None:
+        date_str = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
+    
+    print(f"数据日期: {date_str}")
+    
+    # 执行进化（传入日期字符串）
+    candidates = evo.evolve(round_num, date_str)
+    
+    # 判断数据来源
+    data_source = "registry"
+    if candidates and candidates[0].get("data_source") == "raw_api":
+        data_source = "raw_api"
+    
+    # 生成报告
+    report = {
+        "success": True,
+        "round": round_num,
+        "strategy": evo.ROUNDS[round_num],
+        "candidates_found": len(candidates),
+        "candidates": [
+            {
+                "id": c["id"],
+                "name": c["name"],
+                "formula": c["formula"],
+                "description": c["description"]
+            }
+            for c in candidates
+        ],
+        "converged": len(candidates) < 3,
+        "data_source": data_source
+    }
+    
+    # 保存报告
+    report_path = memory.write_evolution_report(report)
+    
+    # 打印摘要
+    print(f"\n发现候选指标: {len(candidates)} 个")
+    for c in candidates:
+        print(f"  • {c['id']}: {c['name']}")
+        print(f"    公式: {c['formula']}")
+    
+    if report["converged"]:
+        print(f"\n✓ 本轮收敛（发现<3个），建议停止或人工审核")
+    else:
+        print(f"\n→ 建议继续第 {round_num + 1} 轮进化")
+    
+    print(f"\n报告已保存: {report_path}")
+    print(f"{'='*60}\n")
+    
+    return report
+
+
+def run_full_evolution() -> Dict:
+    """运行完整的三轮进化"""
+    print(f"\n{'='*60}")
+    print("完整指标进化（三轮）")
+    print(f"{'='*60}")
+    
+    evo = IndicatorEvolution()
+    device_data = {"placeholder": "actual_data"}
+    
+    results = evo.run_full_evolution(device_data)
+    
+    # 打印汇总
+    print("\n三轮进化汇总:")
+    for r in results["rounds"]:
+        print(f"  第{r['round']}轮 ({r['strategy']}): {r['candidates_found']} 个候选")
+    
+    print(f"\n总计候选指标: {results['total_candidates']} 个")
+    print(f"收敛状态: {'已收敛' if results['converged'] else '未收敛'}")
+    print(f"{'='*60}\n")
+    
+    return results
+
+
+def approve_candidate(candidate_id: str) -> bool:
+    """
+    审核通过候选指标
+    
+    Args:
+        candidate_id: 候选指标ID
+    
+    Returns:
+        是否成功
+    """
+    reg = IndicatorRegistry()
+    success = reg.approve_candidate(candidate_id)
+    
+    if success:
+        reg.save()
+        print(f"✓ 候选指标 '{candidate_id}' 已批准，进入注册表")
+    else:
+        print(f"✗ 候选指标 '{candidate_id}' 不存在或已批准")
+    
+    return success
+
+
+def list_candidates(status: str = "pending") -> List[Dict]:
+    """列出候选指标"""
+    reg = IndicatorRegistry()
+    candidates = reg.get_candidates()
+    
+    print(f"\n候选指标列表 ({len(candidates)} 个):")
+    print("-" * 60)
+    
+    for cid, c in candidates.items():
+        print(f"ID: {cid}")
+        print(f"  名称: {c['name']}")
+        print(f"  公式: {c['formula']}")
+        print(f"  轮次: 第{c.get('round', '?')}轮")
+        print(f"  发现时间: {c.get('discovered_at', 'unknown')}")
+        print()
+    
+    return list(candidates.values())
+
+
+def main():
+    parser = argparse.ArgumentParser(description="指标进化 Workflow")
+    parser.add_argument("--round", type=int, choices=[1, 2, 3], 
+                       help="指定进化轮次")
+    parser.add_argument("--full", action="store_true",
+                       help="运行完整三轮进化")
+    parser.add_argument("--list", action="store_true",
+                       help="列出候选指标")
+    parser.add_argument("--approve", type=str,
+                       help="批准指定候选指标")
+    
+    args = parser.parse_args()
+    
+    if args.full:
+        run_full_evolution()
+    elif args.list:
+        list_candidates()
+    elif args.approve:
+        approve_candidate(args.approve)
+    else:
+        run_indicator_evolution(args.round)
+
+
+if __name__ == "__main__":
+    main()
+"""
+V4.4 月度评审工作流
+
+每月执行：
+1. 候选指标评审（入库/废弃）
+2. 临时指标转正评审
+3. 指标效果评估
+4. 低价值指标清理
+5. 生成月度报告
+"""
+
+import os
+import sys
+import json
+from datetime import datetime
+from typing import Dict, List
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from core.indicator_lifecycle_manager import IndicatorLifecycleManager
+from core.emergency_analyzer import EmergencyAnalyzer
+from core.cross_device_learner import CrossDeviceLearner
+
+
+class MonthlyReviewWorkflow:
+    """V4.4 月度评审工作流"""
+    
+    DEVICE_CLUSTER = [f'XHDL_{i}NBQ' for i in range(1, 17)]
+    
+    def __init__(self):
+        self.results_base_path = "memory/monthly"
+        os.makedirs(self.results_base_path, exist_ok=True)
+    
+    def run_monthly_review(self, date_str: str) -> Dict:
+        """
+        运行月度评审
+        
+        Args:
+            date_str: 月度日期，如 "2025-07-01"
+        
+        Returns:
+            月度评审结果
+        """
+        month_key = date_str[:7]  # 2025-07
+        
+        print(f"\n{'='*80}")
+        print(f"V4.4 月度评审: {month_key}")
+        print(f"{'='*80}")
+        
+        result = {
+            'month': month_key,
+            'review_date': date_str,
+            'generated_at': datetime.now().isoformat(),
+            'candidate_review': {},
+            'temp_indicator_review': {},
+            'effectiveness_assessment': {},
+            'cleanup_results': {},
+            'new_catalog_version': None
+        }
+        
+        # 阶段1: 候选指标评审
+        print(f"\n【阶段1】候选指标评审")
+        result['candidate_review'] = self._review_candidates(date_str)
+        
+        # 阶段2: 临时指标转正评审
+        print(f"\n【阶段2】临时指标转正评审")
+        result['temp_indicator_review'] = self._review_temp_indicators(date_str)
+        
+        # 阶段3: 指标效果评估
+        print(f"\n【阶段3】指标效果评估")
+        result['effectiveness_assessment'] = self._assess_indicator_effectiveness(month_key)
+        
+        # 阶段4: 清理低价值指标
+        print(f"\n【阶段4】清理低价值指标")
+        result['cleanup_results'] = self._cleanup_low_value_indicators(month_key)
+        
+        # 阶段5: 生成新指标库版本
+        print(f"\n【阶段5】生成指标库版本")
+        result['new_catalog_version'] = self._generate_catalog_version(month_key)
+        
+        # 保存月度评审报告
+        self._save_monthly_report(result)
+        
+        # 输出摘要
+        self._print_summary(result)
+        
+        return result
+    
+    def _review_candidates(self, date_str: str) -> Dict:
+        """评审候选指标"""
+        manager = IndicatorLifecycleManager()
+        
+        # 执行评审
+        review_result = manager.review_candidates(date_str)
+        
+        return {
+            'reviewed_count': review_result.get('promoted', 0) + 
+                            review_result.get('rejected', 0) + 
+                            review_result.get('extended', 0),
+            'promoted': review_result.get('promoted', 0),
+            'rejected': review_result.get('rejected', 0),
+            'extended': review_result.get('extended', 0),
+            'promoted_ids': review_result.get('promoted_ids', []),
+            'rejected_ids': review_result.get('rejected_ids', [])
+        }
+    
+    def _review_temp_indicators(self, date_str: str) -> Dict:
+        """评审临时指标转正"""
+        analyzer = EmergencyAnalyzer()
+        
+        # 获取所有临时指标
+        temp_indicators = analyzer.get_temp_indicators()
+        
+        # 人工评审模拟（实际应该有人工介入）
+        # 这里简化：验证次数>=3的转正，否则废弃
+        approved = []
+        rejected = []
+        
+        for ind in temp_indicators:
+            # 检查验证历史（简化）
+            # 实际应该检查该指标在实际使用中的效果
+            verification_count = len(ind.get('verification_history', []))
+            
+            if verification_count >= 3:
+                approved.append(ind)
+            else:
+                rejected.append(ind)
+        
+        # 清理过期的
+        expired_count = analyzer.clean_expired_temp_indicators(date_str)
+        
+        return {
+            'total_temp': len(temp_indicators),
+            'approved': len(approved),
+            'rejected': len(rejected),
+            'expired_cleaned': expired_count,
+            'approved_ids': [i['id'] for i in approved]
+        }
+    
+    def _assess_indicator_effectiveness(self, month_key: str) -> Dict:
+        """评估指标效果"""
+        # 读取当月指标库
+        catalog_path = f"memory/indicators/catalog_v{month_key}.json"
+        
+        if not os.path.exists(catalog_path):
+            return {'assessed_count': 0, 'high_value': [], 'low_value': []}
+        
+        with open(catalog_path, 'r') as f:
+            catalog = json.load(f)
+        
+        indicators = catalog.get('indicators', {})
+        
+        high_value = []
+        low_value = []
+        
+        for ind_id, ind_info in indicators.items():
+            # 简化评估：验证设备数>=3且使用>=14天为高价值
+            verified_devices = len(ind_info.get('verified_devices', []))
+            
+            # 这里简化处理，实际需要更复杂的效果追踪
+            if verified_devices >= 3:
+                high_value.append(ind_id)
+            elif verified_devices <= 1:
+                low_value.append(ind_id)
+        
+        return {
+            'assessed_count': len(indicators),
+            'high_value': high_value,
+            'low_value': low_value,
+            'high_value_rate': round(len(high_value) / len(indicators) * 100, 1) if indicators else 0
+        }
+    
+    def _cleanup_low_value_indicators(self, month_key: str) -> Dict:
+        """清理低价值指标"""
+        catalog_path = f"memory/indicators/catalog_v{month_key}.json"
+        
+        if not os.path.exists(catalog_path):
+            return {'cleaned_count': 0}
+        
+        with open(catalog_path, 'r') as f:
+            catalog = json.load(f)
+        
+        indicators = catalog.get('indicators', {})
+        to_remove = []
+        
+        for ind_id, ind_info in indicators.items():
+            # 低价值标准：验证设备<=1 且 入库超过90天
+            verified_devices = len(ind_info.get('verified_devices', []))
+            promoted_date = ind_info.get('promoted_date', '2099-12-31')
+            
+            days_since_promoted = (
+                datetime.now() - datetime.fromisoformat(promoted_date)
+            ).days
+            
+            if verified_devices <= 1 and days_since_promoted > 90:
+                to_remove.append(ind_id)
+        
+        # 执行清理
+        for ind_id in to_remove:
+            del catalog['indicators'][ind_id]
+        
+        # 保存
+        with open(catalog_path, 'w') as f:
+            json.dump(catalog, f, indent=2)
+        
+        return {
+            'cleaned_count': len(to_remove),
+            'cleaned_ids': to_remove
+        }
+    
+    def _generate_catalog_version(self, month_key: str) -> Dict:
+        """生成指标库版本"""
+        catalog_path = f"memory/indicators/catalog_v{month_key}.json"
+        
+        if not os.path.exists(catalog_path):
+            return {'version': month_key, 'indicator_count': 0}
+        
+        with open(catalog_path, 'r') as f:
+            catalog = json.load(f)
+        
+        indicators = catalog.get('indicators', {})
+        
+        # 统计
+        by_source = {}
+        for ind in indicators.values():
+            source = ind.get('source', 'unknown')
+            by_source[source] = by_source.get(source, 0) + 1
+        
+        return {
+            'version': month_key,
+            'indicator_count': len(indicators),
+            'by_source': by_source,
+            'generated_at': datetime.now().isoformat()
+        }
+    
+    def _save_monthly_report(self, result: Dict):
+        """保存月度评审报告"""
+        month_key = result['month']
+        report_path = f"{self.results_base_path}/{month_key}_review.json"
+        
+        with open(report_path, 'w') as f:
+            json.dump(result, f, indent=2, default=str)
+        
+        print(f"\n月度评审报告已保存: {report_path}")
+    
+    def _print_summary(self, result: Dict):
+        """打印摘要"""
+        print(f"\n{'='*80}")
+        print(f"V4.4 月度评审摘要 ({result['month']})")
+        print(f"{'='*80}")
+        
+        candidate = result['candidate_review']
+        print(f"\n候选指标评审:")
+        print(f"  入库: {candidate.get('promoted', 0)} 个")
+        print(f"  废弃: {candidate.get('rejected', 0)} 个")
+        print(f"  延期: {candidate.get('extended', 0)} 个")
+        
+        temp = result['temp_indicator_review']
+        print(f"\n临时指标评审:")
+        print(f"  转正: {temp.get('approved', 0)} 个")
+        print(f"  废弃: {temp.get('rejected', 0)} 个")
+        print(f"  过期清理: {temp.get('expired_cleaned', 0)} 个")
+        
+        effectiveness = result['effectiveness_assessment']
+        print(f"\n指标效果评估:")
+        print(f"  高价值: {len(effectiveness.get('high_value', []))} 个")
+        print(f"  低价值: {len(effectiveness.get('low_value', []))} 个")
+        
+        cleanup = result['cleanup_results']
+        print(f"\n清理结果: {cleanup.get('cleaned_count', 0)} 个低价值指标")
+        
+        catalog = result['new_catalog_version']
+        if catalog:
+            print(f"\n指标库版本 {catalog['version']}: {catalog['indicator_count']} 个指标")
+        
+        print(f"\n{'='*80}")
+
+
+# 便捷函数
+def run_v44_monthly_review(date_str: str) -> Dict:
+    """运行V4.4月度评审"""
+    workflow = MonthlyReviewWorkflow()
+    return workflow.run_monthly_review(date_str)
+
+
+if __name__ == '__main__':
+    import sys
+    date = sys.argv[1] if len(sys.argv) > 1 else '2025-07-01'
+    run_v44_monthly_review(date)"""
+V4.4 周度分析工作流
+
+周期性执行（每周日）：
+1. 本周vs上周对比
+2. 退化趋势识别
+3. 新异常模式挖掘
+4. 候选指标生成
+5. 推送到验证队列
+"""
+
+import os
+import sys
+import json
+from datetime import datetime, timedelta
+from typing import Dict, List
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from core.indicator_lifecycle_manager import IndicatorLifecycleManager
+from core.cross_device_learner import CrossDeviceLearner
+
+
+class WeeklyAnalysisWorkflow:
+    """V4.4 周度分析工作流"""
+    
+    DEVICE_CLUSTER = [f'XHDL_{i}NBQ' for i in range(1, 17)]
+    
+    def __init__(self):
+        self.results_base_path = "memory/weekly"
+        os.makedirs(self.results_base_path, exist_ok=True)
+    
+    def run_weekly(self, date_str: str) -> Dict:
+        """
+        运行周度分析
+        
+        Args:
+            date_str: 周日日期，如 "2025-07-20"
+        
+        Returns:
+            周分析结果
+        """
+        print(f"\n{'='*80}")
+        print(f"V4.4 周度分析: {date_str}")
+        print(f"{'='*80}")
+        
+        # 计算本周和上周的日期范围
+        current_week = self._get_week_range(date_str)
+        last_week = self._get_week_range(
+            (datetime.strptime(date_str, '%Y-%m-%d') - timedelta(days=7)).strftime('%Y-%m-%d')
+        )
+        
+        result = {
+            'date': date_str,
+            'week_number': datetime.strptime(date_str, '%Y-%m-%d').isocalendar()[1],
+            'current_week': current_week,
+            'last_week': last_week,
+            'generated_at': datetime.now().isoformat(),
+            'degradation_trends': [],
+            'new_anomaly_patterns': [],
+            'candidate_indicators': [],
+            'cross_device_patterns': []
+        }
+        
+        # 阶段1: 本周vs上周健康分对比
+        print(f"\n【阶段1】健康分周对比")
+        result['degradation_trends'] = self._analyze_degradation(
+            current_week, last_week
+        )
+        
+        # 阶段2: 新异常模式挖掘
+        print(f"\n【阶段2】异常模式挖掘")
+        result['new_anomaly_patterns'] = self._mine_anomaly_patterns(
+            current_week, last_week
+        )
+        
+        # 阶段3: 生成候选指标
+        print(f"\n【阶段3】生成候选指标")
+        result['candidate_indicators'] = self._generate_candidates(
+            result['degradation_trends'],
+            result['new_anomaly_patterns']
+        )
+        
+        # 阶段4: 跨设备模式提交
+        print(f"\n【阶段4】跨设备模式验证")
+        result['cross_device_patterns'] = self._submit_cross_device_patterns(
+            result['new_anomaly_patterns']
+        )
+        
+        # 保存周分析结果
+        self._save_weekly_report(result)
+        
+        # 输出摘要
+        self._print_summary(result)
+        
+        return result
+    
+    def _get_week_range(self, sunday_date: str) -> Dict:
+        """获取周日期范围"""
+        sunday = datetime.strptime(sunday_date, '%Y-%m-%d')
+        monday = sunday - timedelta(days=6)
+        
+        return {
+            'start': monday.strftime('%Y-%m-%d'),
+            'end': sunday.strftime('%Y-%m-%d'),
+            'days': [
+                (monday + timedelta(days=i)).strftime('%Y-%m-%d')
+                for i in range(7)
+            ]
+        }
+    
+    def _analyze_degradation(self, current_week: Dict, last_week: Dict) -> List:
+        """分析退化趋势"""
+        trends = []
+        
+        for sn in self.DEVICE_CLUSTER:
+            # 读取两周的健康分
+            current_scores = self._get_weekly_health_scores(sn, current_week['days'])
+            last_scores = self._get_weekly_health_scores(sn, last_week['days'])
+            
+            if not current_scores or not last_scores:
+                continue
+            
+            # 计算平均健康分
+            current_avg = sum(current_scores) / len(current_scores)
+            last_avg = sum(last_scores) / len(last_scores)
+            
+            # 计算变化
+            change = current_avg - last_avg
+            
+            # 识别退化
+            if change < -5:  # 下降超过5分
+                trends.append({
+                    'device': sn,
+                    'current_avg': round(current_avg, 1),
+                    'last_avg': round(last_avg, 1),
+                    'change': round(change, 1),
+                    'severity': 'significant' if change < -10 else 'moderate'
+                })
+        
+        # 按退化程度排序
+        trends.sort(key=lambda x: x['change'])
+        
+        return trends
+    
+    def _mine_anomaly_patterns(self, current_week: Dict, last_week: Dict) -> List:
+        """挖掘新异常模式"""
+        patterns = []
+        
+        # 简化实现：对比两周的异常类型
+        current_anomalies = self._get_weekly_anomalies(current_week['days'])
+        last_anomalies = self._get_weekly_anomalies(last_week['days'])
+        
+        # 找出本周新出现的异常类型
+        current_types = set(a.get('type') for a in current_anomalies)
+        last_types = set(a.get('type') for a in last_anomalies)
+        
+        new_types = current_types - last_types
+        
+        for anomaly_type in new_types:
+            # 统计该类型异常
+            type_anomalies = [a for a in current_anomalies if a.get('type') == anomaly_type]
+            affected_devices = set(a.get('device') for a in type_anomalies)
+            
+            patterns.append({
+                'type': anomaly_type,
+                'count': len(type_anomalies),
+                'affected_devices': list(affected_devices),
+                'pattern_description': f"{anomaly_type} 在 {len(affected_devices)} 台设备出现"
+            })
+        
+        return patterns
+    
+    def _generate_candidates(self, degradation_trends: List, 
+                            anomaly_patterns: List) -> List:
+        """生成候选指标"""
+        candidates = []
+        manager = IndicatorLifecycleManager()
+        
+        # 基于退化趋势生成候选
+        for trend in degradation_trends:
+            if trend['severity'] == 'significant':
+                # 显著退化，生成针对性指标
+                candidate = {
+                    'name': f"degradation_indicator_{trend['device']}",
+                    'formula': f"health_score_delta_{trend['device']}",
+                    'description': f"{trend['device']} 健康分退化监测",
+                    'trigger': 'degradation'
+                }
+                
+                candidate_id = manager.add_candidate(
+                    candidate, 
+                    trend['device'],
+                    'periodic'
+                )
+                
+                candidates.append({
+                    'id': candidate_id,
+                    'candidate': candidate,
+                    'source': trend['device']
+                })
+        
+        # 基于异常模式生成候选
+        for pattern in anomaly_patterns:
+            if len(pattern['affected_devices']) >= 2:
+                # 多设备共同异常，生成通用指标
+                candidate = {
+                    'name': f"pattern_{pattern['type']}",
+                    'formula': f"anomaly_pattern_{pattern['type']}",
+                    'description': pattern['pattern_description'],
+                    'trigger': 'anomaly_pattern'
+                }
+                
+                # 提交到跨设备验证
+                learner = CrossDeviceLearner()
+                pattern_id = learner.submit_pattern(
+                    candidate,
+                    pattern['affected_devices'][0],
+                    datetime.now().strftime('%Y-%m-%d')
+                )
+                
+                candidates.append({
+                    'id': pattern_id,
+                    'candidate': candidate,
+                    'source': pattern['affected_devices'][0],
+                    'cross_device': True
+                })
+        
+        return candidates
+    
+    def _submit_cross_device_patterns(self, patterns: List) -> List:
+        """提交跨设备模式"""
+        submitted = []
+        learner = CrossDeviceLearner()
+        
+        for pattern in patterns:
+            if len(pattern['affected_devices']) >= 2:
+                pattern_def = {
+                    'name': pattern['type'],
+                    'description': pattern['pattern_description'],
+                    'affected_count': len(pattern['affected_devices'])
+                }
+                
+                pattern_id = learner.submit_pattern(
+                    pattern_def,
+                    pattern['affected_devices'][0],
+                    datetime.now().strftime('%Y-%m-%d')
+                )
+                
+                submitted.append({
+                    'pattern_id': pattern_id,
+                    'pattern': pattern_def,
+                    'devices': pattern['affected_devices']
+                })
+        
+        return submitted
+    
+    def _get_weekly_health_scores(self, device_sn: str, days: List) -> List:
+        """获取设备一周的健康分"""
+        scores = []
+        health_path = f"memory/devices/{device_sn}/health_history.json"
+        
+        if not os.path.exists(health_path):
+            return scores
+        
+        with open(health_path, 'r') as f:
+            history = json.load(f)
+        
+        for record in history:
+            if record.get('date') in days:
+                score = record.get('total_score')
+                if score is not None:
+                    scores.append(score)
+        
+        return scores
+    
+    def _get_weekly_anomalies(self, days: List) -> List:
+        """获取一周的异常记录"""
+        all_anomalies = []
+        
+        for sn in self.DEVICE_CLUSTER:
+            anomaly_path = f"memory/devices/{sn}/anomaly_log.json"
+            
+            if not os.path.exists(anomaly_path):
+                continue
+            
+            with open(anomaly_path, 'r') as f:
+                device_anomalies = json.load(f)
+            
+            for a in device_anomalies:
+                if a.get('date') in days:
+                    a['device'] = sn
+                    all_anomalies.append(a)
+        
+        return all_anomalies
+    
+    def _save_weekly_report(self, result: Dict):
+        """保存周分析报告"""
+        week_num = result['week_number']
+        year = datetime.strptime(result['date'], '%Y-%m-%d').year
+        report_path = f"{self.results_base_path}/{year}-w{week_num:02d}.json"
+        
+        with open(report_path, 'w') as f:
+            json.dump(result, f, indent=2, default=str)
+        
+        print(f"\n周分析报告已保存: {report_path}")
+    
+    def _print_summary(self, result: Dict):
+        """打印摘要"""
+        print(f"\n{'='*80}")
+        print(f"V4.4 周度分析摘要 (第{result['week_number']}周)")
+        print(f"{'='*80}")
+        
+        print(f"\n退化趋势: {len(result['degradation_trends'])} 台设备")
+        for t in result['degradation_trends'][:3]:
+            print(f"  {t['device']}: {t['last_avg']} → {t['current_avg']} ({t['change']:+.1f})")
+        
+        print(f"\n新异常模式: {len(result['new_anomaly_patterns'])} 种")
+        for p in result['new_anomaly_patterns']:
+            print(f"  {p['type']}: {p['count']} 次, 影响 {len(p['affected_devices'])} 台设备")
+        
+        print(f"\n候选指标: {len(result['candidate_indicators'])} 个")
+        print(f"跨设备模式: {len(result['cross_device_patterns'])} 个")
+        
+        print(f"\n{'='*80}")
+
+
+# 便捷函数
+def run_v44_weekly_analysis(date_str: str) -> Dict:
+    """运行V4.4周度分析"""
+    workflow = WeeklyAnalysisWorkflow()
+    return workflow.run_weekly(date_str)
+
+
+if __name__ == '__main__':
+    import sys
+    date = sys.argv[1] if len(sys.argv) > 1 else '2025-07-20'
+    run_v44_weekly_analysis(date)

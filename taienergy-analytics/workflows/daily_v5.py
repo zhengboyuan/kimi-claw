@@ -19,7 +19,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from config.system_config import DEVICE_CONFIG, STATION_CONFIG, THRESHOLD_CONFIG
+from config.system_config import DEVICE_CONFIG, STATION_CONFIG, THRESHOLD_CONFIG, POINT_CONFIG
 from skills.skill_1_data_collector import DataCollector
 from core.asset_health_engine import AssetHealthEngine
 from core.maintenance_advisor import MaintenanceAdvisor
@@ -34,6 +34,10 @@ from core.aggregation_engine import AggregationEngine
 DEVICE_COUNT = DEVICE_CONFIG["count"]
 INSTALLED_CAPACITY = STATION_CONFIG["installed_capacity_kw"]
 DEFAULT_THRESHOLD = THRESHOLD_CONFIG["default_percentage"]
+
+# 测点编码配置
+POWER_POINT_CODE = POINT_CONFIG.get("power_point_code", "ai56")
+GENERATION_POINT_CODE = POINT_CONFIG.get("generation_point_code", "ai68")
 
 # 阈值兜底常量（当 registry 中未配置时使用）
 DEFAULT_POWER_GAP_THRESHOLD = 20.0  # 功率差异率阈值默认 20%
@@ -390,14 +394,14 @@ class DailyAssetManagementV5:
         metrics = {}
         
         # 1. 等效利用小时数 (✅ 可计算)
-        # 从所有逆变器的 ai68 (当日发电量) 累加
+        # 从所有逆变器的当日发电量累加
         total_generation = 0
         for sn, data in device_data.items():
             if data and 'raw_metrics' in data:
                 raw = data['raw_metrics']
-                if 'ai68' in raw and raw['ai68']:
-                    # ai68 是当日发电量，取最后一个值
-                    values = raw['ai68']
+                if GENERATION_POINT_CODE in raw and raw[GENERATION_POINT_CODE]:
+                    # 当日发电量，取最后一个值
+                    values = raw[GENERATION_POINT_CODE]
                     valid_values = _filter_numeric_values(values)
                     if valid_values:
                         daily_gen = valid_values[-1]
@@ -419,8 +423,8 @@ class DailyAssetManagementV5:
             if data and 'raw_metrics' in data:
                 raw = data['raw_metrics']
                 # 尝试从功率判断发电状态
-                if 'ai56' in raw and raw['ai56']:
-                    power_values = raw['ai56']
+                if POWER_POINT_CODE in raw and raw[POWER_POINT_CODE]:
+                    power_values = raw[POWER_POINT_CODE]
                     valid_values = _filter_numeric_values(power_values)
                     if valid_values:
                         status_from_power = ['generating' if p > 10 else 'standby' for p in valid_values]
@@ -725,9 +729,9 @@ class DailyAssetManagementV5:
             print(f"  ⚠️ 未找到 power_active 指标配置，跳过横向对比")
             return {'devices_compared': 0, 'is_anomaly': False, 'power_gap_pct': 0}
         
-        # 获取指标输入字段（物模型编码）
-        inputs = power_config.get('inputs', ['ai56'])
-        point_code = inputs[0] if inputs else 'ai56'
+        # 获取指标输入字段（物模型编码），优先使用配置
+        inputs = power_config.get('inputs', [POWER_POINT_CODE])
+        point_code = inputs[0] if inputs else POWER_POINT_CODE
         
         # 从原始数据中获取功率（使用 raw_metrics）
         power_data = {}

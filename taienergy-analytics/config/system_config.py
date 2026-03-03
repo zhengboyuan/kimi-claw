@@ -49,3 +49,9 @@ DATA_QUALITY_CONFIG = {
     "min_data_points_per_day": 24,  # 每天最少数据点
     "completeness_threshold": 0.95,  # 完整性阈值
 }
+
+# 测点编码配置
+POINT_CONFIG = {
+    "power_point_code": "ai56",  # 有功功率点位
+    "generation_point_code": "ai68",  # 当日发电量点位
+}

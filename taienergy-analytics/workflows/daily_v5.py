@@ -749,13 +749,7 @@ class DailyAssetManagementV5:
         """
         时间维度分析 - 从 registry 读取 health_score 指标配置
         """
-        # 从 registry 获取健康分指标配置
-        health_config = self._get_indicator_config('health_score')
-        if not health_config:
-            print(f"  ⚠️ 未找到 health_score 指标配置，跳过趋势分析")
-            return {'has_trend': False, 'trend_alerts': [], 'has_anomaly': False}
-        
-        # 从 registry 获取趋势变化指标配置
+        # 先从 registry 获取趋势变化指标配置（提前计算 threshold）
         trend_config = self._get_indicator_config('health_trend_change')
         if trend_config and 'thresholds' in trend_config and 'warning' in trend_config['thresholds']:
             threshold = trend_config['thresholds']['warning']
@@ -763,11 +757,31 @@ class DailyAssetManagementV5:
             threshold = DEFAULT_TREND_THRESHOLD
             logger.warning(f"[{date_str}] health_trend_change 阈值未配置，使用兜底值: {DEFAULT_TREND_THRESHOLD}%")
         
+        # 从 registry 获取健康分指标配置
+        health_config = self._get_indicator_config('health_score')
+        if not health_config:
+            print(f"  ⚠️ 未找到 health_score 指标配置，跳过趋势分析")
+            return {
+                'has_trend': False,
+                'historical_days': 0,
+                'trend_alerts': [],
+                'has_anomaly': False,
+                'indicator_id': 'health_score',
+                'threshold': threshold
+            }
+        
         recent_reports = self.memory.read_recent_reports(days=7)
         
         if not recent_reports:
             print(f"  ⏭️ 无历史数据，跳过趋势分析")
-            return {'has_trend': False, 'trend_alerts': [], 'has_anomaly': False}
+            return {
+                'has_trend': False,
+                'historical_days': 0,
+                'trend_alerts': [],
+                'has_anomaly': False,
+                'indicator_id': 'health_score',
+                'threshold': threshold
+            }
         
         trend_alerts = []
         

@@ -12,6 +12,7 @@
 import gc
 import os
 import sys
+import math
 from datetime import datetime
 from typing import Dict, Optional, List
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -33,6 +34,40 @@ from core.aggregation_engine import AggregationEngine
 DEVICE_COUNT = DEVICE_CONFIG["count"]
 INSTALLED_CAPACITY = STATION_CONFIG["installed_capacity_kw"]
 DEFAULT_THRESHOLD = THRESHOLD_CONFIG["default_percentage"]
+
+
+def _filter_numeric_values(values: list) -> list:
+    """
+    过滤数值列表，去除 None、NaN、pd.NA 等非数值
+    返回纯数值（int/float）列表
+    """
+    if not values:
+        return []
+    
+    valid = []
+    for v in values:
+        # 排除 None
+        if v is None:
+            continue
+        # 排除 float NaN
+        if isinstance(v, float) and math.isnan(v):
+            continue
+        # 排除 pd.NA (pandas nullable integer/float NA)
+        # pd.NA 是 singleton，可以用 is 判断，或者用 pd.isna
+        try:
+            # 尝试判断是否为 pd.NA 或其他 pandas NA 类型
+            # pd.isna 会返回 True 对于 None, NaN, pd.NA, NaT 等
+            import pandas as pd
+            if pd.isna(v):
+                continue
+        except Exception:
+            # 如果 pandas 不可用或出错，继续其他检查
+            pass
+        # 只保留数值类型
+        if isinstance(v, (int, float)):
+            valid.append(v)
+    
+    return valid
 
 
 class DailyAssetManagementV5:
@@ -307,7 +342,7 @@ class DailyAssetManagementV5:
                 if 'ai68' in raw and raw['ai68']:
                     # ai68 是当日发电量，取最后一个值
                     values = raw['ai68']
-                    valid_values = [v for v in values if v is not None and not (isinstance(v, float) and v != v)]
+                    valid_values = _filter_numeric_values(values)
                     if valid_values:
                         daily_gen = valid_values[-1]
                         total_generation += daily_gen
@@ -330,7 +365,7 @@ class DailyAssetManagementV5:
                 # 尝试从功率判断发电状态
                 if 'ai56' in raw and raw['ai56']:
                     power_values = raw['ai56']
-                    valid_values = [v for v in power_values if v is not None and not (isinstance(v, float) and v != v)]
+                    valid_values = _filter_numeric_values(power_values)
                     if valid_values:
                         status_from_power = ['generating' if p > 10 else 'standby' for p in valid_values]
                         result = self.competition_calc.calculate_generation_duration(status_from_power)
@@ -643,8 +678,8 @@ class DailyAssetManagementV5:
             if data and 'raw_metrics' in data and point_code in data['raw_metrics']:
                 values = data['raw_metrics'][point_code]
                 if values and len(values) > 0:
-                    # 过滤掉 None 和 NaN
-                    valid_values = [v for v in values if v is not None and not (isinstance(v, float) and v != v)]
+                    # 使用统一的数值过滤函数
+                    valid_values = _filter_numeric_values(values)
                     if valid_values:
                         avg_power = sum(valid_values) / len(valid_values)
                         power_data[sn] = avg_power

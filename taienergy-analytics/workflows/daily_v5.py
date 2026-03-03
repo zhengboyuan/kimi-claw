@@ -302,12 +302,15 @@ class DailyAssetManagementV5:
         # 从所有逆变器的 ai68 (当日发电量) 累加
         total_generation = 0
         for sn, data in device_data.items():
-            if data and 'raw_data' in data:
-                raw = data['raw_data']
-                if 'ai68' in raw and hasattr(raw['ai68'], 'values'):
-                    # ai68 是累计值，取最后一个
-                    daily_gen = raw['ai68']['value'].iloc[-1] if len(raw['ai68']) > 0 else 0
-                    total_generation += daily_gen
+            if data and 'raw_metrics' in data:
+                raw = data['raw_metrics']
+                if 'ai68' in raw and raw['ai68']:
+                    # ai68 是当日发电量，取最后一个值
+                    values = raw['ai68']
+                    valid_values = [v for v in values if v is not None and not (isinstance(v, float) and v != v)]
+                    if valid_values:
+                        daily_gen = valid_values[-1]
+                        total_generation += daily_gen
         
         result = self.competition_calc.calculate_equivalent_utilization_hours(total_generation)
         metrics['equivalent_utilization_hours'] = {
@@ -322,16 +325,18 @@ class DailyAssetManagementV5:
         total_duration = 0
         device_count = 0
         for sn, data in device_data.items():
-            if data and 'raw_data' in data:
-                raw = data['raw_data']
+            if data and 'raw_metrics' in data:
+                raw = data['raw_metrics']
                 # 尝试从功率判断发电状态
-                if 'ai56' in raw and hasattr(raw['ai56'], 'values'):
-                    power_values = raw['ai56']['value'].tolist()
-                    status_from_power = ['generating' if p > 10 else 'standby' for p in power_values]
-                    result = self.competition_calc.calculate_generation_duration(status_from_power)
-                    if result.get('value'):
-                        total_duration += result['value']
-                        device_count += 1
+                if 'ai56' in raw and raw['ai56']:
+                    power_values = raw['ai56']
+                    valid_values = [v for v in power_values if v is not None and not (isinstance(v, float) and v != v)]
+                    if valid_values:
+                        status_from_power = ['generating' if p > 10 else 'standby' for p in valid_values]
+                        result = self.competition_calc.calculate_generation_duration(status_from_power)
+                        if result.get('value'):
+                            total_duration += result['value']
+                            device_count += 1
         
         avg_duration = total_duration / device_count if device_count > 0 else 0
         metrics['generation_duration'] = {
@@ -632,15 +637,16 @@ class DailyAssetManagementV5:
         inputs = power_config.get('inputs', ['ai56'])
         point_code = inputs[0] if inputs else 'ai56'
         
-        # 从原始数据中获取功率
+        # 从原始数据中获取功率（使用 raw_metrics）
         power_data = {}
         for sn, data in device_data.items():
-            if data and 'raw_data' in data and point_code in data['raw_data']:
-                df = data['raw_data'][point_code]
-                if hasattr(df, 'values') and 'value' in df.columns:
-                    values = df['value'].dropna().values
-                    if len(values) > 0:
-                        avg_power = float(values.mean())
+            if data and 'raw_metrics' in data and point_code in data['raw_metrics']:
+                values = data['raw_metrics'][point_code]
+                if values and len(values) > 0:
+                    # 过滤掉 None 和 NaN
+                    valid_values = [v for v in values if v is not None and not (isinstance(v, float) and v != v)]
+                    if valid_values:
+                        avg_power = sum(valid_values) / len(valid_values)
                         power_data[sn] = avg_power
         
         if len(power_data) < 2:

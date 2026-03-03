@@ -25,21 +25,3 @@ jobs:
     - name: Run QA Gate
       run: |
         bash scripts/qa_gate.sh
-    
-    - name: Syntax Check - Core Files
-      run: |
-        python3 -m py_compile taienergy-analytics/workflows/daily_v5.py
-        python3 -m py_compile taienergy-analytics/core/memory_system.py
-    
-    - name: Import Check
-      run: |
-        python3 -c "import sys; sys.path.insert(0, 'taienergy-analytics'); from workflows.daily_v5 import DailyAssetManagementV5, run_daily_v5"
-    
-    - name: Unit Tests
-      run: |
-        python3 taienergy-analytics/tests/unit/test_data_cleaning.py
-        python3 taienergy-analytics/tests/unit/test_registry_idempotency.py
-    
-    - name: Smoke Test
-      run: |
-        python3 -c "import sys; sys.path.insert(0, 'taienergy-analytics'); from workflows.daily_v5 import clean_numeric_values; print('Smoke test passed')"

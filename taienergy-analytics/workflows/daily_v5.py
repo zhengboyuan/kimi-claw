@@ -709,12 +709,12 @@ class DailyAssetManagementV5:
         power_gap = max_dev[1] - min_dev[1]
         power_gap_pct = (power_gap / max_dev[1] * 100) if max_dev[1] > 0 else 0
         
-        # 从 registry 读取异常阈值（默认20%）
+        # 从 registry 读取异常阈值
         gap_config = self._get_indicator_config('power_gap_ratio')
-        threshold = 20  # 默认阈值
-        if gap_config:
-            # 可以从配置中读取阈值，如果没有则使用默认值
-            pass
+        if gap_config and 'thresholds' in gap_config:
+            threshold = gap_config['thresholds'].get('warning', 20)
+        else:
+            threshold = 20  # 默认阈值
         
         is_anomaly = power_gap_pct > threshold
         
@@ -748,10 +748,10 @@ class DailyAssetManagementV5:
         
         # 从 registry 获取趋势变化指标配置
         trend_config = self._get_indicator_config('health_trend_change')
-        threshold = DEFAULT_THRESHOLD  # 使用配置默认阈值
-        if trend_config:
-            # 可以从配置中读取阈值
-            pass
+        if trend_config and 'thresholds' in trend_config:
+            threshold = trend_config['thresholds'].get('warning', 30)
+        else:
+            threshold = DEFAULT_THRESHOLD  # 使用配置默认阈值
         
         recent_reports = self.memory.read_recent_reports(days=7)
         

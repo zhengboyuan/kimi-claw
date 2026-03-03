@@ -74,6 +74,10 @@
       ],
       "aggregation": "daily",
       "unit": "%",
+      "thresholds": {
+        "warning": 20,
+        "danger": 30
+      },
       "lifecycle_status": "approved",
       "owner": "system",
       "version": "1.0",
@@ -92,6 +96,10 @@
       ],
       "aggregation": "daily",
       "unit": "%",
+      "thresholds": {
+        "warning": 30,
+        "danger": 50
+      },
       "lifecycle_status": "approved",
       "owner": "system",
       "version": "1.0",

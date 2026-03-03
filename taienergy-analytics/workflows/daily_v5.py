@@ -35,6 +35,14 @@ DEVICE_COUNT = DEVICE_CONFIG["count"]
 INSTALLED_CAPACITY = STATION_CONFIG["installed_capacity_kw"]
 DEFAULT_THRESHOLD = THRESHOLD_CONFIG["default_percentage"]
 
+# 阈值兜底常量（当 registry 中未配置时使用）
+DEFAULT_POWER_GAP_THRESHOLD = 20.0  # 功率差异率阈值默认 20%
+DEFAULT_TREND_THRESHOLD = 30.0  # 健康分趋势变化阈值默认 30%
+
+# 获取 logger
+import logging
+logger = logging.getLogger(__name__)
+
 
 def clean_numeric_values(values) -> List[float]:
     """
@@ -711,10 +719,11 @@ class DailyAssetManagementV5:
         
         # 从 registry 读取异常阈值
         gap_config = self._get_indicator_config('power_gap_ratio')
-        if gap_config and 'thresholds' in gap_config:
-            threshold = gap_config['thresholds'].get('warning', 20)
+        if gap_config and 'thresholds' in gap_config and 'warning' in gap_config['thresholds']:
+            threshold = gap_config['thresholds']['warning']
         else:
-            threshold = 20  # 默认阈值
+            threshold = DEFAULT_POWER_GAP_THRESHOLD
+            logger.warning(f"[{date_str}] power_gap_ratio 阈值未配置，使用兜底值: {DEFAULT_POWER_GAP_THRESHOLD}%")
         
         is_anomaly = power_gap_pct > threshold
         
@@ -748,10 +757,11 @@ class DailyAssetManagementV5:
         
         # 从 registry 获取趋势变化指标配置
         trend_config = self._get_indicator_config('health_trend_change')
-        if trend_config and 'thresholds' in trend_config:
-            threshold = trend_config['thresholds'].get('warning', 30)
+        if trend_config and 'thresholds' in trend_config and 'warning' in trend_config['thresholds']:
+            threshold = trend_config['thresholds']['warning']
         else:
-            threshold = DEFAULT_THRESHOLD  # 使用配置默认阈值
+            threshold = DEFAULT_TREND_THRESHOLD
+            logger.warning(f"[{date_str}] health_trend_change 阈值未配置，使用兜底值: {DEFAULT_TREND_THRESHOLD}%")
         
         recent_reports = self.memory.read_recent_reports(days=7)
         

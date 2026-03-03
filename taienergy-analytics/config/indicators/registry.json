@@ -19,7 +19,8 @@
       "lifecycle_status": "approved",
       "owner": "system",
       "version": "1.0",
-      "created_at": "2026-02-28"
+      "created_at": "2026-02-28",
+      "computable": true
     },
     "power_active": {
       "id": "power_active",
@@ -37,7 +38,8 @@
       "lifecycle_status": "approved",
       "owner": "user",
       "version": "1.0",
-      "created_at": "2026-02-28"
+      "created_at": "2026-02-28",
+      "computable": true
     },
     "health_score": {
       "id": "health_score",
@@ -59,7 +61,8 @@
       "lifecycle_status": "approved",
       "owner": "system",
       "version": "1.0",
-      "created_at": "2026-02-28"
+      "created_at": "2026-02-28",
+      "computable": true
     },
     "power_gap_ratio": {
       "id": "power_gap_ratio",
@@ -76,12 +79,13 @@
       "unit": "%",
       "thresholds": {
         "warning": 20,
-        "danger": 30
+        "critical": 30
       },
       "lifecycle_status": "approved",
       "owner": "system",
       "version": "1.0",
-      "created_at": "2026-02-28"
+      "created_at": "2026-02-28",
+      "computable": true
     },
     "health_trend_change": {
       "id": "health_trend_change",
@@ -98,12 +102,13 @@
       "unit": "%",
       "thresholds": {
         "warning": 30,
-        "danger": 50
+        "critical": 50
       },
       "lifecycle_status": "approved",
       "owner": "system",
       "version": "1.0",
-      "created_at": "2026-02-28"
+      "created_at": "2026-02-28",
+      "computable": true
     },
     "vol_unbalance": {
       "id": "vol_unbalance",
@@ -123,7 +128,8 @@
       "lifecycle_status": "approved",
       "owner": "user",
       "version": "1.0",
-      "created_at": "2026-02-28"
+      "created_at": "2026-02-28",
+      "computable": true
     },
     "efficiency": {
       "id": "efficiency",
@@ -142,7 +148,8 @@
       "lifecycle_status": "approved",
       "owner": "user",
       "version": "1.0",
-      "created_at": "2026-02-28"
+      "created_at": "2026-02-28",
+      "computable": true
     },
     "power_factor": {
       "id": "power_factor",
@@ -161,7 +168,8 @@
       "lifecycle_status": "approved",
       "owner": "user",
       "version": "1.0",
-      "created_at": "2026-02-28"
+      "created_at": "2026-02-28",
+      "computable": true
     },
     "data_completeness": {
       "id": "data_completeness",
@@ -179,7 +187,8 @@
       "lifecycle_status": "approved",
       "owner": "system",
       "version": "1.0",
-      "created_at": "2026-02-28"
+      "created_at": "2026-02-28",
+      "computable": true
     },
     "stability_cv": {
       "id": "stability_cv",
@@ -203,7 +212,8 @@
       "lifecycle_status": "approved",
       "owner": "system",
       "version": "1.0",
-      "created_at": "2026-02-28"
+      "created_at": "2026-02-28",
+      "computable": true
     },
     "equivalent_utilization_hours": {
       "id": "equivalent_utilization_hours",
@@ -826,7 +836,8 @@
       "discovered_at": "2026-03-01T07:25:16.852344",
       "round": 2,
       "owner": "system",
-      "approved_at": "2026-03-01T07:25:16.853733"
+      "approved_at": "2026-03-01T07:25:16.853733",
+      "computable": true
     },
     "high_temp_derating_risk": {
       "id": "high_temp_derating_risk",
@@ -846,7 +857,8 @@
       "discovered_at": "2026-03-01T07:25:16.852360",
       "round": 3,
       "owner": "system",
-      "approved_at": "2026-03-01T07:25:33.907658"
+      "approved_at": "2026-03-01T07:25:33.907658",
+      "computable": false
     }
   },
   "candidates": {

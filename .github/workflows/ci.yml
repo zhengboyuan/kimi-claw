@@ -35,6 +35,9 @@ jobs:
           pytest -q taienergy-analytics/tests/unit/test_data_cleaning.py
           pytest -q taienergy-analytics/tests/unit/test_registry_schema.py
           pytest -q taienergy-analytics/tests/unit/test_threshold_behavior.py
+          pytest -q taienergy-analytics/tests/unit/test_device_cluster_config.py
+          pytest -q taienergy-analytics/tests/unit/test_point_code_config.py
+          pytest -q taienergy-analytics/tests/unit/test_runtime_config.py
 
       - name: Run regression smoke
         run: python3 -c "import sys; sys.path.insert(0, 'taienergy-analytics'); from workflows.daily_v5 import DailyAssetManagementV5; DailyAssetManagementV5(); print('smoke ok')"

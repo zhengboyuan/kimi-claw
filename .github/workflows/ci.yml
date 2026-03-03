@@ -32,17 +32,14 @@ jobs:
         python3 -m py_compile taienergy-analytics/core/memory_system.py
     
     - name: Import Check
-      working-directory: ./taienergy-analytics
       run: |
-        python3 -c "from workflows.daily_v5 import DailyAssetManagementV5, run_daily_v5"
+        python3 -c "import sys; sys.path.insert(0, 'taienergy-analytics'); from workflows.daily_v5 import DailyAssetManagementV5, run_daily_v5"
     
     - name: Unit Tests
-      working-directory: ./taienergy-analytics
       run: |
-        python3 tests/unit/test_data_cleaning.py
-        python3 tests/unit/test_registry_idempotency.py
+        python3 taienergy-analytics/tests/unit/test_data_cleaning.py
+        python3 taienergy-analytics/tests/unit/test_registry_idempotency.py
     
     - name: Smoke Test
-      working-directory: ./taienergy-analytics
       run: |
-        python3 -c "from workflows.daily_v5 import clean_numeric_values; print('Smoke test passed')"
+        python3 -c "import sys; sys.path.insert(0, 'taienergy-analytics'); from workflows.daily_v5 import clean_numeric_values; print('Smoke test passed')"

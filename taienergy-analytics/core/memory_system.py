@@ -251,7 +251,15 @@ class MemorySystem:
         return candidates
     
     def update_registry(self, indicator: Dict) -> bool:
-        """更新指标注册表 - 复用 indicator_registry 模块，以 id 为主键"""
+        """
+        幂等更新指标注册表 - 以 id 为主键
+        
+        特性：
+        1. 以 indicator_id 为主键，确保唯一性
+        2. 新增时保留 created_at，更新时不覆盖
+        3. 每次更新自动更新 updated_at
+        4. 重复提交同 id 不会新增重复项
+        """
         from core.indicator_registry import read_registry, write_registry
         
         indicator_id = indicator.get("id")
@@ -259,27 +267,51 @@ class MemorySystem:
             logger.error("[Registry] UPDATE failed: missing indicator id")
             return False
         
+        # 校验 id 格式（只允许字母、数字、下划线）
+        if not indicator_id.replace('_', '').isalnum():
+            logger.error(f"[Registry] UPDATE failed: invalid indicator id format: {indicator_id}")
+            return False
+        
         registry = read_registry()
         if "indicators" not in registry:
             registry["indicators"] = {}
         
+        now = datetime.now().isoformat()
+        
         if indicator_id in registry["indicators"]:
-            # 更新
-            registry["indicators"][indicator_id].update(indicator)
-            registry["indicators"][indicator_id]["updated_at"] = datetime.now().isoformat()
+            # 更新现有指标
+            existing = registry["indicators"][indicator_id]
+            
+            # 保存原有的 created_at
+            created_at = existing.get("created_at")
+            
+            # 更新字段
+            existing.update(indicator)
+            
+            # 恢复 created_at（不被覆盖）
+            if created_at:
+                existing["created_at"] = created_at
+            else:
+                existing["created_at"] = now
+            
+            # 更新 updated_at
+            existing["updated_at"] = now
+            
+            logger.info(f"[Registry] UPDATE existing: {indicator_id}")
         else:
-            # 新增
+            # 新增指标
             registry["indicators"][indicator_id] = {
                 **indicator,
-                "created_at": datetime.now().isoformat()
+                "created_at": now,
+                "updated_at": now
             }
+            logger.info(f"[Registry] CREATE new: {indicator_id}")
         
-        # 更新版本和时间戳
+        # 更新注册表版本和时间戳
         registry["version"] = registry.get("version", "v5.1")
-        registry["updated_at"] = datetime.now().isoformat()
+        registry["updated_at"] = now
         
         write_registry(registry)
-        logger.info(f"[Registry] UPDATE: {indicator_id}")
         return True
     
     def read_registry(self) -> Dict:

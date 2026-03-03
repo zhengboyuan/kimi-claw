@@ -215,7 +215,7 @@
       "owner": "system",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "✅",
+      "computable": true,
       "data_source": "逆变器/人工",
       "priority": "竞赛核心指标"
     },
@@ -237,7 +237,7 @@
       "owner": "system",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "⚠️",
+      "computable": false,
       "data_source": "调度",
       "priority": "竞赛核心指标"
     },
@@ -259,7 +259,7 @@
       "owner": "system",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "⚠️",
+      "computable": false,
       "data_source": "关口表",
       "priority": "竞赛核心指标"
     },
@@ -281,7 +281,7 @@
       "owner": "system",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "⚠️",
+      "computable": false,
       "data_source": "逆变器/理论计算",
       "priority": "竞赛核心指标"
     },
@@ -302,7 +302,7 @@
       "owner": "system",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "✅",
+      "computable": true,
       "data_source": "逆变器",
       "priority": "竞赛核心指标"
     },
@@ -323,7 +323,7 @@
       "owner": "user",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "❌",
+      "computable": false,
       "data_source": "气象站"
     },
     "temperature_avg": {
@@ -343,7 +343,7 @@
       "owner": "user",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "❌",
+      "computable": false,
       "data_source": "气象站"
     },
     "humidity_relative": {
@@ -363,7 +363,7 @@
       "owner": "user",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "❌",
+      "computable": false,
       "data_source": "气象站"
     },
     "radiation_horizontal": {
@@ -383,7 +383,7 @@
       "owner": "user",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "❌",
+      "computable": false,
       "data_source": "气象站"
     },
     "radiation_tilted": {
@@ -403,7 +403,7 @@
       "owner": "user",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "❌",
+      "computable": false,
       "data_source": "气象站"
     },
     "sunshine_hours": {
@@ -423,7 +423,7 @@
       "owner": "user",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "❌",
+      "computable": false,
       "data_source": "气象站"
     },
     "energy_generation_total": {
@@ -443,7 +443,7 @@
       "owner": "user",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "✅",
+      "computable": true,
       "data_source": "逆变器"
     },
     "energy_grid_export": {
@@ -465,7 +465,7 @@
       "owner": "user",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "⚠️",
+      "computable": false,
       "data_source": "关口表"
     },
     "energy_grid_import": {
@@ -485,7 +485,7 @@
       "owner": "user",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "⚠️",
+      "computable": false,
       "data_source": "关口表"
     },
     "energy_inverter_input": {
@@ -505,7 +505,7 @@
       "owner": "user",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "✅",
+      "computable": true,
       "data_source": "逆变器"
     },
     "energy_inverter_output": {
@@ -525,7 +525,7 @@
       "owner": "user",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "✅",
+      "computable": true,
       "data_source": "逆变器"
     },
     "curtailment_energy": {
@@ -546,7 +546,7 @@
       "owner": "user",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "⚠️",
+      "computable": false,
       "data_source": "调度"
     },
     "plant_consumption": {
@@ -566,7 +566,7 @@
       "owner": "user",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "⚠️",
+      "computable": false,
       "data_source": "关口表"
     },
     "plant_consumption_comprehensive": {
@@ -587,7 +587,7 @@
       "owner": "system",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "⚠️",
+      "computable": false,
       "data_source": "关口表"
     },
     "plant_consumption_rate": {
@@ -608,7 +608,7 @@
       "owner": "system",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "⚠️",
+      "computable": false,
       "data_source": "关口表"
     },
     "plant_loss_rate": {
@@ -629,7 +629,7 @@
       "owner": "system",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "⚠️",
+      "computable": false,
       "data_source": "关口表"
     },
     "inverter_loss": {
@@ -650,7 +650,7 @@
       "owner": "system",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "✅",
+      "computable": true,
       "data_source": "逆变器"
     },
     "collection_line_loss": {
@@ -671,7 +671,7 @@
       "owner": "user",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "⚠️",
+      "computable": false,
       "data_source": "关口表"
     },
     "substation_loss": {
@@ -692,7 +692,7 @@
       "owner": "user",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "⚠️",
+      "computable": false,
       "data_source": "关口表"
     },
     "max_output": {
@@ -712,7 +712,7 @@
       "owner": "user",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "✅",
+      "computable": true,
       "data_source": "逆变器"
     },
     "inverter_conversion_efficiency": {
@@ -733,7 +733,7 @@
       "owner": "system",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "✅",
+      "computable": true,
       "data_source": "逆变器"
     },
     "pv_array_efficiency": {
@@ -754,7 +754,7 @@
       "owner": "system",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "⚠️",
+      "computable": false,
       "data_source": "逆变器/理论计算"
     },
     "shutdown_duration": {
@@ -774,7 +774,7 @@
       "owner": "system",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "✅",
+      "computable": true,
       "data_source": "逆变器"
     },
     "interruption_duration": {
@@ -794,7 +794,7 @@
       "owner": "system",
       "version": "1.0",
       "created_at": "2026-02-28",
-      "computable": "✅",
+      "computable": true,
       "data_source": "逆变器"
     },
     "composite_health_score": {

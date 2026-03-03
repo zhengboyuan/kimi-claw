@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Indicator Registry Schema",
+  "description": "Schema for validating indicator registry configuration",
+  "type": "object",
+  "required": ["version", "updated_at", "indicators"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Registry version"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "indicators": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+          "$ref": "#/definitions/indicator"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "definitions": {
+    "indicator": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "source",
+        "scope",
+        "level",
+        "lifecycle_status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description"
+        },
+        "source": {
+          "type": "string",
+          "enum": ["user", "constructed", "llm"],
+          "description": "Source of the indicator"
+        },
+        "scope": {
+          "type": "string",
+          "enum": ["station", "inverter", "string"],
+          "description": "Application scope"
+        },
+        "level": {
+          "type": "string",
+          "enum": ["L1", "L2", "L3"],
+          "description": "Indicator level"
+        },
+        "lifecycle_status": {
+          "type": "string",
+          "enum": ["pending", "approved", "retired"],
+          "description": "Current lifecycle status"
+        },
+        "computable": {
+          "type": "boolean",
+          "description": "Whether the indicator can be computed"
+        },
+        "formula": {
+          "type": "string",
+          "description": "Computation formula"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Input dependencies"
+        },
+        "aggregation": {
+          "type": "string",
+          "enum": ["avg", "sum", "max", "min", "daily", "hourly", "raw"],
+          "description": "Aggregation method"
+        },
+        "unit": {
+          "type": "string",
+          "description": "Measurement unit"
+        },
+        "owner": {
+          "type": "string",
+          "description": "Owner of the indicator"
+        },
+        "version": {
+          "type": "string",
+          "description": "Indicator version"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date",
+          "description": "Creation date"
+        },
+        "thresholds": {
+          "type": "object",
+          "description": "Threshold configuration",
+          "properties": {
+            "warning": {
+              "type": "number"
+            },
+            "danger": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

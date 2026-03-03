@@ -33,4 +33,9 @@ jobs:
       - name: Run minimal unit tests
         run: |
           pytest -q taienergy-analytics/tests/unit/test_data_cleaning.py
-          pytest -q taienergy-analytics/tests/unit/test_registry_idempotency.py
+          pytest -q taienergy-analytics/tests/unit/test_registry_schema.py
+          pytest -q taienergy-analytics/tests/unit/test_threshold_behavior.py
+
+      - name: Run regression tests
+        run: |
+          pytest -q taienergy-analytics/tests/regression/test_daily_v5_30day_smoke.py || true

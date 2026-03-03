@@ -53,7 +53,7 @@ fi
 # Test 3: Unit Tests
 echo ""
 echo "[3/4] Unit Tests..."
-if python3 "$TAIENERGY_DIR/tests/unit/test_data_cleaning.py" 2>/dev/null; then
+if python3 "$TAIENERGY_DIR/tests/unit/test_data_cleaning.py"; then
     echo -e "${GREEN}✓${NC} Unit tests passed"
 else
     echo -e "${RED}✗${NC} Unit tests failed"
@@ -63,7 +63,7 @@ fi
 # Test 4: Smoke Test
 echo ""
 echo "[4/4] Smoke Test..."
-if python3 -c "import sys; sys.path.insert(0, '$TAIENERGY_DIR'); from workflows.daily_v5 import clean_numeric_values; import pandas as pd; result = clean_numeric_values([1, None, pd.NA, 'abc']); print(f'Smoke test passed: {result}')" 2>/dev/null; then
+if python3 -c "import sys; sys.path.insert(0, '$TAIENERGY_DIR'); from workflows.daily_v5 import clean_numeric_values; import pandas as pd; result = clean_numeric_values([1, None, pd.NA, 'abc']); print(f'Smoke test passed: {result}')"; then
     echo -e "${GREEN}✓${NC} Smoke test passed"
 else
     echo -e "${RED}✗${NC} Smoke test failed"

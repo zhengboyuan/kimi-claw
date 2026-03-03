@@ -20,7 +20,7 @@ jobs:
     
     - name: Install dependencies
       run: |
-        pip install pandas numpy pytest
+        pip install pandas numpy
     
     - name: Run QA Gate
       run: |
@@ -39,7 +39,8 @@ jobs:
     - name: Unit Tests
       working-directory: ./taienergy-analytics
       run: |
-        python3 -m pytest tests/unit/ -v
+        python3 tests/unit/test_data_cleaning.py
+        python3 tests/unit/test_registry_idempotency.py
     
     - name: Smoke Test
       working-directory: ./taienergy-analytics

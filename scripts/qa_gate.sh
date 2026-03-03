@@ -18,7 +18,7 @@ FAILED=0
 
 # Test 1: Python Syntax Check
 echo ""
-echo "[1/3] Python Syntax Check..."
+echo "[1/4] Python Syntax Check..."
 if python3 -m py_compile taienergy-analytics/workflows/daily_v5.py 2>/dev/null; then
     echo -e "${GREEN}✓${NC} daily_v5.py syntax OK"
 else
@@ -35,7 +35,7 @@ fi
 
 # Test 2: Import Check
 echo ""
-echo "[2/3] Import Check..."
+echo "[2/4] Import Check..."
 cd taienergy-analytics
 if python3 -c "from workflows.daily_v5 import DailyAssetManagementV5, run_daily_v5; print('Import OK')" 2>/dev/null; then
     echo -e "${GREEN}✓${NC} daily_v5 imports OK"
@@ -45,11 +45,29 @@ else
 fi
 cd ..
 
-# Test 3: Basic Smoke Test
+# Test 3: Unit Tests
 echo ""
-echo "[3/3] Smoke Test..."
-echo "  (Skipping full integration test - requires API access)"
-echo -e "${YELLOW}⚠${NC} Smoke test skipped (manual verification required)"
+echo "[3/4] Unit Tests..."
+cd taienergy-analytics
+if python3 tests/unit/test_data_cleaning.py 2>/dev/null; then
+    echo -e "${GREEN}✓${NC} Unit tests passed"
+else
+    echo -e "${RED}✗${NC} Unit tests failed"
+    FAILED=1
+fi
+cd ..
+
+# Test 4: Smoke Test
+echo ""
+echo "[4/4] Smoke Test..."
+cd taienergy-analytics
+if python3 -c "from workflows.daily_v5 import clean_numeric_values; import pandas as pd; result = clean_numeric_values([1, None, pd.NA, 'abc']); print(f'Smoke test passed: {result}')" 2>/dev/null; then
+    echo -e "${GREEN}✓${NC} Smoke test passed"
+else
+    echo -e "${RED}✗${NC} Smoke test failed"
+    FAILED=1
+fi
+cd ..
 
 # Summary
 echo ""

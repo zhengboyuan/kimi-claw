@@ -19,7 +19,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from config.system_config import DEVICE_CONFIG, STATION_CONFIG, THRESHOLD_CONFIG, POINT_CONFIG
+from config.system_config import DEVICE_CONFIG, STATION_CONFIG, THRESHOLD_CONFIG, POINT_CONFIG, RUNTIME_CONFIG
 from skills.skill_1_data_collector import DataCollector
 from core.asset_health_engine import AssetHealthEngine
 from core.maintenance_advisor import MaintenanceAdvisor
@@ -39,9 +39,12 @@ DEFAULT_THRESHOLD = THRESHOLD_CONFIG["default_percentage"]
 POWER_POINT_CODE = POINT_CONFIG.get("power_point_code", "ai56")
 GENERATION_POINT_CODE = POINT_CONFIG.get("generation_point_code", "ai68")
 
-# 阈值兜底常量（当 registry 中未配置时使用）
-DEFAULT_POWER_GAP_THRESHOLD = 20.0  # 功率差异率阈值默认 20%
-DEFAULT_TREND_THRESHOLD = 30.0  # 健康分趋势变化阈值默认 30%
+# 运行时配置
+MAX_WORKERS = RUNTIME_CONFIG.get("max_workers", 4)
+
+# 阈值兜底常量（从 THRESHOLD_CONFIG 读取，缺失时使用默认值）
+DEFAULT_POWER_GAP_THRESHOLD = THRESHOLD_CONFIG.get("power_gap_warning", 20.0)
+DEFAULT_TREND_THRESHOLD = THRESHOLD_CONFIG.get("trend_warning", 30.0)
 
 # 设备列表兜底常量
 DEFAULT_DEVICE_CLUSTER = [f'XHDL_{i}NBQ' for i in range(1, 17)]
@@ -320,7 +323,7 @@ class DailyAssetManagementV5:
                 print(f"  ❌ {sn}: {e}")
                 return sn, None
         
-        with ThreadPoolExecutor(max_workers=4) as executor:
+        with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
             futures = {executor.submit(collect, sn): sn for sn in devices}
             for future in as_completed(futures):
                 sn, data = future.result()
@@ -948,5 +951,7 @@ def run_daily_v5(date_str: str, device_list: Optional[List[str]] = None) -> Dict
 
 if __name__ == '__main__':
     import sys
-    date = sys.argv[1] if len(sys.argv) > 1 else '2025-08-15'
+    # 默认使用当天日期
+    default_date = datetime.now().strftime('%Y-%m-%d')
+    date = sys.argv[1] if len(sys.argv) > 1 else default_date
     run_daily_v5(date)

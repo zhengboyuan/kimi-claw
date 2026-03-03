@@ -55,3 +55,13 @@ POINT_CONFIG = {
     "power_point_code": "ai56",  # 有功功率点位
     "generation_point_code": "ai68",  # 当日发电量点位
 }
+
+# 运行时配置
+RUNTIME_CONFIG = {
+    "max_workers": 4,  # 并发线程数
+    "default_date": None,  # None 表示使用当天日期
+}
+
+# 阈值兜底配置（从 THRESHOLD_CONFIG 读取）
+# DEFAULT_POWER_GAP_THRESHOLD = THRESHOLD_CONFIG.get("power_gap_warning", 20.0)
+# DEFAULT_TREND_THRESHOLD = THRESHOLD_CONFIG.get("trend_warning", 30.0)

@@ -21,11 +21,7 @@ import numpy as np
 
 
 def test_clean_numeric_values():
-    """测试统一数据清洗函数"""
-    
-    print("=" * 60)
-    print("测试 clean_numeric_values 数据清洗函数")
-    print("=" * 60)
+    """测试统一数据清洗函数 - pytest 风格（无返回值）"""
     
     test_cases = [
         # (输入, 期望输出, 描述)
@@ -42,39 +38,28 @@ def test_clean_numeric_values():
         (None, [], "None 输入"),
     ]
     
-    passed = 0
     failed = 0
     
     for input_vals, expected, desc in test_cases:
-        try:
-            result = clean_numeric_values(input_vals)
-            
-            # 比较结果（处理浮点数精度）
-            if len(result) != len(expected):
-                match = False
-            else:
-                match = all(math.isclose(r, e, rel_tol=1e-9) for r, e in zip(result, expected))
-            
-            if match:
-                print(f"✅ PASS: {desc}")
-                passed += 1
-            else:
-                print(f"❌ FAIL: {desc}")
-                print(f"   输入: {input_vals}")
-                print(f"   期望: {expected}")
-                print(f"   实际: {result}")
-                failed += 1
-        except Exception as e:
-            print(f"❌ ERROR: {desc} - {e}")
+        result = clean_numeric_values(input_vals)
+        
+        # 比较结果（处理浮点数精度）
+        if len(result) != len(expected):
+            match = False
+        else:
+            match = all(math.isclose(r, e, rel_tol=1e-9) for r, e in zip(result, expected))
+        
+        if not match:
+            print(f"❌ FAIL: {desc}")
+            print(f"   输入: {input_vals}")
+            print(f"   期望: {expected}")
+            print(f"   实际: {result}")
             failed += 1
     
-    print("=" * 60)
-    print(f"结果: {passed} 通过, {failed} 失败")
-    print("=" * 60)
-    
-    return failed == 0
+    assert failed == 0, f"{failed} 个测试用例失败"
 
 
 if __name__ == '__main__':
-    success = test_clean_numeric_values()
-    sys.exit(0 if success else 1)
+    # 本地运行入口
+    test_clean_numeric_values()
+    print("✅ 所有测试通过")

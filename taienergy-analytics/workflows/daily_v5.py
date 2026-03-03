@@ -39,6 +39,9 @@ DEFAULT_THRESHOLD = THRESHOLD_CONFIG["default_percentage"]
 DEFAULT_POWER_GAP_THRESHOLD = 20.0  # 功率差异率阈值默认 20%
 DEFAULT_TREND_THRESHOLD = 30.0  # 健康分趋势变化阈值默认 30%
 
+# 设备列表兜底常量
+DEFAULT_DEVICE_CLUSTER = [f'XHDL_{i}NBQ' for i in range(1, 17)]
+
 # 获取 logger
 import logging
 logger = logging.getLogger(__name__)
@@ -90,12 +93,12 @@ def _filter_numeric_values(values) -> List[float]:
 class DailyAssetManagementV5:
     """资产运营分析 V5.1 - 从 registry 读取指标配置"""
     
-    DEVICE_CLUSTER = [f'XHDL_{i}NBQ' for i in range(1, DEVICE_COUNT + 1)]
-    
     def __init__(self):
         self.memory = MemorySystem()
         self.registry = read_registry()
         self.indicators = self.registry.get('indicators', {})
+        # 加载设备列表配置
+        self.device_cluster = self._load_device_cluster()
         # V5.1 竞赛指标计算器
         self.competition_calc = CompetitionIndicatorCalculator(
             station_config={'installed_capacity': INSTALLED_CAPACITY}
@@ -104,6 +107,27 @@ class DailyAssetManagementV5:
         self.history_store = UnifiedHistoryStore()
         self.rule_engine = DiscoveryRuleEngine()
         self.aggregation = AggregationEngine(self.history_store)
+    
+    def _load_device_cluster(self) -> List[str]:
+        """加载设备列表配置，失败时回退到默认值"""
+        import json
+        from pathlib import Path
+        
+        config_path = Path(__file__).parent.parent / 'config' / 'station' / 'station_devices.json'
+        
+        try:
+            if config_path.exists():
+                with open(config_path, 'r', encoding='utf-8') as f:
+                    config = json.load(f)
+                    devices = config.get('devices', [])
+                    if isinstance(devices, list) and len(devices) > 0:
+                        logger.info(f"已加载设备配置: {len(devices)} 台")
+                        return devices
+        except Exception as e:
+            logger.warning(f"加载设备配置失败: {e}")
+        
+        logger.info(f"使用默认设备列表: {len(DEFAULT_DEVICE_CLUSTER)} 台")
+        return DEFAULT_DEVICE_CLUSTER
     
     def _get_indicator_config(self, indicator_id: str) -> Optional[Dict]:
         """从 registry 读取指标配置"""
@@ -118,20 +142,29 @@ class DailyAssetManagementV5:
             score = health.get('total_score')
         return score
     
-    def run(self, date_str: str) -> Dict:
-        """运行资产运营分析"""
+    def run(self, date_str: str, device_list: Optional[List[str]] = None) -> Dict:
+        """运行资产运营分析
+        
+        Args:
+            date_str: 日期字符串
+            device_list: 可选，临时指定设备列表，默认使用配置中的设备列表
+        """
+        # 使用临时设备列表或默认配置
+        run_devices = device_list if device_list else self.device_cluster
+        
         print(f"\n{'='*70}")
         print(f"资产运营分析 V4.5: {date_str}")
+        print(f"设备数量: {len(run_devices)}")
         print(f"{'='*70}")
         
         # ========== 阶段1: 数据采集 ==========
         print("\n【1/7】数据采集")
-        device_data = self._collect_all(date_str)
+        device_data = self._collect_all(date_str, run_devices)
         
         # ========== 阶段2: 健康评分 + 设备记忆 ==========
         print("\n【2/7】健康评分 + 设备记忆更新")
         device_results = {}
-        for sn in self.DEVICE_CLUSTER:
+        for sn in run_devices:
             if device_data.get(sn):
                 # 评分
                 health = self._calculate_health(sn, date_str, device_data[sn])
@@ -198,7 +231,7 @@ class DailyAssetManagementV5:
         
         report_data = {
             'date': date_str,
-            'total_devices': 16,
+            'total_devices': len(run_devices),
             'online': risk['online'],
             'avg_health_score': 0,  # 将在下面计算
             'risk_distribution': risk['distribution'],
@@ -235,7 +268,7 @@ class DailyAssetManagementV5:
         
         # ========== V5.1 新增：设备画像生成 ==========
         print("\n【设备画像生成】")
-        device_profiles = self._generate_device_profiles(date_str)
+        device_profiles = self._generate_device_profiles(date_str, run_devices)
         
         # ========== V5.1 新增：场站排名生成 ==========
         print("\n【场站排名生成】")
@@ -253,8 +286,14 @@ class DailyAssetManagementV5:
         
         return report_data
     
-    def _collect_all(self, date_str: str) -> Dict:
-        """并发采集"""
+    def _collect_all(self, date_str: str, device_list: List[str] = None) -> Dict:
+        """并发采集
+        
+        Args:
+            date_str: 日期字符串
+            device_list: 可选，指定设备列表
+        """
+        devices = device_list if device_list else self.device_cluster
         results = {}
         
         def collect(sn):
@@ -278,12 +317,12 @@ class DailyAssetManagementV5:
                 return sn, None
         
         with ThreadPoolExecutor(max_workers=4) as executor:
-            futures = {executor.submit(collect, sn): sn for sn in self.DEVICE_CLUSTER}
+            futures = {executor.submit(collect, sn): sn for sn in devices}
             for future in as_completed(futures):
                 sn, data = future.result()
                 results[sn] = data
                 status = "✅" if data else "❌"
-                print(f"  [{len(results)}/16] {sn}...{status}")
+                print(f"  [{len(results)}/{len(devices)}] {sn}...{status}")
         
         return results
     
@@ -491,10 +530,11 @@ class DailyAssetManagementV5:
     
     # ========== V5.1 新增：设备画像生成 ==========
     
-    def _generate_device_profiles(self, date_str: str) -> Dict[str, Dict]:
+    def _generate_device_profiles(self, date_str: str, device_list: List[str] = None) -> Dict[str, Dict]:
         """生成所有设备的画像"""
+        devices = device_list if device_list else self.device_cluster
         profiles = {}
-        for sn in self.DEVICE_CLUSTER:
+        for sn in devices:
             profile = self.aggregation.generate_device_profile(sn, days=30)
             profiles[sn] = profile
         
@@ -888,10 +928,15 @@ class DailyAssetManagementV5:
 
 
 # 便捷函数
-def run_daily_v5(date_str: str) -> Dict:
-    """运行V4.5每日资产管理"""
+def run_daily_v5(date_str: str, device_list: Optional[List[str]] = None) -> Dict:
+    """运行V4.5每日资产管理
+    
+    Args:
+        date_str: 日期字符串
+        device_list: 可选，临时指定设备列表
+    """
     workflow = DailyAssetManagementV5()
-    result = workflow.run(date_str)
+    result = workflow.run(date_str, device_list)
     # 释放内存，防止批量处理时内存溢出
     gc.collect()
     return result

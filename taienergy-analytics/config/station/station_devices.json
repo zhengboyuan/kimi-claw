@@ -1,0 +1,9 @@
+{
+  "station_id": "default_station",
+  "devices": [
+    "XHDL_1NBQ","XHDL_2NBQ","XHDL_3NBQ","XHDL_4NBQ",
+    "XHDL_5NBQ","XHDL_6NBQ","XHDL_7NBQ","XHDL_8NBQ",
+    "XHDL_9NBQ","XHDL_10NBQ","XHDL_11NBQ","XHDL_12NBQ",
+    "XHDL_13NBQ","XHDL_14NBQ","XHDL_15NBQ","XHDL_16NBQ"
+  ]
+}

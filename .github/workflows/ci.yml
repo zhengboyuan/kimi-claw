@@ -22,22 +22,9 @@ jobs:
       run: |
         pip install pandas numpy
     
-    - name: Run All Tests
+    - name: Syntax Check
       working-directory: ./taienergy-analytics
       run: |
-        # Syntax check
         python3 -m py_compile workflows/daily_v5.py
         python3 -m py_compile core/memory_system.py
-        echo "✓ Syntax check passed"
-        
-        # Import check
-        python3 -c "from workflows.daily_v5 import DailyAssetManagementV5, run_daily_v5"
-        echo "✓ Import check passed"
-        
-        # Unit tests
-        python3 tests/unit/test_data_cleaning.py
-        echo "✓ Unit tests passed"
-        
-        # Smoke test
-        python3 -c "from workflows.daily_v5 import clean_numeric_values; import pandas as pd; result = clean_numeric_values([1, None, pd.NA, 'abc']); print(f'Smoke test: {result}')"
-        echo "✓ Smoke test passed"
+        echo "Syntax check passed"

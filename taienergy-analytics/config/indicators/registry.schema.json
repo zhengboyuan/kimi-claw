@@ -11,7 +11,6 @@
     },
     "updated_at": {
       "type": "string",
-      "format": "date-time",
       "description": "Last update timestamp"
     },
     "indicators": {
@@ -27,14 +26,7 @@
   "definitions": {
     "indicator": {
       "type": "object",
-      "required": [
-        "id",
-        "name",
-        "source",
-        "scope",
-        "level",
-        "lifecycle_status"
-      ],
+      "required": ["id", "name", "source", "scope", "level", "lifecycle_status", "computable"],
       "properties": {
         "id": {
           "type": "string",
@@ -43,10 +35,6 @@
         "name": {
           "type": "string",
           "description": "Human-readable name"
-        },
-        "description": {
-          "type": "string",
-          "description": "Detailed description"
         },
         "source": {
           "type": "string",
@@ -85,7 +73,6 @@
         },
         "aggregation": {
           "type": "string",
-          "enum": ["avg", "sum", "max", "min", "daily", "hourly", "raw"],
           "description": "Aggregation method"
         },
         "unit": {
@@ -102,23 +89,14 @@
         },
         "created_at": {
           "type": "string",
-          "format": "date",
           "description": "Creation date"
         },
         "thresholds": {
           "type": "object",
-          "description": "Threshold configuration",
-          "properties": {
-            "warning": {
-              "type": "number"
-            },
-            "danger": {
-              "type": "number"
-            }
-          }
+          "description": "Threshold configuration"
         }
       },
-      "additionalProperties": false
+      "additionalProperties": true
     }
   }
 }

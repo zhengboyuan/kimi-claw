@@ -8,24 +8,47 @@ import os
 from typing import Dict, List, Tuple
 
 
-def load_schema() -> Dict:
-    """加载 registry schema"""
-    schema_path = os.path.join(
-        os.path.dirname(__file__), 
+def get_schema_path() -> str:
+    """获取 schema 文件路径"""
+    return os.path.join(
+        os.path.dirname(__file__),
         '..', 'config', 'indicators', 'registry.schema.json'
     )
+
+
+def get_registry_path() -> str:
+    """获取 registry 文件路径"""
+    return os.path.join(
+        os.path.dirname(__file__),
+        '..', 'config', 'indicators', 'registry.json'
+    )
+
+
+def load_schema() -> Dict:
+    """加载 registry schema"""
+    schema_path = get_schema_path()
     with open(schema_path, 'r', encoding='utf-8') as f:
         return json.load(f)
 
 
-def load_registry() -> Dict:
-    """加载 registry 数据"""
-    registry_path = os.path.join(
-        os.path.dirname(__file__),
-        '..', 'config', 'indicators', 'registry.json'
-    )
-    with open(registry_path, 'r', encoding='utf-8') as f:
-        return json.load(f)
+def validate_type(value, expected_type: str, field_name: str) -> List[str]:
+    """验证单个字段类型"""
+    errors = []
+    
+    if expected_type == 'string':
+        if not isinstance(value, str):
+            errors.append(f"字段 '{field_name}' 必须是字符串，实际是 {type(value).__name__}")
+    elif expected_type == 'boolean':
+        if not isinstance(value, bool):
+            errors.append(f"字段 '{field_name}' 必须是布尔值，实际是 {type(value).__name__}")
+    elif expected_type == 'array':
+        if not isinstance(value, list):
+            errors.append(f"字段 '{field_name}' 必须是数组，实际是 {type(value).__name__}")
+    elif expected_type == 'object':
+        if not isinstance(value, dict):
+            errors.append(f"字段 '{field_name}' 必须是对象，实际是 {type(value).__name__}")
+    
+    return errors
 
 
 def validate_indicator(indicator_id: str, indicator: Dict) -> List[str]:
@@ -36,103 +59,134 @@ def validate_indicator(indicator_id: str, indicator: Dict) -> List[str]:
     errors = []
     
     # 必需字段检查
-    required_fields = ['id', 'name', 'source', 'scope', 'level', 'lifecycle_status']
-    for field in required_fields:
+    required_fields = {
+        'id': 'string',
+        'name': 'string',
+        'source': 'string',
+        'scope': 'string',
+        'level': 'string',
+        'lifecycle_status': 'string',
+        'computable': 'boolean'
+    }
+    
+    for field, field_type in required_fields.items():
         if field not in indicator:
-            errors.append(f"[{indicator_id}] 缺少必需字段: {field}")
+            errors.append(f"[{indicator_id}] 缺少必需字段: '{field}'")
+        else:
+            # 类型校验
+            type_errors = validate_type(indicator[field], field_type, f"{indicator_id}.{field}")
+            errors.extend(type_errors)
     
     # id 必须匹配键名
-    if indicator.get('id') != indicator_id:
-        errors.append(f"[{indicator_id}] id 字段与键名不匹配: {indicator.get('id')}")
+    if 'id' in indicator and indicator['id'] != indicator_id:
+        errors.append(f"[{indicator_id}] 字段 'id' 值与键名不匹配: '{indicator['id']}' != '{indicator_id}'")
     
     # source 枚举值检查
-    valid_sources = ['user', 'constructed', 'llm']
-    if indicator.get('source') not in valid_sources:
-        errors.append(f"[{indicator_id}] 非法 source: {indicator.get('source')}, 必须是 {valid_sources}")
+    if 'source' in indicator and isinstance(indicator['source'], str):
+        valid_sources = ['user', 'constructed', 'llm']
+        if indicator['source'] not in valid_sources:
+            errors.append(f"[{indicator_id}] 字段 'source' 值非法: '{indicator['source']}'，必须是 {valid_sources}")
     
     # scope 枚举值检查
-    valid_scopes = ['station', 'inverter', 'string']
-    if indicator.get('scope') not in valid_scopes:
-        errors.append(f"[{indicator_id}] 非法 scope: {indicator.get('scope')}, 必须是 {valid_scopes}")
+    if 'scope' in indicator and isinstance(indicator['scope'], str):
+        valid_scopes = ['station', 'inverter', 'string']
+        if indicator['scope'] not in valid_scopes:
+            errors.append(f"[{indicator_id}] 字段 'scope' 值非法: '{indicator['scope']}'，必须是 {valid_scopes}")
     
     # level 枚举值检查
-    valid_levels = ['L1', 'L2', 'L3']
-    if indicator.get('level') not in valid_levels:
-        errors.append(f"[{indicator_id}] 非法 level: {indicator.get('level')}, 必须是 {valid_levels}")
+    if 'level' in indicator and isinstance(indicator['level'], str):
+        valid_levels = ['L1', 'L2', 'L3']
+        if indicator['level'] not in valid_levels:
+            errors.append(f"[{indicator_id}] 字段 'level' 值非法: '{indicator['level']}'，必须是 {valid_levels}")
     
     # lifecycle_status 枚举值检查
-    valid_statuses = ['pending', 'approved', 'retired']
-    if indicator.get('lifecycle_status') not in valid_statuses:
-        errors.append(f"[{indicator_id}] 非法 lifecycle_status: {indicator.get('lifecycle_status')}, 必须是 {valid_statuses}")
-    
-    # computable 类型检查
-    if 'computable' in indicator and not isinstance(indicator['computable'], bool):
-        errors.append(f"[{indicator_id}] computable 必须是布尔值")
+    if 'lifecycle_status' in indicator and isinstance(indicator['lifecycle_status'], str):
+        valid_statuses = ['pending', 'approved', 'retired']
+        if indicator['lifecycle_status'] not in valid_statuses:
+            errors.append(f"[{indicator_id}] 字段 'lifecycle_status' 值非法: '{indicator['lifecycle_status']}'，必须是 {valid_statuses}")
     
     return errors
 
 
-def validate_registry() -> Tuple[bool, List[str]]:
+def validate_registry(registry_data: Dict = None) -> Tuple[bool, List[str]]:
     """
     校验整个 registry
     返回: (是否通过, 错误列表)
     """
-    try:
-        registry = load_registry()
-    except Exception as e:
-        return False, [f"无法加载 registry: {e}"]
+    if registry_data is None:
+        try:
+            registry_path = get_registry_path()
+            with open(registry_path, 'r', encoding='utf-8') as f:
+                registry_data = json.load(f)
+        except Exception as e:
+            return False, [f"无法加载 registry: {e}"]
     
     errors = []
     
     # 检查顶层结构
-    if 'version' not in registry:
-        errors.append("缺少 version 字段")
+    if 'version' not in registry_data:
+        errors.append("缺少必需字段: 'version'")
+    elif not isinstance(registry_data['version'], str):
+        errors.append("字段 'version' 必须是字符串")
     
-    if 'updated_at' not in registry:
-        errors.append("缺少 updated_at 字段")
+    if 'updated_at' not in registry_data:
+        errors.append("缺少必需字段: 'updated_at'")
     
-    if 'indicators' not in registry:
-        errors.append("缺少 indicators 字段")
+    if 'indicators' not in registry_data:
+        errors.append("缺少必需字段: 'indicators'")
         return False, errors
     
-    indicators = registry.get('indicators', {})
+    if not isinstance(registry_data['indicators'], dict):
+        errors.append("字段 'indicators' 必须是对象")
+        return False, errors
+    
+    indicators = registry_data['indicators']
     
     if not indicators:
-        errors.append("indicators 为空")
+        errors.append("字段 'indicators' 为空")
     
     # 校验每个 indicator
     for indicator_id, indicator in indicators.items():
+        if not isinstance(indicator, dict):
+            errors.append(f"[{indicator_id}] 必须是对象")
+            continue
+        
         indicator_errors = validate_indicator(indicator_id, indicator)
         errors.extend(indicator_errors)
     
     return len(errors) == 0, errors
 
 
-def main():
-    """主函数：运行校验并输出结果"""
+class RegistryValidationError(Exception):
+    """Registry 校验错误"""
+    pass
+
+
+def validate_registry_strict(registry_data: Dict = None):
+    """
+    严格校验 registry，失败时抛出带字段名的明确错误
+    """
+    passed, errors = validate_registry(registry_data)
+    
+    if not passed:
+        error_msg = "Registry 校验失败:\n"
+        for i, error in enumerate(errors[:10], 1):
+            error_msg += f"  {i}. {error}\n"
+        if len(errors) > 10:
+            error_msg += f"  ... 还有 {len(errors) - 10} 个错误\n"
+        raise RegistryValidationError(error_msg)
+    
+    return True
+
+
+if __name__ == '__main__':
     print("=" * 60)
     print("Registry Schema Validation")
     print("=" * 60)
     
-    passed, errors = validate_registry()
-    
-    if passed:
+    try:
+        validate_registry_strict()
         print("✅ Registry 校验通过")
-        registry = load_registry()
-        print(f"   版本: {registry.get('version')}")
-        print(f"   更新时间: {registry.get('updated_at')}")
-        print(f"   指标数量: {len(registry.get('indicators', {}))}")
-    else:
-        print("❌ Registry 校验失败")
-        print(f"   发现 {len(errors)} 个错误:")
-        for i, error in enumerate(errors[:10], 1):  # 最多显示10个错误
-            print(f"   {i}. {error}")
-        if len(errors) > 10:
-            print(f"   ... 还有 {len(errors) - 10} 个错误")
-    
-    print("=" * 60)
-    return 0 if passed else 1
-
-
-if __name__ == '__main__':
-    exit(main())
+    except RegistryValidationError as e:
+        print(e)
+        exit(1)

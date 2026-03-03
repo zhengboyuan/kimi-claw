@@ -4,7 +4,9 @@ from pathlib import Path
 from typing import Dict
 
 
-REGISTRY_PATH = Path("config/indicators/registry.json")
+# 使用文件相对路径，不依赖当前工作目录
+BASE_DIR = Path(__file__).resolve().parents[1]  # taienergy-analytics/
+REGISTRY_PATH = BASE_DIR / "config/indicators/registry.json"
 
 
 def read_registry() -> Dict:

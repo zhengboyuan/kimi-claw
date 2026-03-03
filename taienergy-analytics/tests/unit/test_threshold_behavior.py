@@ -21,6 +21,11 @@ def test_horizontal_comparison_with_threshold():
     
     workflow = DailyAssetManagementV5()
     
+    # 前置断言：确保注册表不为空
+    assert workflow._get_indicator_config("power_active") is not None, "power_active 必须在注册表中"
+    assert workflow._get_indicator_config("health_score") is not None, "health_score 必须在注册表中"
+    print("  ✓ 注册表加载正常")
+    
     # 构造测试数据：设备功率差异 25%
     device_results = {}
     device_data = {

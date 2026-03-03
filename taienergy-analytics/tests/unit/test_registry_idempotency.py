@@ -7,25 +7,36 @@ P1-5 幂等性测试
 import sys
 import os
 import shutil
-sys.path.insert(0, '/root/.openclaw/workspace/taienergy-analytics')
+import tempfile
+
+# 使用相对路径
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = os.path.join(SCRIPT_DIR, '..', '..')
+sys.path.insert(0, PROJECT_DIR)
 
 from core.memory_system import MemorySystem
 
-# 备份 registry 文件
-REGISTRY_PATH = '/root/.openclaw/workspace/taienergy-analytics/config/indicators/registry.json'
-BACKUP_PATH = '/root/.openclaw/workspace/taienergy-analytics/config/indicators/registry.json.bak'
+# 备份 registry 文件（使用相对路径）
+REGISTRY_PATH = os.path.join(PROJECT_DIR, 'config', 'indicators', 'registry.json')
+BACKUP_PATH = None  # 将在 backup_registry 中设置
 
 
 def backup_registry():
-    """备份 registry 文件"""
+    """备份 registry 文件到临时目录"""
+    global BACKUP_PATH
+    # 使用临时文件，避免权限问题
+    fd, BACKUP_PATH = tempfile.mkstemp(suffix='.json', prefix='registry_backup_')
+    os.close(fd)
     shutil.copy2(REGISTRY_PATH, BACKUP_PATH)
 
 
 def restore_registry():
     """恢复 registry 文件"""
-    if os.path.exists(BACKUP_PATH):
+    global BACKUP_PATH
+    if BACKUP_PATH and os.path.exists(BACKUP_PATH):
         shutil.copy2(BACKUP_PATH, REGISTRY_PATH)
         os.remove(BACKUP_PATH)
+        BACKUP_PATH = None
 
 
 def test_update_registry_idempotency():

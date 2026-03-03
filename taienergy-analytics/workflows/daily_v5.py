@@ -605,7 +605,7 @@ class DailyAssetManagementV5:
         print("日报摘要")
         print(f"{'='*70}")
         print(f"日期: {date}")
-        print(f"设备: {data['online']}/16 在线")
+        print(f"设备: {data['online']}/{data['total_devices']} 在线")
         print(f"健康分: {data['avg_health_score']:.1f}")
         
         risk = data['risk_distribution']

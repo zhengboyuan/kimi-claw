@@ -37,14 +37,4 @@ jobs:
           pytest -q taienergy-analytics/tests/unit/test_threshold_behavior.py
 
       - name: Run regression smoke
-        run: |
-          # 快速 smoke：只验证核心流程可运行
-          python3 -c "
-import sys
-sys.path.insert(0, 'taienergy-analytics')
-from workflows.daily_v5 import DailyAssetManagementV5
-w = DailyAssetManagementV5()
-print('✓ DailyAssetManagementV5 实例化成功')
-print('✓ Registry 加载成功')
-print('✓ 核心流程可运行')
-"
+        run: python3 -c "import sys; sys.path.insert(0, 'taienergy-analytics'); from workflows.daily_v5 import DailyAssetManagementV5; DailyAssetManagementV5(); print('smoke ok')"

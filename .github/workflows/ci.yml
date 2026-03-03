@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  qa-gate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Run QA Gate
+      run: |
+        bash scripts/qa_gate.sh
+    
+    - name: Syntax Check - Core Files
+      run: |
+        python3 -m py_compile taienergy-analytics/workflows/daily_v5.py
+        python3 -m py_compile taienergy-analytics/core/memory_system.py
+    
+    - name: Import Check
+      working-directory: ./taienergy-analytics
+      run: |
+        python3 -c "from workflows.daily_v5 import DailyAssetManagementV5, run_daily_v5"

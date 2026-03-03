@@ -207,6 +207,22 @@ Think of it like a human reviewing their journal and updating their mental model
 
 The goal: Be helpful without being annoying. Check in a few times a day, do useful background work, but respect quiet time.
 
+## Mandatory Test Policy (Hard Requirement)
+
+When modifying any code under `taienergy-analytics/`, the agent MUST:
+
+1. Run:
+   - `python3 -m py_compile taienergy-analytics/workflows/daily_v5.py taienergy-analytics/core/memory_system.py`
+   - `bash scripts/qa_gate.sh`
+2. If tests fail:
+   - stop further feature edits
+   - fix failures first
+3. In the final response, always include:
+   - changed files
+   - exact test commands run
+   - pass/fail summary
+4. Never claim "done" without test evidence.
+
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.

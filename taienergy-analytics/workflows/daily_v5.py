@@ -36,38 +36,47 @@ INSTALLED_CAPACITY = STATION_CONFIG["installed_capacity_kw"]
 DEFAULT_THRESHOLD = THRESHOLD_CONFIG["default_percentage"]
 
 
-def _filter_numeric_values(values: list) -> list:
+def clean_numeric_values(values) -> List[float]:
     """
-    过滤数值列表，去除 None、NaN、pd.NA 等非数值
-    返回纯数值（int/float）列表
+    统一数据清洗入口：将任意输入转换为干净的数值列表
+    
+    使用 pd.to_numeric(errors='coerce') 处理：
+    - None -> NaN -> 过滤
+    - float NaN -> 过滤  
+    - pd.NA/pd.NaT -> NaN -> 过滤
+    - 字符串 "abc" -> NaN -> 过滤
+    - 数字字符串 "123" -> 123.0 -> 保留
+    - 有效数值 -> 保留为 float
+    
+    Returns: List[float] 干净的数值列表
     """
-    if not values:
+    if values is None:
         return []
     
-    valid = []
-    for v in values:
-        # 排除 None
-        if v is None:
-            continue
-        # 排除 float NaN
-        if isinstance(v, float) and math.isnan(v):
-            continue
-        # 排除 pd.NA (pandas nullable integer/float NA)
-        # pd.NA 是 singleton，可以用 is 判断，或者用 pd.isna
-        try:
-            # 尝试判断是否为 pd.NA 或其他 pandas NA 类型
-            # pd.isna 会返回 True 对于 None, NaN, pd.NA, NaT 等
-            import pandas as pd
-            if pd.isna(v):
-                continue
-        except Exception:
-            # 如果 pandas 不可用或出错，继续其他检查
-            pass
-        # 只保留数值类型
-        if isinstance(v, (int, float)):
-            valid.append(v)
-    
-    return valid
+    try:
+        import pandas as pd
+        
+        # 转为 Series，errors='coerce' 会把无法转换的变成 NaN
+        series = pd.Series(values)
+        numeric_series = pd.to_numeric(series, errors='coerce')
+        
+        # dropna() 去除所有 NaN（包括原生的 None, pd.NA, float('nan') 等）
+        clean_series = numeric_series.dropna()
+        
+        # 转为 float 列表返回
+        return clean_series.astype(float).tolist()
+        
+    except Exception:
+        # 如果 pandas 不可用，回退到简单过滤
+        if not values:
+            return []
+        return [float(v) for v in values if v is not None and isinstance(v, (int, float)) and not math.isnan(v)]
+
+
+# 保留旧函数名兼容
+def _filter_numeric_values(values) -> List[float]:
+    """兼容旧代码，实际调用 clean_numeric_values"""
+    return clean_numeric_values(values)
 
 
 class DailyAssetManagementV5:

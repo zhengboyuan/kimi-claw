@@ -2,29 +2,35 @@ name: CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   qa-gate:
     runs-on: ubuntu-latest
-    
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-    
-    - name: Install dependencies
-      run: |
-        pip install pandas numpy
-    
-    - name: Syntax Check
-      working-directory: ./taienergy-analytics
-      run: |
-        python3 -m py_compile workflows/daily_v5.py
-        python3 -m py_compile core/memory_system.py
-        echo "Syntax check passed"
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas numpy pytest
+
+      - name: Syntax check
+        run: |
+          python -m py_compile taienergy-analytics/workflows/daily_v5.py
+          python -m py_compile taienergy-analytics/core/memory_system.py
+
+      - name: Run QA gate
+        run: bash scripts/qa_gate.sh
+
+      - name: Run minimal unit tests
+        run: |
+          pytest -q taienergy-analytics/tests/unit/test_data_cleaning.py
+          pytest -q taienergy-analytics/tests/unit/test_registry_idempotency.py

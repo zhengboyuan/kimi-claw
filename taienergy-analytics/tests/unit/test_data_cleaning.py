@@ -6,7 +6,14 @@ P0-1 数据清洗测试
 
 import sys
 import math
-sys.path.insert(0, '/root/.openclaw/workspace/taienergy-analytics')
+from pathlib import Path
+
+# 基于当前文件位置动态计算项目根目录
+TEST_FILE = Path(__file__).resolve()
+TAIENERGY_DIR = TEST_FILE.parents[2]   # taienergy-analytics
+REPO_ROOT = TAIENERGY_DIR.parent
+sys.path.insert(0, str(TAIENERGY_DIR))
+sys.path.insert(0, str(REPO_ROOT))
 
 from workflows.daily_v5 import clean_numeric_values
 import pandas as pd
